@@ -1,0 +1,155 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Mike\\Desktop\\PersonalProjects\\Everything Particles\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{67B2E6E8-939F-3702-611B-D9671B1655EF}|Assembly-CSharp.csproj|C:\\Users\\Mike\\Desktop\\PersonalProjects\\Everything Particles\\assets\\scripts\\strafeandturn.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{67B2E6E8-939F-3702-611B-D9671B1655EF}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\strafeandturn.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{67B2E6E8-939F-3702-611B-D9671B1655EF}|Assembly-CSharp.csproj|C:\\Users\\Mike\\Desktop\\PersonalProjects\\Everything Particles\\assets\\scripts\\mouselook.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{67B2E6E8-939F-3702-611B-D9671B1655EF}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\mouselook.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{67B2E6E8-939F-3702-611B-D9671B1655EF}|Assembly-CSharp.csproj|C:\\Users\\Mike\\Desktop\\PersonalProjects\\Everything Particles\\assets\\scripts\\playermovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{67B2E6E8-939F-3702-611B-D9671B1655EF}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\playermovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{67B2E6E8-939F-3702-611B-D9671B1655EF}|Assembly-CSharp.csproj|c:\\users\\mike\\desktop\\personalprojects\\everything particles\\assets\\scripts\\crosshair.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{67B2E6E8-939F-3702-611B-D9671B1655EF}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\crosshair.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{67B2E6E8-939F-3702-611B-D9671B1655EF}|Assembly-CSharp.csproj|C:\\Users\\Mike\\Desktop\\PersonalProjects\\Everything Particles\\assets\\scripts\\freezerigidbodyrotation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{67B2E6E8-939F-3702-611B-D9671B1655EF}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\freezerigidbodyrotation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{67B2E6E8-939F-3702-611B-D9671B1655EF}|Assembly-CSharp.csproj|C:\\Users\\Mike\\Desktop\\PersonalProjects\\Everything Particles\\assets\\scripts\\turnandwalk.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{67B2E6E8-939F-3702-611B-D9671B1655EF}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\turnandwalk.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{67B2E6E8-939F-3702-611B-D9671B1655EF}|Assembly-CSharp.csproj|c:\\users\\mike\\desktop\\personalprojects\\everything particles\\assets\\scripts\\dynamiccrosshair.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{67B2E6E8-939F-3702-611B-D9671B1655EF}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\dynamiccrosshair.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{67B2E6E8-939F-3702-611B-D9671B1655EF}|Assembly-CSharp.csproj|C:\\Users\\Mike\\Desktop\\PersonalProjects\\Everything Particles\\assets\\scripts\\mouselookandmove.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{67B2E6E8-939F-3702-611B-D9671B1655EF}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\mouselookandmove.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 6,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Crosshair.cs",
+              "DocumentMoniker": "C:\\Users\\Mike\\Desktop\\PersonalProjects\\Everything Particles\\Assets\\Scripts\\Crosshair.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Crosshair.cs",
+              "ToolTip": "C:\\Users\\Mike\\Desktop\\PersonalProjects\\Everything Particles\\Assets\\Scripts\\Crosshair.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Crosshair.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAIAAAAWAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-11T04:58:18.328Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "DynamicCrosshair.cs",
+              "DocumentMoniker": "C:\\Users\\Mike\\Desktop\\PersonalProjects\\Everything Particles\\Assets\\Scripts\\DynamicCrosshair.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\DynamicCrosshair.cs",
+              "ToolTip": "C:\\Users\\Mike\\Desktop\\PersonalProjects\\Everything Particles\\Assets\\Scripts\\DynamicCrosshair.cs",
+              "RelativeToolTip": "Assets\\Scripts\\DynamicCrosshair.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-08T01:46:50.667Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "TurnAndWalk.cs",
+              "DocumentMoniker": "C:\\Users\\Mike\\Desktop\\PersonalProjects\\Everything Particles\\Assets\\Scripts\\TurnAndWalk.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\TurnAndWalk.cs",
+              "ToolTip": "C:\\Users\\Mike\\Desktop\\PersonalProjects\\Everything Particles\\Assets\\Scripts\\TurnAndWalk.cs",
+              "RelativeToolTip": "Assets\\Scripts\\TurnAndWalk.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAABIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-08T01:11:18.69Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "MouseLookAndMove.cs",
+              "DocumentMoniker": "C:\\Users\\Mike\\Desktop\\PersonalProjects\\Everything Particles\\Assets\\Scripts\\MouseLookAndMove.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\MouseLookAndMove.cs",
+              "ToolTip": "C:\\Users\\Mike\\Desktop\\PersonalProjects\\Everything Particles\\Assets\\Scripts\\MouseLookAndMove.cs",
+              "RelativeToolTip": "Assets\\Scripts\\MouseLookAndMove.cs",
+              "ViewState": "AQIAAAEAAAAAAAAAAAAcwC4AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-08T00:46:57.51Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MouseLook.cs",
+              "DocumentMoniker": "C:\\Users\\Mike\\Desktop\\PersonalProjects\\Everything Particles\\Assets\\Scripts\\MouseLook.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\MouseLook.cs",
+              "ToolTip": "C:\\Users\\Mike\\Desktop\\PersonalProjects\\Everything Particles\\Assets\\Scripts\\MouseLook.cs",
+              "RelativeToolTip": "Assets\\Scripts\\MouseLook.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-08T00:39:24.782Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "FreezeRigidbodyRotation.cs",
+              "DocumentMoniker": "C:\\Users\\Mike\\Desktop\\PersonalProjects\\Everything Particles\\Assets\\Scripts\\FreezeRigidbodyRotation.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\FreezeRigidbodyRotation.cs",
+              "ToolTip": "C:\\Users\\Mike\\Desktop\\PersonalProjects\\Everything Particles\\Assets\\Scripts\\FreezeRigidbodyRotation.cs",
+              "RelativeToolTip": "Assets\\Scripts\\FreezeRigidbodyRotation.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-07T22:08:27.606Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "StrafeAndTurn.cs",
+              "DocumentMoniker": "C:\\Users\\Mike\\Desktop\\PersonalProjects\\Everything Particles\\Assets\\Scripts\\StrafeAndTurn.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\StrafeAndTurn.cs",
+              "ToolTip": "C:\\Users\\Mike\\Desktop\\PersonalProjects\\Everything Particles\\Assets\\Scripts\\StrafeAndTurn.cs",
+              "RelativeToolTip": "Assets\\Scripts\\StrafeAndTurn.cs",
+              "ViewState": "AQIAABAAAAAAAAAAAAAAADAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-08T01:31:46.469Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "PlayerMovement.cs",
+              "DocumentMoniker": "C:\\Users\\Mike\\Desktop\\PersonalProjects\\Everything Particles\\Assets\\Scripts\\PlayerMovement.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\PlayerMovement.cs",
+              "ToolTip": "C:\\Users\\Mike\\Desktop\\PersonalProjects\\Everything Particles\\Assets\\Scripts\\PlayerMovement.cs",
+              "RelativeToolTip": "Assets\\Scripts\\PlayerMovement.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAIAAAASAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-07T21:11:56.678Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
