@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project: The Donner Party... Game? - Subliminal Sarcasm Studios</title>
+    <style>
+        body{background-color:#1a2a1a;color:#fff;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;margin:0;padding:0;min-height:100vh;overflow-x:hidden;}
+        
+        .main-content{
+            margin-left: 250px; 
+            flex-grow:1;
+            display:flex;
+            justify-content:center;
+            align-items:flex-start;
+            text-align:center;
+            padding:20px;
+            overflow-y:visible
+        }
+        
+        .container{max-width:800px;padding:40px;background-color:rgba(26,42,26,.7);border:2px solid #3d6a3d;box-shadow:0 0 20px rgba(0,255,255,.2);border-radius:10px;text-align:left}
+        
+        h1{font-size:3em;color:#00ffff;text-shadow:0 0 10px #00ffff;margin-bottom:.5em;text-align:center}
+        h2{color:#00ffff;border-bottom:1px solid #3d6a3d;padding-bottom:5px;margin-top:30px}
+        h3{color:#b0c4de;margin-top:15px;}
+        
+        .p-detail{font-size:1.0em;color:#b0c4de;line-height:1.4; margin-left: 20px;}
+        .p-status{font-size:1.1em;color:#98fb98;line-height:1.6;}
+        .p-goal{font-size:1.1em;color:#ff8c00;line-height:1.6;}
+        .p-list{margin-bottom:5px;}
+        .p-goal-list{margin-bottom:5px; color:#ff8c00;}
+        .p-work{margin-bottom:5px; color:#98fb98;}
+        p{font-size:1.2em;color:#b0c4de;line-height:1.6}
+        
+        .side-panel{
+            position: fixed; 
+            top: 0;
+            left: 0;
+            height: 100vh;
+            
+            width:250px;
+            background-color:#0c1a1a;
+            color:#a9a9a9;
+            padding:20px;
+            border-right:2px solid #3d6a3d;
+            box-shadow:inset -5px 0 10px rgba(0,255,255,.1);
+            overflow-y:auto;
+            flex-shrink:0
+        }
+        
+        .side-panel h2{font-size:1.5em;color:#00ffff;border-bottom:1px solid #3d6a3d;padding-bottom:10px;margin-bottom:15px}
+        .side-panel ul{list-style-type:none;padding:0}
+        .side-panel ul li{margin-bottom:10px}
+        .side-panel a{color:#b0c4de;text-decoration:none;transition:color .3s ease}
+        .side-panel a:hover{color:#98fb98;text-shadow:0 0 5px #98fb98}
+        
+        .gallery{display:flex;flex-wrap:wrap;gap:15px;justify-content:center;margin-top:20px}
+        .gallery img{width:350px;height:auto;border:2px solid #3d6a3d;border-radius:5px;transition:transform .3s ease}
+        .gallery img:hover{transform:scale(1.05)}
+        
+        .play-link{display:inline-block;margin-top:20px;padding:15px 30px;background-color:#00ffff;color:#0c1a1a;font-size:1.5em;font-weight:700;text-decoration:none;border-radius:5px;transition:all .3s ease}
+        .play-link:hover{background-color:#98fb98;color:#0c1a1a;box-shadow:0 0 15px #98fb98}
+    </style>
+</head>
+<body>
+    <div class="side-panel">
+        <h2>Projects</h2>
+        <ul>
+            <li><h3>In the Works</h3></li>
+            <li><a href="ishana.html">Ishana - The Godling</a></li>
+            <li><a href="donner_party.html">The Donner Party... Game?</a></li>
+            <li><a href="fptd_bugs.html">FP/TD Bugs</a></li>
+            <li><a href="syn_city.html">Syn City</a></li>
+            <li><a href="geometry_defenders.html">Geometry Defenders XR</a></li>
+        </ul>
+        <hr>
+        <ul>
+            <li><h3>Finished Projects</h3></li>
+            <li><a href="#">Past Project A</a></li>
+            <li><a href="#">Past Project B</a></li>
+        </ul>
+        <h2><a href="index.html">Home Page</a></h2>
+    </div>
+    <div class="main-content">
+        <div class="container">
+            <h1>The Donner Party... Game?</h1>
+            
+            <!-- KEEP BUTTON AT THE TOP -->
+            <h2>Play the Game:</h2>
+            <div style="text-align: center;">
+                <a href="https://play.subliminalsarcasmstudios.com" target="_blank" rel="noopener noreferrer" class="play-link">
+                    Press HERE to begin a journey!
+                </a>
+            </div>
+            <!-- END BUTTON -->
+            
+            <h2>Description</h2>
+            <p>
+                Embark on a perilous journey west in this thrilling re-imagining of the classic trail adventure. Manage resources, make tough decisions, and face the harsh realities of the frontier. This is a multi-player, vote-driven experience where cooperation and communication determine survival. Will your party reach its destination, or will you succumb to the dangers of the trail?
+            </p>
+
+            <h2>Project Contributors</h2>
+            <p>Acknowledgment for the dedication and hard work go to the following individuals who made this project possible:</p>
+            <ul>
+                <li class="p-list"><strong>Mike Nasierowski</strong> - Project Lead & Backend Development</li>
+                <li class="p-list"><strong>Schuyler Deno</strong> - Game Logic & Database Utilization</li>
+                <li class="p-list"><strong>Elijah Robinson</strong> - Historical Research & Scenario Development</li>
+                <li class="p-list"><strong>Nick Popiel</strong> - Lead Artist & Character Designer </li>
+                <li class="p-list"><strong>Tyler Barnes</strong> - UI/UX Design & Quality Assurance</li>
+            </ul>
+
+            <hr>
+
+            <h2>Development Journey: What's Working</h2>
+            <p class="p-status">The core game loop is now stable, and significant progress has been made on the survival mechanics:</p>
+            
+            <h3>Working Features:</h3>
+            <ul>
+                <li class="p-work"><strong>Core Game Loop & Persistence:</strong> The game successfully manages session state, player joins, character selection, and progress using MongoDB.</li>
+                <li class="p-work"><strong>Caravan Movement:</strong> The host screen accurately tracks the caravan on the map (via Phaser) and animates movement between predetermined **Waypoints** after each event resolution.</li>
+                <li class="p-work"><strong>Player Decision System:</strong> Players vote on scenarios via a streamlined, **tabbed mobile UI**. The scenario window maintains a fixed size, ensuring optimal mobile usability.</li>
+                <li class="p-work"><strong>Weighted Outcomes:</strong> Event results are determined by a weighted random system influenced by **Character Class Modifiers** and **Item Usage**.</li>
+                <li class="p-work"><strong>Inventory & Degradation:</strong> Players manage **Personal Inventory** (with conditional items like Rope/Knife) and **Shared Supplies**. Items degrade upon failed use (condition) or deplete (ammo).</li>
+                <li class="p-work"><strong>Complex Trading:</strong> A functional **Player-to-Player Trading** system allows players to offer personal items and money to the shared party funds, complete with server-side timers and acceptance logic.</li>
+                <li class="p-work"><strong>Survival Mechanics (Passive):</strong> **Hunger, Thirst, and Sanity** stats for individual players degrade automatically per turn ("Survival Tick"), increasing game pressure and forcing item consumption.</li>
+                <li class="p-work"><strong>Easter Egg Logic:</strong> Secret combinations of votes and items (e.g., using a Rope during a Fight encounter) can trigger unique, narrative-driven outcomes.</li>
+            </ul>
+
+            <hr>
+
+            <h2>Current Development Focus</h2>
+            <p class="p-goal">We are currently focused on Player UI, balancing weighted outcomes, and expanding the survival pressure to make the journey a true challenge:</p>
+
+            <h3>Immediate Goals:</h3>
+            <ul>
+                <li class="p-goal-list"><strong>Resource Depletion & Penalty Balancing:</strong> Fine-tuning the rate of Hunger, Thirst, and Sanity degradation and ensuring resulting health penalties are fair yet challenging.</li>
+                <li class="p-goal-list"><strong>Sickness Management:</strong> Integrating the sick members percentage into the event outcomes and creating specific medical events.</li>
+                <li class="p-goal-list"><strong>Caravan Structural Integrity:</strong> Implementing events that damage wagons and require repair items (using the Blacksmith's skills) to mitigate disaster.</li>
+                <li class="p-goal-list"><strong>Historical Event Expansion:</strong> Developing a robust set of historically accurate, branching scenarios related to the Oregon Trail and the Donner Party's key struggles.</li>
+            </ul>
+
+            <h2>Gallery</h2>
+            <div class="gallery">
+                <a href="images/DPG_1_full.png" target="_blank">
+                    <img src="images/DPG_1_small.png" alt="Gameplay screenshot 1">
+                </a>
+                <a href="images/DPG_2_full.png" target="_blank">
+                    <img src="images/DPG_2_small.png" alt="Character design concept">
+                </a>
+
+                <a href="images/DPG_3_full.png" target="_blank">
+                    <img src="images/DPG_3_small.png" alt="In-game map">
+                </a>
+                <a href="images/DPG_4_full.png" target="_blank">
+                    <img src="images/DPG_4_small.png" alt="Development screenshot">
+                </a>
+            </div>
+            
+            <p style="text-align: center; margin-top: 40px; font-style: italic;">
+                The trail awaits. Check back soon for the official launch!
+            </p>
+        </div>
+    </div>
+</body>
+</html>

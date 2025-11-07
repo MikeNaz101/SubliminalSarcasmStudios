@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subliminal Sarcasm Studios</title>
+    <style>
+        /*
+         * --- IMPORTANT: Add your FULL LOGO IMAGE URL here ---
+         */
+        :root {
+            --full-logo-url: url('images/subliminal-sarcasm-logo.png'); /* <-- REPLACE WITH YOUR ACTUAL FULL LOGO IMAGE URL */
+            /* You might not need a separate iris image if your logo already has it */
+            --logo-iris-url: url('images/eye.png'); /* <-- OPTIONAL: If you want a separate iris layer */
+        }
+        
+        body {
+            background-color: #0c1a1a; 
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+            position: relative; 
+            backdrop-filter: none;
+        }
+
+        /* --- Logo Styling (Adjusted for Rectangular Logo) --- */
+        .logo-container {
+            position: absolute;
+            top: 20px; 
+            left: 58%;
+            transform: translateX(-50%);
+            z-index: 101; 
+            width: 600px; /* Adjust to the actual width of your logo image */
+            height: 290px; /* Adjust to the actual height of your logo image */
+            
+            background-image: var(--full-logo-url); /* Your full logo image here */
+            background-size: contain; /* Ensures the entire logo fits */
+            background-repeat: no-repeat;
+            background-position: center;
+            
+            /* Optional: if your logo image has transparent parts and you want a background color */
+            /* background-color: purple; */ 
+            /* box-shadow: 0 0 15px rgba(0, 255, 255, 0.4); /* Optional glow */
+        }
+
+        /* --- Eye Positioning within the Logo Container --- */
+        /* The .mascot-face div is no longer needed as the full logo is the background */
+        /* The .eye-container is now directly positioned within .logo-container */
+        .eye-container {
+            position: absolute;
+            /* --- CRITICAL: Adjust these values to position the eye precisely over the chameleon's eye --- */
+            /* These percentages are relative to the logo-container's width/height */
+            top: 32%;    /* Move down from the top of the logo container */
+            left: 58%;   /* Move right from the left of the logo container */
+            
+            width: 38px; /* Size of the *white* part of the eye */
+            height: 38px; 
+            border-radius: 50%;
+            background-color: rgb(105, 81, 1); 
+            border: 3px solid rgba(14, 8, 0, 0.829);
+            transform: translate(-50%, -50%); /* Centers the eye container itself */
+            overflow: hidden; 
+            
+            /* Optional: Match the golden color of the eye in your logo */
+            /* background-color: #ffd700; */ /* Gold */
+            /* border-color: #8b4513; */ /* SaddleBrown */
+        }
+
+        /* --- Iris Styling (Optional, for 3D effect) --- */
+        .iris {
+            width: 38px; /* Size of your iris image */
+            height: 38px; 
+            background-image: var(--logo-iris-url); /* Your circular iris image */
+            background-size: cover;
+            background-position: center;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.5); 
+            /* If you don't use an iris image, set a solid color here */
+            /* background-color: gold; */ 
+        }
+
+        .pupil {
+            width: 12px;
+            height: 12px;
+            background-color: black;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); 
+            z-index: 1; /* Ensure pupil is on top of iris */
+        }
+
+        /* --- Existing Styles (no changes needed here from previous version) --- */
+        #tsparticles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1; 
+        }
+
+        .main-content {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            z-index: 100; 
+        }
+        .container {
+            max-width: 600px;
+            padding: 20px;
+            background-color: rgba(26, 42, 26, 0.7); 
+            border: 2px solid #3d6a3d;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.2); 
+            border-radius: 10px;
+        }
+        h1 {
+            font-size: 3em;
+            color: #00FFFF;
+            text-shadow: 0 0 10px #00FFFF;
+            margin-bottom: 0.5em;
+        }
+        p {
+            font-size: 1.2em;
+            color: #b0c4de;
+        }
+        .scrolling-text {
+            border: 1px solid #778899;
+            padding: 5px;
+            background-color: #2f4f4f;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        marquee {
+            color: #98fb98;
+            font-weight: bold;
+            font-size: 1.5em;
+        }
+        .side-panel {
+            width: 250px;
+            background-color: #0c1a1a;
+            color: #a9a9a9;
+            padding: 20px;
+            border-right: 2px solid #3d6a3d;
+            box-shadow: inset -5px 0 10px rgba(0, 255, 255, 0.1);
+            overflow-y: auto;
+            flex-shrink: 0;
+            z-index: 100; 
+        }
+        .side-panel h2 {
+            font-size: 1.5em;
+            color: #00FFFF;
+            border-bottom: 1px solid #3d6a3d;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        .side-panel ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .side-panel ul li {
+            margin-bottom: 10px;
+        }
+        .side-panel a {
+            color: #b0c4de;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .side-panel a:hover {
+            color: #98fb98;
+            text-shadow: 0 0 5px #98fb98;
+        }
+    </style>
+</head>
+<body>
+    <div id="tsparticles"></div>
+    
+    <div class="logo-container">
+        <div class="eye-container" id="eye">
+            <div class="iris" id="iris"></div> 
+            <div class="pupil" id="pupil"></div>
+        </div>
+    </div>
+    <div class="side-panel">
+        <h2>Projects</h2>
+        <ul>
+            <li><h3>In the Works</h3></li>
+            <li><a href="ishana.html">Ishana - The Godling</a></li>
+            <li><a href="donner_party.html">The Donner Party... Game?</a></li>
+            <li><a href="fptd_bugs.html">FP/TD Bugs</a></li>
+            <li><a href="syn_city.html">Syn City</a></li>
+            <li><a href="geometry_defenders.html">Geometry Defenders XR</a></li>
+        </ul>
+        <hr>
+        <ul>
+            <li><h3>Finished Projects</h3></li>
+            <li><a href="#">Past Project A</a></li>
+        </ul>
+    </div>
+    <div class="main-content">
+        <div class="container">
+            <h1>Subliminal Sarcasm Studios</h1>
+            <p>Our new website is under construction.</p>
+            <p>Stay tuned for exciting updates!</p>
+            <div class="scrolling-text">
+                <marquee direction="left">Subliminal Sarcasm Studios</marquee>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
+    
+    <script>
+        tsParticles.load("tsparticles", {
+            background: {
+                color: {
+                    value: "#0c1a1a"
+                }
+            },
+            fpsLimit: 60,
+            interactivity: {
+                events: {
+                    onHover: {
+                        enable: true,
+                        mode: "repulse"
+                    },
+                    resize: true
+                },
+                modes: {
+                    repulse: {
+                        distance: 100,
+                        duration: 0.4
+                    }
+                }
+            },
+            particles: {
+                color: {
+                    value: "#00FFFF"
+                },
+                links: {
+                    color: "#3d6a3d",
+                    distance: 150,
+                    enable: true,
+                    opacity: 0.5,
+                    width: 1
+                },
+                collisions: {
+                    enable: true
+                },
+                move: {
+                    direction: "none",
+                    enable: true,
+                    outModes: {
+                        default: "bounce"
+                    },
+                    random: false,
+                    speed: 1,
+                    straight: false
+                },
+                number: {
+                    density: {
+                        enable: true,
+                        area: 800
+                    },
+                    value: 80
+                },
+                opacity: {
+                    value: 0.5
+                },
+                shape: {
+                    type: "circle"
+                },
+                size: {
+                    value: { min: 1, max: 5 }
+                }
+            },
+            detectRetina: true
+        });
+    </script>
+
+    <script>
+        document.addEventListener('mousemove', function(e) {
+            const pupil = document.getElementById('pupil');
+            const iris = document.getElementById('iris'); 
+            const eye = document.getElementById('eye');
+
+            if (!pupil || !iris || !eye) return;
+
+            const eyeRect = eye.getBoundingClientRect();
+            
+            const eyeCenterX = eyeRect.left + eyeRect.width / 2;
+            const eyeCenterY = eyeRect.top + eyeRect.height / 2;
+
+            const mouseX = e.clientX;
+            const mouseY = e.clientY;
+
+            const angleRad = Math.atan2(mouseY - eyeCenterY, mouseX - eyeCenterX);
+            
+            // Adjust maxDistance for how far the pupil and iris move
+            const maxDistancePupil = 5; 
+            const maxDistanceIris = 3;  
+
+            const translateXPupil = Math.cos(angleRad) * maxDistancePupil;
+            const translateYPupil = Math.sin(angleRad) * maxDistancePupil;
+
+            const translateXIris = Math.cos(angleRad) * maxDistanceIris;
+            const translateYIris = Math.sin(angleRad) * maxDistanceIris;
+
+            pupil.style.transform = `translate(-50%, -50%) translate(${translateXPupil}px, ${translateYPupil}px)`;
+            iris.style.transform = `translate(-50%, -50%) translate(${translateXIris}px, ${translateYIris}px)`;
+        });
+    </script>
+</body>
+</html>
