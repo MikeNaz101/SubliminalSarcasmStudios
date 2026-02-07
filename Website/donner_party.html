@@ -3,163 +3,527 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project: The Donner Party... Game? - Subliminal Sarcasm Studios</title>
+    <title>The Donner Party... Game? | Subliminal Sarcasm</title>
+    <link rel="icon" type="image/png" href="images/subliminal-sarcasm-logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body{background-color:#1a2a1a;color:#fff;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;margin:0;padding:0;min-height:100vh;overflow-x:hidden;}
-        
-        .main-content{
-            margin-left: 250px; 
-            flex-grow:1;
-            display:flex;
-            justify-content:center;
-            align-items:flex-start;
-            text-align:center;
-            padding:20px;
-            overflow-y:visible
+        /* --- GLOBAL VARIABLES (Matches Homepage) --- */
+        :root {
+            --primary-color: #00FFFF;
+            --accent-color: #98fb98;
+            --bg-dark: #0b1414;
+            --bg-section-alt: #111a1a;
+            --text-main: #e0e0e0;
+            --text-muted: #a0a0a0;
         }
-        
-        .container{max-width:800px;padding:40px;background-color:rgba(26,42,26,.7);border:2px solid #3d6a3d;box-shadow:0 0 20px rgba(0,255,255,.2);border-radius:10px;text-align:left}
-        
-        h1{font-size:3em;color:#00ffff;text-shadow:0 0 10px #00ffff;margin-bottom:.5em;text-align:center}
-        h2{color:#00ffff;border-bottom:1px solid #3d6a3d;padding-bottom:5px;margin-top:30px}
-        h3{color:#b0c4de;margin-top:15px;}
-        
-        .p-detail{font-size:1.0em;color:#b0c4de;line-height:1.4; margin-left: 20px;}
-        .p-status{font-size:1.1em;color:#98fb98;line-height:1.6;}
-        .p-goal{font-size:1.1em;color:#ff8c00;line-height:1.6;}
-        .p-list{margin-bottom:5px;}
-        .p-goal-list{margin-bottom:5px; color:#ff8c00;}
-        .p-work{margin-bottom:5px; color:#98fb98;}
-        p{font-size:1.2em;color:#b0c4de;line-height:1.6}
-        
-        .side-panel{
-            position: fixed; 
-            top: 0;
-            left: 0;
-            height: 100vh;
+
+        body {
+            margin: 0; padding: 0;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+        }
+
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        ul { list-style: none; padding: 0; margin: 0; }
+
+        /* --- NAVIGATION BAR (STRICT GRID) --- */
+        nav {
+            display: grid;
+            /* 1. Logo (Auto) | 2. Text (Rest of space) | 3. Menu (Auto) */
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            gap: 20px; /* Physical gap between elements */
+
+            padding: 10px 40px; 
+            background: rgba(12, 26, 26, 0.95); 
+            position: fixed;
+            top: 0; width: 100%; z-index: 1000;
+            border-bottom: 1px solid #3d6a3d;
+            box-sizing: border-box;
+            backdrop-filter: blur(5px);
+        }
+
+        /* --- COLUMNS --- */
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0; /* Prevents logo from shrinking */
+        }
+
+        /* --- SCROLLING TEXT CONTAINER (THE WINDOW) --- */
+        .scrolling-container {
+            position: relative;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            overflow: hidden; 
             
-            width:250px;
-            background-color:#0c1a1a;
-            color:#a9a9a9;
-            padding:20px;
-            border-right:2px solid #3d6a3d;
-            box-shadow:inset -5px 0 10px rgba(0,255,255,.1);
-            overflow-y:auto;
-            flex-shrink:0
+            /* CRITICAL: Forces container to respect the Grid width */
+            min-width: 0; 
+            
+            /* FADE ZONES: Fades the edges (30px) so text appears letter-by-letter */
+            mask-image: linear-gradient(to right, transparent, black 30px, black calc(100% - 30px), transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 30px, black calc(100% - 30px), transparent);
         }
+
+        /* --- SCROLLING WRAPPER (THE MOVING PART) --- */
+        .scrolling-wrapper {
+            display: flex;
+            align-items: center;
+            /* The Seamless Loop Animation */
+            animation: scroll-seamless 20s linear infinite;
+        }
+
+        .scrolling-text {
+            white-space: nowrap;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.4);
+            
+            /* Adds spacing between the repeating titles */
+            padding-right: 80px; 
+        }
+
+        /* --- FANCY LETTER STYLING --- */
+        .fancy-cap {
+            font-family: 'Cinzel', serif; 
+            font-size: 2.5rem;            
+            font-weight: 700;
+            color: var(--accent-color);   
+            vertical-align: baseline;     
+            margin-right: 1px;
+        }
+
+        /* --- ANIMATION LOGIC (SEAMLESS LOOP) --- */
+        @keyframes scroll-seamless {
+            0% { 
+                transform: translateX(0); 
+            }
+            100% { 
+                /* Move exactly 25% left (the width of 1 of our 4 copies) */
+                /* This creates the illusion of infinite scrolling */
+                transform: translateX(-25%); 
+            }
+        }
+        .logo-container {
+            position: relative;
+            height: 60px; width: auto;
+            display: flex; align-items: center;
+        }
+        .logo-img { height: 100%; width: auto; display: block; }
         
-        .side-panel h2{font-size:1.5em;color:#00ffff;border-bottom:1px solid #3d6a3d;padding-bottom:10px;margin-bottom:15px}
-        .side-panel ul{list-style-type:none;padding:0}
-        .side-panel ul li{margin-bottom:10px}
-        .side-panel a{color:#b0c4de;text-decoration:none;transition:color .3s ease}
-        .side-panel a:hover{color:#98fb98;text-shadow:0 0 5px #98fb98}
+        /* The Interactive Eye Socket */
+        .logo-eye-socket {
+            position: absolute;
+            top: 32%; left: 58%;
+            width: 12px; height: 12px;
+            transform: translate(-50%, -50%);
+            background-color: rgb(255, 255, 255);
+            border: 1px solid rgba(0, 0, 0, 0.8);
+            border-radius: 50%;
+            overflow: hidden;
+            z-index: 10;
+        }
+        .iris-small {
+            width: 8px; height: 8px;
+            background-color: #ffd700; 
+            border-radius: 50%;
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .pupil-small {
+            width: 4px; height: 4px;
+            background-color: black;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* --- NAV LINKS --- */
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            justify-content: flex-end;
+            flex-shrink: 0; /* Prevents menu from shrinking */
+            position: relative; 
+            z-index: 20;
+        }
+        .nav-links a { font-weight: 700; font-size: 0.9rem; text-transform: uppercase; color: var(--text-main); }
+        .nav-links a:hover { color: var(--primary-color); text-shadow: 0 0 10px var(--primary-color); }
+        .back-link { color: var(--text-muted) !important; font-size: 0.8rem !important; }
+
+        /* --- GAME HERO SECTION --- */
+        header.game-hero {
+            height: 80vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin-top: 60px;
+            /* GAME BANNER IMAGE HERE */
+            background: linear-gradient(to bottom, rgba(11,20,20,0.3), var(--bg-dark)), url('images/DPG_1_full.png'); 
+            background-size: cover;
+            background-position: center;
+        }
+
+        .game-hero-content {
+            z-index: 2;
+            max-width: 900px;
+            padding: 20px;
+        }
+
+        .game-title {
+            font-size: 4.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            color: #fff;
+            text-shadow: 0 0 20px rgba(0,0,0,0.9);
+            margin: 0;
+            line-height: 1.1;
+        }
+
+        .game-tagline {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin: 20px 0 40px 0;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+            font-weight: 700;
+        }
+
+        .play-btn-large {
+            padding: 20px 50px;
+            background-color: var(--primary-color);
+            color: #0c1a1a;
+            font-size: 1.5rem;
+            font-weight: 900;
+            border-radius: 4px;
+            text-transform: uppercase;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+            display: inline-block;
+        }
+        .play-btn-large:hover { background-color: #fff; transform: scale(1.05); }
+
+        /* --- STATS BAR --- */
+        .stats-bar {
+            background-color: #050a0a;
+            border-bottom: 1px solid #3d6a3d;
+            padding: 20px 0;
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            flex-wrap: wrap;
+        }
+        .stat-item { text-align: center; }
+        .stat-label { display: block; font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+        .stat-value { font-size: 1.2rem; font-weight: 700; color: #fff; }
+
+        /* --- CONTENT SECTIONS --- */
+        section { padding: 80px 20px; max-width: 1100px; margin: 0 auto; }
         
-        .gallery{display:flex;flex-wrap:wrap;gap:15px;justify-content:center;margin-top:20px}
-        .gallery img{width:350px;height:auto;border:2px solid #3d6a3d;border-radius:5px;transition:transform .3s ease}
-        .gallery img:hover{transform:scale(1.05)}
-        
-        .play-link{display:inline-block;margin-top:20px;padding:15px 30px;background-color:#00ffff;color:#0c1a1a;font-size:1.5em;font-weight:700;text-decoration:none;border-radius:5px;transition:all .3s ease}
-        .play-link:hover{background-color:#98fb98;color:#0c1a1a;box-shadow:0 0 15px #98fb98}
+        .alt-bg { 
+            background-color: var(--bg-section-alt); 
+            width: 100%; 
+            max-width: 100%; 
+            /* Inner wrapper for alt-bg sections */
+            display: flex; justify-content: center;
+        }
+        .alt-bg-inner { max-width: 1100px; width: 100%; padding: 80px 20px; }
+
+        h2 {
+            font-size: 2.5rem;
+            color: #fff;
+            border-left: 5px solid var(--primary-color);
+            padding-left: 20px;
+            margin-bottom: 40px;
+        }
+
+        p { line-height: 1.8; font-size: 1.1rem; color: var(--text-muted); margin-bottom: 20px; }
+
+        /* --- FEATURES GRID --- */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .feature-card {
+            background: rgba(255,255,255,0.03);
+            padding: 30px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .feature-card h3 { color: var(--accent-color); margin-top: 0; font-size: 1.3rem; }
+        .feature-card p { font-size: 0.95rem; margin-bottom: 0; }
+
+        /* --- GALLERY --- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+        }
+        .gallery-item {
+            width: 100%;
+            height: 250px;
+            background-color: #000;
+            border-radius: 5px;
+            overflow: hidden;
+            border: 1px solid #3d6a3d;
+            transition: transform 0.3s;
+        }
+        .gallery-item:hover { transform: scale(1.02); border-color: var(--primary-color); }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* --- TEAM LIST --- */
+        .team-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        .team-member {
+            flex: 1 1 200px;
+            background: #0c1a1a;
+            padding: 20px;
+            border-left: 2px solid var(--accent-color);
+        }
+        .team-role { display: block; font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 5px; }
+        .team-name { font-size: 1.2rem; font-weight: 700; color: #fff; }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: #050a0a;
+            padding: 40px;
+            text-align: center;
+            border-top: 1px solid #3d6a3d;
+            margin-top: 0;
+        }
+        footer p { color: var(--text-muted); font-size: 0.9rem; }
+
+        /* Mobile tweaks */
+        @media (max-width: 768px) {
+            .game-title { font-size: 3rem; }
+            .nav-links { display: none; }
+            .gallery-grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
-    <div class="side-panel">
-        <h2>Projects</h2>
-        <ul>
-            <li><h3>In the Works</h3></li>
-            <li><a href="ishana.html">Ishana - The Godling</a></li>
-            <li><a href="donner_party.html">The Donner Party... Game?</a></li>
-            <li><a href="fptd_bugs.html">FP/TD Bugs</a></li>
-            <li><a href="syn_city.html">Syn City</a></li>
-            <li><a href="geometry_defenders.html">Geometry Defenders XR</a></li>
-        </ul>
-        <hr>
-        <ul>
-            <li><h3>Finished Projects</h3></li>
-            <li><a href="#">Past Project A</a></li>
-            <li><a href="#">Past Project B</a></li>
-        </ul>
-        <h2><a href="index.html">Home Page</a></h2>
-    </div>
-    <div class="main-content">
-        <div class="container">
-            <h1>The Donner Party... Game?</h1>
-            
-            <!-- KEEP BUTTON AT THE TOP -->
-            <h2>Play the Game:</h2>
-            <div style="text-align: center;">
-                <a href="https://play.subliminalsarcasmstudios.com" target="_blank" rel="noopener noreferrer" class="play-link">
-                    Press HERE to begin a journey!
-                </a>
+
+    <nav>
+        <div class="nav-brand">
+            <div class="logo-container">
+                <img src="images/subliminal-sarcasm-logo.png" alt="Subliminal Sarcasm Studios" class="logo-img">
+                <div class="logo-eye-socket" id="eye">
+                    <div class="iris-small" id="iris"></div> 
+                    <div class="pupil-small" id="pupil"></div>
+                </div>
             </div>
-            <!-- END BUTTON -->
-            
-            <h2>Description</h2>
-            <p>
-                Embark on a perilous journey west in this thrilling re-imagining of the classic trail adventure. Manage resources, make tough decisions, and face the harsh realities of the frontier. This is a multi-player, vote-driven experience where cooperation and communication determine survival. Will your party reach its destination, or will you succumb to the dangers of the trail?
-            </p>
-
-            <h2>Project Contributors</h2>
-            <p>Acknowledgment for the dedication and hard work go to the following individuals who made this project possible:</p>
-            <ul>
-                <li class="p-list"><strong>Mike Nasierowski</strong> - Project Lead & Backend Development</li>
-                <li class="p-list"><strong>Schuyler Deno</strong> - Game Logic & Database Utilization</li>
-                <li class="p-list"><strong>Elijah Robinson</strong> - Historical Research & Scenario Development</li>
-                <li class="p-list"><strong>Nick Popiel</strong> - Lead Artist & Character Designer </li>
-                <li class="p-list"><strong>Tyler Barnes</strong> - UI/UX Design & Quality Assurance</li>
-            </ul>
-
-            <hr>
-
-            <h2>Development Journey: What's Working</h2>
-            <p class="p-status">The core game loop is now stable, and significant progress has been made on the survival mechanics:</p>
-            
-            <h3>Working Features:</h3>
-            <ul>
-                <li class="p-work"><strong>Core Game Loop & Persistence:</strong> The game successfully manages session state, player joins, character selection, and progress using MongoDB.</li>
-                <li class="p-work"><strong>Caravan Movement:</strong> The host screen accurately tracks the caravan on the map (via Phaser) and animates movement between predetermined **Waypoints** after each event resolution.</li>
-                <li class="p-work"><strong>Player Decision System:</strong> Players vote on scenarios via a streamlined, **tabbed mobile UI**. The scenario window maintains a fixed size, ensuring optimal mobile usability.</li>
-                <li class="p-work"><strong>Weighted Outcomes:</strong> Event results are determined by a weighted random system influenced by **Character Class Modifiers** and **Item Usage**.</li>
-                <li class="p-work"><strong>Inventory & Degradation:</strong> Players manage **Personal Inventory** (with conditional items like Rope/Knife) and **Shared Supplies**. Items degrade upon failed use (condition) or deplete (ammo).</li>
-                <li class="p-work"><strong>Complex Trading:</strong> A functional **Player-to-Player Trading** system allows players to offer personal items and money to the shared party funds, complete with server-side timers and acceptance logic.</li>
-                <li class="p-work"><strong>Survival Mechanics (Passive):</strong> **Hunger, Thirst, and Sanity** stats for individual players degrade automatically per turn ("Survival Tick"), increasing game pressure and forcing item consumption.</li>
-                <li class="p-work"><strong>Easter Egg Logic:</strong> Secret combinations of votes and items (e.g., using a Rope during a Fight encounter) can trigger unique, narrative-driven outcomes.</li>
-            </ul>
-
-            <hr>
-
-            <h2>Current Development Focus</h2>
-            <p class="p-goal">We are currently focused on Player UI, balancing weighted outcomes, and expanding the survival pressure to make the journey a true challenge:</p>
-
-            <h3>Immediate Goals:</h3>
-            <ul>
-                <li class="p-goal-list"><strong>Resource Depletion & Penalty Balancing:</strong> Fine-tuning the rate of Hunger, Thirst, and Sanity degradation and ensuring resulting health penalties are fair yet challenging.</li>
-                <li class="p-goal-list"><strong>Sickness Management:</strong> Integrating the sick members percentage into the event outcomes and creating specific medical events.</li>
-                <li class="p-goal-list"><strong>Caravan Structural Integrity:</strong> Implementing events that damage wagons and require repair items (using the Blacksmith's skills) to mitigate disaster.</li>
-                <li class="p-goal-list"><strong>Historical Event Expansion:</strong> Developing a robust set of historically accurate, branching scenarios related to the Oregon Trail and the Donner Party's key struggles.</li>
-            </ul>
-
-            <h2>Gallery</h2>
-            <div class="gallery">
-                <a href="images/DPG_1_full.png" target="_blank">
-                    <img src="images/DPG_1_small.png" alt="Gameplay screenshot 1">
-                </a>
-                <a href="images/DPG_2_full.png" target="_blank">
-                    <img src="images/DPG_2_small.png" alt="Character design concept">
-                </a>
-
-                <a href="images/DPG_3_full.png" target="_blank">
-                    <img src="images/DPG_3_small.png" alt="In-game map">
-                </a>
-                <a href="images/DPG_4_full.png" target="_blank">
-                    <img src="images/DPG_4_small.png" alt="Development screenshot">
-                </a>
+        </div>
+        <div class="scrolling-container">
+            <div class="scrolling-wrapper">
+                <span class="scrolling-text">
+                    <span class="fancy-cap">S</span>UBLIMINAL 
+                    <span class="fancy-cap">S</span>ARCASM 
+                    <span class="fancy-cap">S</span>TUDIOS
+                </span>
+                <span class="scrolling-text">
+                    <span class="fancy-cap">S</span>UBLIMINAL 
+                    <span class="fancy-cap">S</span>ARCASM 
+                    <span class="fancy-cap">S</span>TUDIOS
+                </span>
+                <span class="scrolling-text">
+                    <span class="fancy-cap">S</span>UBLIMINAL 
+                    <span class="fancy-cap">S</span>ARCASM 
+                    <span class="fancy-cap">S</span>TUDIOS
+                </span>
+                <span class="scrolling-text">
+                    <span class="fancy-cap">S</span>UBLIMINAL 
+                    <span class="fancy-cap">S</span>ARCASM 
+                    <span class="fancy-cap">S</span>TUDIOS
+                </span>
             </div>
-            
-            <p style="text-align: center; margin-top: 40px; font-style: italic;">
-                The trail awaits. Check back soon for the official launch!
-            </p>
+        </div>
+        <div class="nav-links">
+            <a href="index.html" class="back-link">← Back to Home</a>
+            <a href="index.html">Games</a>
+            <a href="about.html">About</a>
+            <a href="https://play.subliminalsarcasmstudios.com" class="cta-button">Play Now</a>
+        </div>
+    </nav>
+
+    <header class="game-hero">
+        <div class="game-hero-content">
+            <h1 class="game-title">The Donner Party... Game?</h1>
+            <p class="game-tagline">Survival. Betrayal. The Oregon Trail Re-imagined.</p>
+            <a href="https://play.subliminalsarcasmstudios.com" target="_blank" class="play-btn-large" onclick="trackPlay()">Start Journey</a>
+        </div>
+    </header>
+
+    <div class="stats-bar">
+        <div class="stat-item">
+            <span class="stat-label">Genre</span>
+            <div class="stat-value">Multiplayer Survival</div>
+        </div>
+        <div class="stat-item">
+            <span class="stat-label">Platform</span>
+            <div class="stat-value">Web / Mobile Browser</div>
+        </div>
+        <div class="stat-item">
+            <span class="stat-label">Status</span>
+            <div class="stat-value" style="color: var(--primary-color);">Alpha / In Dev</div>
         </div>
     </div>
+
+    <section id="overview">
+        <h2>About The Game</h2>
+        <p>
+            Embark on a perilous journey west in this thrilling re-imagining of the classic trail adventure. Manage resources, make tough decisions, and face the harsh realities of the frontier. 
+        </p>
+        <p>
+            This is a <strong>multi-player, vote-driven experience</strong> where cooperation and communication determine survival. Will your party reach its destination, or will you succumb to the dangers of the trail?
+        </p>
+    </section>
+
+    <div class="alt-bg">
+        <div class="alt-bg-inner">
+            <h2>Core Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>Vote-Driven Decisions</h3>
+                    <p>Players vote on scenarios via a streamlined, tabbed mobile UI. Every choice matters.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Caravan Persistence</h3>
+                    <p>The host screen accurately tracks the caravan on the map and animates movement between waypoints.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Complex Trading</h3>
+                    <p>A functional Player-to-Player Trading system allows offering personal items and money to shared funds.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Survival Mechanics</h3>
+                    <p>Hunger, Thirst, and Sanity stats degrade automatically, increasing pressure and forcing item consumption.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Inventory Management</h3>
+                    <p>Manage Personal Inventory and Shared Supplies. Items degrade upon failed use.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Weighted Outcomes</h3>
+                    <p>Event results are determined by random systems influenced by Character Class Modifiers.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section id="media">
+        <h2>Media Gallery</h2>
+        <div class="gallery-grid">
+            <a href="images/DPG_1_full.png" class="gallery-item" target="_blank">
+                <img src="images/DPG_1_small.png" alt="Gameplay Map">
+            </a>
+            <a href="images/DPG_2_full.png" class="gallery-item" target="_blank">
+                <img src="images/DPG_2_small.png" alt="Character Design">
+            </a>
+            <a href="images/DPG_3_full.png" class="gallery-item" target="_blank">
+                <img src="images/DPG_3_small.png" alt="In-Game Map">
+            </a>
+            <a href="images/DPG_4_full.png" class="gallery-item" target="_blank">
+                <img src="images/DPG_4_small.png" alt="Dev Screenshot">
+            </a>
+        </div>
+    </section>
+
+    <div class="alt-bg">
+        <div class="alt-bg-inner">
+            <h2>Development Team</h2>
+            <div class="team-list">
+                <div class="team-member">
+                    <span class="team-role">Project Lead & Backend</span>
+                    <div class="team-name">Mike Nasierowski</div>
+                </div>
+                <div class="team-member">
+                    <span class="team-role">Game Logic & DB</span>
+                    <div class="team-name">Schuyler Deno</div>
+                </div>
+                <div class="team-member">
+                    <span class="team-role">Historical Research</span>
+                    <div class="team-name">Elijah Robinson</div>
+                </div>
+                <div class="team-member">
+                    <span class="team-role">Lead Artist</span>
+                    <div class="team-name">Nick Popiel</div>
+                </div>
+                <div class="team-member">
+                    <span class="team-role">UI/UX & QA</span>
+                    <div class="team-name">Tyler Barnes</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Subliminal Sarcasm Studios. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('mousemove', function(e) {
+            const pupil = document.getElementById('pupil');
+            const iris = document.getElementById('iris'); 
+            const eye = document.getElementById('eye');
+
+            if (!pupil || !iris || !eye) return;
+
+            const eyeRect = eye.getBoundingClientRect();
+            const eyeCenterX = eyeRect.left + eyeRect.width / 2;
+            const eyeCenterY = eyeRect.top + eyeRect.height / 2;
+
+            const mouseX = e.clientX;
+            const mouseY = e.clientY;
+
+            const angleRad = Math.atan2(mouseY - eyeCenterY, mouseX - eyeCenterX);
+            
+            const maxDistancePupil = 2.5; 
+            const maxDistanceIris = 1.5;  
+
+            const translateXPupil = Math.cos(angleRad) * maxDistancePupil;
+            const translateYPupil = Math.sin(angleRad) * maxDistancePupil;
+            const translateXIris = Math.cos(angleRad) * maxDistanceIris;
+            const translateYIris = Math.sin(angleRad) * maxDistanceIris;
+
+            pupil.style.transform = `translate(-50%, -50%) translate(${translateXPupil}px, ${translateYPupil}px)`;
+            iris.style.transform = `translate(-50%, -50%) translate(${translateXIris}px, ${translateYIris}px)`;
+        });
+    </script>
+
+    <script>
+        // --- STATS TRACKING ---
+        const SERVER_URL = "https://subliminal-backend.onrender.com";
+
+        // 1. Track Page View (Runs immediately)
+        fetch(`${SERVER_URL}/track`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ gameName: 'Donner Party', type: 'view' })
+        }).catch(err => console.log("Tracking Error:", err));
+
+        // 2. Track Play Click (Attach this to your buttons)
+        window.trackPlay = function() {
+            fetch(`${SERVER_URL}/track`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ gameName: 'Donner Party', type: 'play' })
+            }).catch(err => console.log("Tracking Error:", err));
+        }
+    </script>
 </body>
 </html>

@@ -4,227 +4,519 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Subliminal Sarcasm Studios</title>
+    <link rel="icon" type="image/png" href="images/subliminal-sarcasm-logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        /*
-         * --- IMPORTANT: Add your FULL LOGO IMAGE URL here ---
-         */
+        /* --- GLOBAL VARIABLES --- */
         :root {
-            --full-logo-url: url('images/subliminal-sarcasm-logo.png'); /* <-- REPLACE WITH YOUR ACTUAL FULL LOGO IMAGE URL */
-            /* You might not need a separate iris image if your logo already has it */
-            --logo-iris-url: url('images/eye.png'); /* <-- OPTIONAL: If you want a separate iris layer */
+            --primary-color: #00FFFF; /* Your brand Cyan */
+            --accent-color: #98fb98;  /* Your brand Green */
+            
+            /* RESTORED: Your original background color */
+            --bg-dark: #0c1a1a;       
+            
+            --bg-card: #142222;       
+            --text-main: #e0e0e0;
+            --text-muted: #a0a0a0;
         }
-        
+
+        /* --- RESET & TYPOGRAPHY --- */
         body {
-            background-color: #0c1a1a; 
-            color: #ffffff;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
+            background-color: var(--bg-dark); /* Using your original color */
+            color: var(--text-main);
+            font-family: 'Montserrat', sans-serif; 
+            overflow-x: hidden;
+        }
+
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        ul { list-style: none; padding: 0; margin: 0; }
+
+        /* --- NAVIGATION BAR (STRICT GRID) --- */
+        nav {
+            display: grid;
+            /* 1. Logo (Auto) | 2. Text (Rest of space) | 3. Menu (Auto) */
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            gap: 20px; /* Physical gap between elements */
+
+            padding: 10px 40px; 
+            background: rgba(12, 26, 26, 0.95); 
+            position: fixed;
+            top: 0; width: 100%; z-index: 1000;
+            border-bottom: 1px solid #3d6a3d;
+            box-sizing: border-box;
+            backdrop-filter: blur(5px);
+        }
+
+        /* --- COLUMNS --- */
+        .nav-brand {
             display: flex;
-            height: 100vh;
-            overflow: hidden;
-            position: relative; 
-            backdrop-filter: none;
+            align-items: center;
+            flex-shrink: 0; /* Prevents logo from shrinking */
         }
 
-        /* --- Logo Styling (Adjusted for Rectangular Logo) --- */
-        .logo-container {
-            position: absolute;
-            top: 20px; 
-            left: 58%;
-            transform: translateX(-50%);
-            z-index: 101; 
-            width: 600px; /* Adjust to the actual width of your logo image */
-            height: 290px; /* Adjust to the actual height of your logo image */
-            
-            background-image: var(--full-logo-url); /* Your full logo image here */
-            background-size: contain; /* Ensures the entire logo fits */
-            background-repeat: no-repeat;
-            background-position: center;
-            
-            /* Optional: if your logo image has transparent parts and you want a background color */
-            /* background-color: purple; */ 
-            /* box-shadow: 0 0 15px rgba(0, 255, 255, 0.4); /* Optional glow */
-        }
-
-        /* --- Eye Positioning within the Logo Container --- */
-        /* The .mascot-face div is no longer needed as the full logo is the background */
-        /* The .eye-container is now directly positioned within .logo-container */
-        .eye-container {
-            position: absolute;
-            /* --- CRITICAL: Adjust these values to position the eye precisely over the chameleon's eye --- */
-            /* These percentages are relative to the logo-container's width/height */
-            top: 32%;    /* Move down from the top of the logo container */
-            left: 58%;   /* Move right from the left of the logo container */
-            
-            width: 38px; /* Size of the *white* part of the eye */
-            height: 38px; 
-            border-radius: 50%;
-            background-color: rgb(105, 81, 1); 
-            border: 3px solid rgba(14, 8, 0, 0.829);
-            transform: translate(-50%, -50%); /* Centers the eye container itself */
+        /* --- SCROLLING TEXT CONTAINER (THE WINDOW) --- */
+        .scrolling-container {
+            position: relative;
+            height: 60px;
+            display: flex;
+            align-items: center;
             overflow: hidden; 
             
-            /* Optional: Match the golden color of the eye in your logo */
-            /* background-color: #ffd700; */ /* Gold */
-            /* border-color: #8b4513; */ /* SaddleBrown */
+            /* CRITICAL: Forces container to respect the Grid width */
+            min-width: 0; 
+            
+            /* FADE ZONES: Fades the edges (30px) so text appears letter-by-letter */
+            mask-image: linear-gradient(to right, transparent, black 30px, black calc(100% - 30px), transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 30px, black calc(100% - 30px), transparent);
         }
 
-        /* --- Iris Styling (Optional, for 3D effect) --- */
-        .iris {
-            width: 38px; /* Size of your iris image */
-            height: 38px; 
-            background-image: var(--logo-iris-url); /* Your circular iris image */
-            background-size: cover;
-            background-position: center;
+        /* --- SCROLLING WRAPPER (THE MOVING PART) --- */
+        .scrolling-wrapper {
+            display: flex;
+            align-items: center;
+            /* The Seamless Loop Animation */
+            animation: scroll-seamless 20s linear infinite;
+        }
+
+        .scrolling-text {
+            white-space: nowrap;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.4);
+            
+            /* Adds spacing between the repeating titles */
+            padding-right: 80px; 
+        }
+
+        /* --- FANCY LETTER STYLING --- */
+        .fancy-cap {
+            font-family: 'Cinzel', serif; 
+            font-size: 2.5rem;            
+            font-weight: 700;
+            color: var(--accent-color);   
+            vertical-align: baseline;     
+            margin-right: 1px;
+        }
+
+        /* --- ANIMATION LOGIC (SEAMLESS LOOP) --- */
+        @keyframes scroll-seamless {
+            0% { 
+                transform: translateX(0); 
+            }
+            100% { 
+                /* Move exactly 25% left (the width of 1 of our 4 copies) */
+                /* This creates the illusion of infinite scrolling */
+                transform: translateX(-25%); 
+            }
+        }
+
+        /* Container that holds the Image AND the Eye */
+        .logo-container {
+            position: relative; 
+            height: 60px;       
+            width: auto;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-img {
+            height: 100%;       
+            width: auto;        
+            display: block;
+        }
+
+        /* The Interactive Eye Socket */
+        .logo-eye-socket {
+            position: absolute;
+            top: 32%;   
+            left: 58%;
+            width: 12px; 
+            height: 12px;
+            transform: translate(-50%, -50%); 
+            background-color: rgb(255, 255, 255); 
+            border: 1px solid rgba(0, 0, 0, 0.8);
+            border-radius: 50%;
+            overflow: hidden;
+            z-index: 10; 
+        }
+
+        /* The Iris */
+        .iris-small {
+            width: 8px; 
+            height: 8px;
+            background-color: #ffd700; 
             border-radius: 50%;
             position: absolute;
-            top: 50%;
-            left: 50%;
+            top: 50%; left: 50%;
             transform: translate(-50%, -50%);
-            box-shadow: inset 0 0 5px rgba(0,0,0,0.5); 
-            /* If you don't use an iris image, set a solid color here */
-            /* background-color: gold; */ 
         }
 
-        .pupil {
-            width: 12px;
-            height: 12px;
+        /* The Pupil */
+        .pupil-small {
+            width: 4px; 
+            height: 4px;
             background-color: black;
             border-radius: 50%;
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%); 
-            z-index: 1; /* Ensure pupil is on top of iris */
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
         }
 
-        /* --- Existing Styles (no changes needed here from previous version) --- */
+        /* --- NAV LINKS --- */
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            justify-content: flex-end;
+            flex-shrink: 0; /* Prevents menu from shrinking */
+            position: relative; 
+            z-index: 20;
+        }
+
+        .nav-links a {
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            color: var(--text-main);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+            text-shadow: 0 0 10px var(--primary-color);
+        }
+
+        .cta-button {
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            padding: 8px 20px;
+            border-radius: 4px;
+            color: var(--primary-color) !important;
+            font-weight: bold;
+        }
+        
+        .cta-button:hover {
+            background: var(--primary-color);
+            color: #0c1a1a !important;
+        }
+
+        /* --- HERO SECTION --- */
+        header.hero {
+            height: 90vh; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            
+            /* NOTE: I adjusted the gradient here to be slightly more transparent 
+               so your particles can peek through the dark parts of the hero image */
+            background: linear-gradient(to bottom, rgba(12,26,26,0.6), var(--bg-dark)), url('images/DPG_1_full.png'); 
+            background-size: cover;
+            background-position: center;
+            margin-top: 60px; 
+        }
+
+        .hero-content {
+            z-index: 2;
+            max-width: 800px;
+            padding: 40px;
+            /* Added a backdrop blur so text is readable over particles/image */
+            background: radial-gradient(circle, rgba(12,26,26,0.8) 0%, rgba(12,26,26,0) 80%);
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin: 0;
+            color: #fff;
+            text-shadow: 0 5px 15px rgba(0,0,0,0.8);
+            text-transform: uppercase;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 30px;
+            text-shadow: 0 2px 5px rgba(0,0,0,1);
+        }
+
+        .hero-btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background-color: var(--primary-color);
+            color: #0c1a1a;
+            font-size: 1.2rem;
+            font-weight: 800;
+            border-radius: 5px;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+        }
+
+        .hero-btn:hover {
+            transform: scale(1.05);
+            background-color: #fff;
+        }
+
+        /* --- GAMES GRID SECTION --- */
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin: 60px 0 30px 0;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px 60px 40px;
+        }
+
+        .game-card {
+            /* Making cards slightly transparent so particles are subtle behind them? 
+               Or keep solid for readability. I'll keep them mostly solid. */
+            background-color: rgba(20, 34, 34, 0.95);
+            border: 1px solid #3d6a3d;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.15);
+            border-color: var(--primary-color);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 200px;
+            background-color: #000;
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .game-card:hover .card-image img {
+            transform: scale(1.1);
+        }
+
+        .card-content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            color: #fff;
+            margin: 0 0 10px 0;
+            font-weight: 800;
+        }
+
+        .card-desc {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .card-meta {
+            margin-top: auto;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .status-badge {
+            font-size: 0.8rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            background: rgba(0, 255, 255, 0.1);
+            color: var(--primary-color);
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: #050a0a;
+            padding: 40px;
+            text-align: center;
+            border-top: 1px solid #3d6a3d;
+        }
+        
+        footer p { color: var(--text-muted); font-size: 0.9rem; }
+        
+        /* --- PARTICLES BEHIND EVERYTHING --- */
         #tsparticles {
             position: fixed;
             width: 100%;
             height: 100%;
-            z-index: -1; 
+            z-index: -1; /* Keeps it in the background */
+            top: 0; left: 0;
         }
 
-        .main-content {
-            flex-grow: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 20px;
-            z-index: 100; 
-        }
-        .container {
-            max-width: 600px;
-            padding: 20px;
-            background-color: rgba(26, 42, 26, 0.7); 
-            border: 2px solid #3d6a3d;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.2); 
-            border-radius: 10px;
-        }
-        h1 {
-            font-size: 3em;
-            color: #00FFFF;
-            text-shadow: 0 0 10px #00FFFF;
-            margin-bottom: 0.5em;
-        }
-        p {
-            font-size: 1.2em;
-            color: #b0c4de;
-        }
-        .scrolling-text {
-            border: 1px solid #778899;
-            padding: 5px;
-            background-color: #2f4f4f;
-            border-radius: 5px;
-            margin-top: 20px;
-        }
-        marquee {
-            color: #98fb98;
-            font-weight: bold;
-            font-size: 1.5em;
-        }
-        .side-panel {
-            width: 250px;
-            background-color: #0c1a1a;
-            color: #a9a9a9;
-            padding: 20px;
-            border-right: 2px solid #3d6a3d;
-            box-shadow: inset -5px 0 10px rgba(0, 255, 255, 0.1);
-            overflow-y: auto;
-            flex-shrink: 0;
-            z-index: 100; 
-        }
-        .side-panel h2 {
-            font-size: 1.5em;
-            color: #00FFFF;
-            border-bottom: 1px solid #3d6a3d;
-            padding-bottom: 10px;
-            margin-bottom: 15px;
-        }
-        .side-panel ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        .side-panel ul li {
-            margin-bottom: 10px;
-        }
-        .side-panel a {
-            color: #b0c4de;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-        .side-panel a:hover {
-            color: #98fb98;
-            text-shadow: 0 0 5px #98fb98;
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .nav-links { display: none; } 
+            .games-grid { grid-template-columns: 1fr; }
+            .nav-brand { font-size: 1rem; }
         }
     </style>
 </head>
 <body>
+
     <div id="tsparticles"></div>
-    
-    <div class="logo-container">
-        <div class="eye-container" id="eye">
-            <div class="iris" id="iris"></div> 
-            <div class="pupil" id="pupil"></div>
-        </div>
-    </div>
-    <div class="side-panel">
-        <h2>Projects</h2>
-        <ul>
-            <li><h3>In the Works</h3></li>
-            <li><a href="ishana.html">Ishana - The Godling</a></li>
-            <li><a href="donner_party.html">The Donner Party... Game?</a></li>
-            <li><a href="fptd_bugs.html">FP/TD Bugs</a></li>
-            <li><a href="syn_city.html">Syn City</a></li>
-            <li><a href="geometry_defenders.html">Geometry Defenders XR</a></li>
-        </ul>
-        <hr>
-        <ul>
-            <li><h3>Finished Projects</h3></li>
-            <li><a href="#">Past Project A</a></li>
-        </ul>
-    </div>
-    <div class="main-content">
-        <div class="container">
-            <h1>Subliminal Sarcasm Studios</h1>
-            <p>Our new website is under construction.</p>
-            <p>Stay tuned for exciting updates!</p>
-            <div class="scrolling-text">
-                <marquee direction="left">Subliminal Sarcasm Studios</marquee>
+
+    <nav>
+        <div class="nav-brand">
+            <div class="logo-container">
+                <img src="images/subliminal-sarcasm-logo.png" alt="Subliminal Sarcasm Studios" class="logo-img">
+                
+                <div class="logo-eye-socket" id="eye">
+                    <div class="iris-small" id="iris"></div> 
+                    <div class="pupil-small" id="pupil"></div>
+                </div>
             </div>
         </div>
-    </div>
+
+        <div class="scrolling-container">
+            <div class="scrolling-wrapper">
+                <span class="scrolling-text">
+                    <span class="fancy-cap">S</span>UBLIMINAL 
+                    <span class="fancy-cap">S</span>ARCASM 
+                    <span class="fancy-cap">S</span>TUDIOS
+                </span>
+                <span class="scrolling-text">
+                    <span class="fancy-cap">S</span>UBLIMINAL 
+                    <span class="fancy-cap">S</span>ARCASM 
+                    <span class="fancy-cap">S</span>TUDIOS
+                </span>
+                <span class="scrolling-text">
+                    <span class="fancy-cap">S</span>UBLIMINAL 
+                    <span class="fancy-cap">S</span>ARCASM 
+                    <span class="fancy-cap">S</span>TUDIOS
+                </span>
+                <span class="scrolling-text">
+                    <span class="fancy-cap">S</span>UBLIMINAL 
+                    <span class="fancy-cap">S</span>ARCASM 
+                    <span class="fancy-cap">S</span>TUDIOS
+                </span>
+            </div>
+        </div>
+
+        <div class="nav-links">
+            <a href="#">Games</a>
+            <a href="about.html">About</a>
+            <a href="#">Careers</a>
+            <a href="donner_party.html" class="cta-button">Play Demo</a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-content">
+            <h1>The Donner Party... Game?</h1>
+            <p>Survival. Betrayal. Oregon Trail Re-imagined.</p>
+            <a href="donner_party.html" class="hero-btn">VIEW PROJECT</a>
+        </div>
+    </header>
+
+    <h2 class="section-title">Featured Projects</h2>
+    <section class="games-grid">
+        
+        <a href="donner_party.html" class="game-card">
+            <div class="card-image">
+                <img src="images/DPG_1_small.png" alt="Donner Party Gameplay">
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">The Donner Party... Game?</h3>
+                <p class="card-desc">A multiplayer, vote-driven survival experience where cooperation and communication determine survival.</p>
+                <div class="card-meta">
+                    <span class="status-badge">In Development</span>
+                </div>
+            </div>
+        </a>
+
+        <a href="fptd_bugs.html" class="game-card">
+            <div class="card-image">
+                <img src="images/bugs_concept.jpg" alt="FP/TD Bugs" onerror="this.src='https://placehold.co/600x400/1a2a1a/FFF?text=FP/TD+Bugs'">
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">FP/TD Bugs</h3>
+                <p class="card-desc">High-octane hybrid of FPS and Tower Defense. Build towers, shoot bugs, save the core.</p>
+                <div class="card-meta">
+                    <span class="status-badge">Active Dev</span>
+                </div>
+            </div>
+        </a>
+
+        <a href="geometry_defenders.html" class="game-card">
+            <div class="card-image">
+                 <img src="images/vr_concept.jpg" alt="Geometry Defenders" onerror="this.src='https://placehold.co/600x400/1a2a1a/FFF?text=Geometry+Defenders'">
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">Geometry Defenders XR</h3>
+                <p class="card-desc">Immersive VR/XR tower defense experience designed for modern headsets.</p>
+                <div class="card-meta">
+                    <span class="status-badge">Alpha</span>
+                </div>
+            </div>
+        </a>
+
+        <a href="syn_city.html" class="game-card">
+            <div class="card-image">
+                 <img src="images/syn_city_concept.jpg" alt="Syn City" onerror="this.src='https://placehold.co/600x400/1a2a1a/FFF?text=Syn+City'">
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">Syn City</h3>
+                <p class="card-desc">A futuristic project currently in early conceptualization.</p>
+                <div class="card-meta">
+                    <span class="status-badge">Concept</span>
+                </div>
+            </div>
+        </a>
+
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Subliminal Sarcasm Studios. All Rights Reserved.</p>
+    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
     
     <script>
+        // --- RESTORED: YOUR EXACT ORIGINAL PARTICLE CONFIG ---
+        // This ensures the background feels exactly like your original site
         tsParticles.load("tsparticles", {
             background: {
                 color: {
-                    value: "#0c1a1a"
+                    value: "#0c1a1a" // Matches your original BG
                 }
             },
             fpsLimit: 60,
@@ -245,10 +537,10 @@
             },
             particles: {
                 color: {
-                    value: "#00FFFF"
+                    value: "#00FFFF" // Original Cyan
                 },
                 links: {
-                    color: "#3d6a3d",
+                    color: "#3d6a3d", // Original Green Links
                     distance: 150,
                     enable: true,
                     opacity: 0.5,
@@ -264,7 +556,7 @@
                         default: "bounce"
                     },
                     random: false,
-                    speed: 1,
+                    speed: 1, // Original Speed
                     straight: false
                 },
                 number: {
@@ -272,7 +564,7 @@
                         enable: true,
                         area: 800
                     },
-                    value: 80
+                    value: 80 // Original density
                 },
                 opacity: {
                     value: 0.5
@@ -286,9 +578,8 @@
             },
             detectRetina: true
         });
-    </script>
 
-    <script>
+        // --- EYE TRACKING SCRIPT (Optimized for Small Logo) ---
         document.addEventListener('mousemove', function(e) {
             const pupil = document.getElementById('pupil');
             const iris = document.getElementById('iris'); 
@@ -297,7 +588,6 @@
             if (!pupil || !iris || !eye) return;
 
             const eyeRect = eye.getBoundingClientRect();
-            
             const eyeCenterX = eyeRect.left + eyeRect.width / 2;
             const eyeCenterY = eyeRect.top + eyeRect.height / 2;
 
@@ -306,19 +596,29 @@
 
             const angleRad = Math.atan2(mouseY - eyeCenterY, mouseX - eyeCenterX);
             
-            // Adjust maxDistance for how far the pupil and iris move
-            const maxDistancePupil = 5; 
-            const maxDistanceIris = 3;  
+            // Scaled down movement for the small eye
+            const maxDistancePupil = 2.5; 
+            const maxDistanceIris = 1.5;  
 
             const translateXPupil = Math.cos(angleRad) * maxDistancePupil;
             const translateYPupil = Math.sin(angleRad) * maxDistancePupil;
-
             const translateXIris = Math.cos(angleRad) * maxDistanceIris;
             const translateYIris = Math.sin(angleRad) * maxDistanceIris;
 
             pupil.style.transform = `translate(-50%, -50%) translate(${translateXPupil}px, ${translateYPupil}px)`;
             iris.style.transform = `translate(-50%, -50%) translate(${translateXIris}px, ${translateYIris}px)`;
         });
+    </script>
+    <script>
+        // --- STATS TRACKING ---
+        const SERVER_URL = "https://subliminal-backend.onrender.com";
+
+        // 1. Track Page View (Runs immediately)
+        fetch(`${SERVER_URL}/track`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ gameName: 'Home_Page', type: 'view' })
+        }).catch(err => console.log("Tracking Error:", err));
     </script>
 </body>
 </html>

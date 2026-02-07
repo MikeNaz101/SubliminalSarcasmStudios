@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Studio Access | Subliminal Sarcasm</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { background: #0c1a1a; color: #fff; font-family: 'Montserrat', sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .card { background: #142222; padding: 40px; border: 1px solid #00FFFF; border-radius: 8px; width: 350px; text-align: center; }
+        input { display: block; width: 90%; padding: 10px; margin: 10px auto; background: #0c1a1a; border: 1px solid #3d6a3d; color: #fff; }
+        button { background: #00FFFF; border: none; padding: 10px 20px; font-weight: bold; cursor: pointer; margin-top: 10px; color: #000; }
+        button:hover { background: #fff; }
+        .toggle { color: #a0a0a0; font-size: 0.8rem; margin-top: 20px; cursor: pointer; text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2 id="title">Sign In</h2>
+        <div id="login-form">
+            <input type="text" id="l-email" placeholder="Email">
+            <input type="password" id="l-pass" placeholder="Password">
+            <button onclick="login()">Enter</button>
+            <p class="toggle" onclick="toggleForm()">New here? Create Account</p>
+        </div>
+        <div id="register-form" style="display:none;">
+            <input type="text" id="r-name" placeholder="Full Name">
+            <input type="text" id="r-email" placeholder="Email">
+            <input type="password" id="r-pass" placeholder="Password">
+            <button onclick="register()">Sign Up</button>
+            <p class="toggle" onclick="toggleForm()">Have an account? Sign In</p>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = "https://subliminal-backend.onrender.com"; // <--- PASTE RENDER URL HERE
+
+        function toggleForm() {
+            const login = document.getElementById('login-form');
+            const reg = document.getElementById('register-form');
+            const title = document.getElementById('title');
+            if (login.style.display === 'none') {
+                login.style.display = 'block'; reg.style.display = 'none'; title.innerText = "Sign In";
+            } else {
+                login.style.display = 'none'; reg.style.display = 'block'; title.innerText = "Join the Studio";
+            }
+        }
+
+        async function register() {
+            const name = document.getElementById('r-name').value;
+            const email = document.getElementById('r-email').value;
+            const password = document.getElementById('r-pass').value;
+            try {
+                const res = await fetch(`${API_URL}/register`, {
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, email, password })
+                });
+                const data = await res.json();
+                if (data.success) { alert("Account created! Please sign in."); toggleForm(); }
+                else { alert("Error: " + data.message); }
+            } catch(e) { alert("Connection Error"); }
+        }
+
+        async function login() {
+            const email = document.getElementById('l-email').value;
+            const password = document.getElementById('l-pass').value;
+            try {
+                const res = await fetch(`${API_URL}/login`, {
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    localStorage.setItem('userName', data.name);
+                    // Redirect based on role
+                    if (data.isAdmin) window.location.href = 'admin_stats.html';
+                    else window.location.href = 'welcome.html';
+                } else { alert("Invalid Credentials"); }
+            } catch(e) { alert("Connection Error"); }
+        }
+    </script>
+</body>
+</html>

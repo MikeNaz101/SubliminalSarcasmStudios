@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Admin Stats</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { background: #0c1a1a; color: #fff; font-family: 'Montserrat', sans-serif; padding: 50px; }
+        h1 { color: #00FFFF; border-bottom: 1px solid #3d6a3d; padding-bottom: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; background: #142222; }
+        th, td { border: 1px solid #3d6a3d; padding: 15px; text-align: left; }
+        th { color: #00FFFF; background: rgba(0,0,0,0.3); }
+        tr:hover { background: rgba(0, 255, 255, 0.05); }
+    </style>
+</head>
+<body>
+    <h1>Studio Statistics</h1>
+    <table id="stats-table">
+        <tr><th>Game Name</th><th>Page Views</th><th>Play Clicks</th></tr>
+    </table>
+
+    <script>
+        const API_URL = "https://subliminal-backend.onrender.com"; // <--- PASTE RENDER URL HERE
+
+        async function loadStats() {
+            try {
+                const res = await fetch(`${API_URL}/stats`);
+                const data = await res.json();
+                const table = document.getElementById('stats-table');
+                
+                data.forEach(stat => {
+                    const row = `<tr>
+                        <td style="font-weight:bold;">${stat.gameName}</td>
+                        <td>${stat.views}</td>
+                        <td>${stat.plays}</td>
+                    </tr>`;
+                    table.innerHTML += row;
+                });
+            } catch(e) { 
+                document.body.innerHTML += "<p style='color:red'>Error loading stats. Is server awake?</p>";
+            }
+        }
+        loadStats();
+    </script>
+</body>
+</html>

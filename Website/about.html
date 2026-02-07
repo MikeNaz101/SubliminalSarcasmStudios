@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Subliminal Sarcasm Studios</title>
+    <link rel="icon" type="image/png" href="images/subliminal-sarcasm-logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* --- GLOBAL VARIABLES --- */
+        :root {
+            --primary-color: #00FFFF; /* Brand Cyan */
+            --accent-color: #98fb98;  /* Brand Green */
+            --bg-dark: #0c1a1a;       
+            --bg-card: #142222;       
+            --text-main: #e0e0e0;
+            --text-muted: #a0a0a0;
+        }
+
+        /* --- RESET & TYPOGRAPHY --- */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Montserrat', sans-serif; 
+            overflow-x: hidden;
+        }
+
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        ul { list-style: none; padding: 0; margin: 0; }
+        p { line-height: 1.8; font-size: 1.1rem; color: var(--text-muted); margin-bottom: 20px; }
+
+        /* --- NAVIGATION BAR (STRICT GRID) --- */
+        nav {
+            display: grid;
+            /* 1. Logo (Auto) | 2. Text (Rest of space) | 3. Menu (Auto) */
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            gap: 20px; /* Physical gap between elements */
+
+            padding: 10px 40px; 
+            background: rgba(12, 26, 26, 0.95); 
+            position: fixed;
+            top: 0; width: 100%; z-index: 1000;
+            border-bottom: 1px solid #3d6a3d;
+            box-sizing: border-box;
+            backdrop-filter: blur(5px);
+        }
+
+        /* --- COLUMNS --- */
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0; /* Prevents logo from shrinking */
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            justify-content: flex-end;
+            flex-shrink: 0; /* Prevents menu from shrinking */
+            position: relative; 
+            z-index: 20;
+        }
+
+        /* --- SCROLLING TEXT CONTAINER (THE WINDOW) --- */
+        .scrolling-container {
+            position: relative;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            overflow: hidden; 
+            
+            /* CRITICAL: Forces container to respect the Grid width */
+            min-width: 0; 
+            
+            /* FADE ZONES: Fades the edges (30px) so text appears letter-by-letter */
+            mask-image: linear-gradient(to right, transparent, black 30px, black calc(100% - 30px), transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 30px, black calc(100% - 30px), transparent);
+        }
+
+        /* --- SCROLLING WRAPPER (THE MOVING PART) --- */
+        .scrolling-wrapper {
+            display: flex;
+            align-items: center;
+            /* The Seamless Loop Animation */
+            animation: scroll-seamless 20s linear infinite;
+        }
+
+        .scrolling-text {
+            white-space: nowrap;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.4);
+            
+            /* Adds spacing between the repeating titles */
+            padding-right: 80px; 
+        }
+
+        /* --- FANCY LETTER STYLING --- */
+        .fancy-cap {
+            font-family: 'Cinzel', serif; 
+            font-size: 2.5rem;            
+            font-weight: 700;
+            color: var(--accent-color);   
+            vertical-align: baseline;     
+            margin-right: 1px;
+        }
+
+        /* --- ANIMATION LOGIC (SEAMLESS LOOP) --- */
+        @keyframes scroll-seamless {
+            0% { 
+                transform: translateX(0); 
+            }
+            100% { 
+                /* Move exactly 25% left (the width of 1 of our 4 copies) */
+                /* This creates the illusion of infinite scrolling */
+                transform: translateX(-25%); 
+            }
+        }
+
+        /* --- LOGO CSS --- */
+        .logo-container {
+            position: relative; 
+            height: 60px;       
+            width: auto;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-img { height: 100%; width: auto; display: block; }
+
+        .logo-eye-socket {
+            position: absolute;
+            top: 32%; left: 58%;
+            width: 12px; height: 12px;
+            transform: translate(-50%, -50%); 
+            background-color: rgb(255, 255, 255); 
+            border: 1px solid rgba(0, 0, 0, 0.8);
+            border-radius: 50%;
+            overflow: hidden;
+            z-index: 10; 
+        }
+
+        .iris-small {
+            width: 8px; height: 8px;
+            background-color: #ffd700; 
+            border-radius: 50%;
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .pupil-small {
+            width: 4px; height: 4px;
+            background-color: black;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .nav-links a {
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            color: var(--text-main);
+        }
+        .nav-links a:hover { color: var(--primary-color); text-shadow: 0 0 10px var(--primary-color); }
+        
+        .cta-button {
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            padding: 8px 20px;
+            border-radius: 4px;
+            color: var(--primary-color) !important;
+            font-weight: bold;
+        }
+        .cta-button:hover { background: var(--primary-color); color: #0c1a1a !important; }
+
+        /* --- HERO SECTION --- */
+        header.hero-small {
+            height: 50vh; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            background: radial-gradient(circle, rgba(12,26,26,0.4) 0%, var(--bg-dark) 90%);
+            margin-top: 60px; 
+            border-bottom: 1px solid #3d6a3d;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin: 0;
+            color: #fff;
+            text-shadow: 0 5px 15px rgba(0,0,0,0.8);
+            text-transform: uppercase;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            margin-top: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* --- CONTENT SECTIONS --- */
+        section { padding: 60px 20px; max-width: 1000px; margin: 0 auto; }
+        
+        h2 {
+            font-size: 2.2rem;
+            color: #fff;
+            border-left: 5px solid var(--primary-color);
+            padding-left: 20px;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+
+        /* --- DUALITY CARDS --- */
+        .duality-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .duality-card {
+            background: rgba(20, 34, 34, 0.8);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            padding: 30px;
+            border-radius: 8px;
+            transition: transform 0.3s;
+        }
+
+        .duality-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+        }
+
+        .duality-card h3 {
+            color: var(--accent-color);
+            font-size: 1.5rem;
+            margin-top: 0;
+            text-transform: uppercase;
+        }
+
+        /* --- ROADMAP LIST --- */
+        .roadmap-list li {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 15px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            font-size: 1.1rem;
+        }
+
+        .roadmap-list li::before {
+            content: '►';
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+        }
+        
+        strong { color: var(--primary-color); }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: #050a0a;
+            padding: 40px;
+            text-align: center;
+            border-top: 1px solid #3d6a3d;
+        }
+        footer p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0; }
+        
+        /* --- PARTICLES --- */
+        #tsparticles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1; 
+            top: 0; left: 0;
+        }
+
+        /* --- MOBILE ADJUSTMENTS --- */
+        @media (max-width: 768px) {
+            nav {
+                /* Mobile: 2 Columns only */
+                grid-template-columns: auto 1fr;
+                padding: 10px 15px;
+            }
+            .scrolling-text {
+                font-size: 1rem;       
+                letter-spacing: 2px;
+                /* Speed up slightly on mobile for smoother look */
+                animation: none; 
+            }
+            /* The wrapper handles animation now */
+            .scrolling-wrapper {
+                 animation-duration: 12s;
+            }
+
+            .fancy-cap { font-size: 1.6rem; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="tsparticles"></div>
+
+    <nav>
+        <div class="nav-brand">
+            <div class="logo-container">
+                <img src="images/subliminal-sarcasm-logo.png" alt="Subliminal Sarcasm Studios" class="logo-img">
+                
+                <div class="logo-eye-socket" id="eye">
+                    <div class="iris-small" id="iris"></div> 
+                    <div class="pupil-small" id="pupil"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="scrolling-container">
+            <div class="scrolling-wrapper">
+                <span class="scrolling-text">
+                    <span class="fancy-cap">S</span>UBLIMINAL 
+                    <span class="fancy-cap">S</span>ARCASM 
+                    <span class="fancy-cap">S</span>TUDIOS
+                </span>
+                <span class="scrolling-text">
+                    <span class="fancy-cap">S</span>UBLIMINAL 
+                    <span class="fancy-cap">S</span>ARCASM 
+                    <span class="fancy-cap">S</span>TUDIOS
+                </span>
+                <span class="scrolling-text">
+                    <span class="fancy-cap">S</span>UBLIMINAL 
+                    <span class="fancy-cap">S</span>ARCASM 
+                    <span class="fancy-cap">S</span>TUDIOS
+                </span>
+                <span class="scrolling-text">
+                    <span class="fancy-cap">S</span>UBLIMINAL 
+                    <span class="fancy-cap">S</span>ARCASM 
+                    <span class="fancy-cap">S</span>TUDIOS
+                </span>
+            </div>
+        </div>
+
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="index.html#games">Games</a>
+            <a href="about.html" style="color: var(--primary-color);">About</a>
+            <a href="donner_party.html" class="cta-button">Play Demo</a>
+        </div>
+    </nav>
+
+    <header class="hero-small">
+        <div class="hero-content">
+            <h1>About The Studio</h1>
+            <p>Developing the Unseen.</p>
+        </div>
+    </header>
+
+    <section id="who-we-are">
+        <h2>Who We Are</h2>
+        <p>
+            Subliminal Sarcasm Studios began as a spark among a group of passionate gamers at UAlbany. What started as late-night discussions and shared visions quickly caught fire, fueled by a collective desire to contribute something meaningful to the world of entertainment. 
+        </p>
+        <p>
+            We aren’t just developers; we are players who believe that the medium of gaming is the ultimate frontier for original ideas. Our studio is built on the foundation of that early camaraderie, transformed into a professional mission to bring our unique brand of storytelling into the world.
+        </p>
+    </section>
+
+    <section id="the-name">
+        <h2>The Name: Subliminal Sarcasm</h2>
+        <p>Why Subliminal Sarcasm Studios? To us, the name represents the layers inherent in great game design. In game creation, this duality allows us to build worlds that are intellectually engaging and stylistically bold.</p>
+
+        <div class="duality-grid">
+            <div class="duality-card">
+                <h3>Subliminal</h3>
+                <p>Speaks to the nuance of the player experience—the subtle mechanics, the environmental storytelling, and the "invisible" logic that makes a game feel alive.</p>
+            </div>
+            <div class="duality-card">
+                <h3>Sarcasm</h3>
+                <p>Represents our edge, our personality, and our refusal to take the status quo at face value. A sharp, self-aware spirit that keeps the experience fresh.</p>
+            </div>
+        </div>
+        
+        <p>
+            We believe the best games have a "wink" to them—a hidden depth that rewards the player for looking closer.
+        </p>
+    </section>
+
+    <section id="journey">
+        <h2>Our Journey & The Road Ahead</h2>
+        <p>
+            We are currently charting a course toward the future of interactive media. While we are deeply committed to developing our own original IPs, our technical roadmap is even more ambitious.
+        </p>
+        <p>
+            We are actively pursuing development in <strong>VR and XR (Extended Reality)</strong>, with a specific focus on pioneering cross-platform experiences. Our goal is to bridge the gap between XR, Console, PC, and iOS, creating seamless journeys that exist wherever our players are.
+        </p>
+        
+        <p>At the heart of every project is a dual commitment:</p>
+        <ul class="roadmap-list">
+            <li><strong>Narrative Excellence:</strong> We view storytelling as our major contribution to the creative world.</li>
+            <li><strong>Mechanical Innovation:</strong> We are just as dedicated to the "how" as the "why," pushing the boundaries of game logic to ensure every player enjoys a unique, tactile experience.</li>
+        </ul>
+        <p style="margin-top: 30px; font-style: italic; color: #fff;">
+            The journey has already begun, and we’re just getting started.
+        </p>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Subliminal Sarcasm Studios. All Rights Reserved.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
+    <script>
+        tsParticles.load("tsparticles", {
+            background: { color: { value: "#0c1a1a" } },
+            fpsLimit: 60,
+            interactivity: {
+                events: { onHover: { enable: true, mode: "repulse" }, resize: true },
+                modes: { repulse: { distance: 100, duration: 0.4 } }
+            },
+            particles: {
+                color: { value: "#00FFFF" },
+                links: { color: "#3d6a3d", distance: 150, enable: true, opacity: 0.5, width: 1 },
+                collisions: { enable: true },
+                move: { enable: true, speed: 1, direction: "none", outModes: { default: "bounce" } },
+                number: { density: { enable: true, area: 800 }, value: 80 },
+                opacity: { value: 0.5 },
+                shape: { type: "circle" },
+                size: { value: { min: 1, max: 5 } }
+            },
+            detectRetina: true
+        });
+
+        document.addEventListener('mousemove', function(e) {
+            const pupil = document.getElementById('pupil');
+            const iris = document.getElementById('iris'); 
+            const eye = document.getElementById('eye');
+
+            if (!pupil || !iris || !eye) return;
+
+            const eyeRect = eye.getBoundingClientRect();
+            const eyeCenterX = eyeRect.left + eyeRect.width / 2;
+            const eyeCenterY = eyeRect.top + eyeRect.height / 2;
+
+            const mouseX = e.clientX;
+            const mouseY = e.clientY;
+
+            const angleRad = Math.atan2(mouseY - eyeCenterY, mouseX - eyeCenterX);
+            
+            const maxDistancePupil = 2.5; 
+            const maxDistanceIris = 1.5;  
+
+            const translateXPupil = Math.cos(angleRad) * maxDistancePupil;
+            const translateYPupil = Math.sin(angleRad) * maxDistancePupil;
+            const translateXIris = Math.cos(angleRad) * maxDistanceIris;
+            const translateYIris = Math.sin(angleRad) * maxDistanceIris;
+
+            pupil.style.transform = `translate(-50%, -50%) translate(${translateXPupil}px, ${translateYPupil}px)`;
+            iris.style.transform = `translate(-50%, -50%) translate(${translateXIris}px, ${translateYIris}px)`;
+        });
+    </script>
+</body>
+</html>

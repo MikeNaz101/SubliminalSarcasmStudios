@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Welcome</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { background: #0c1a1a; color: #fff; font-family: 'Montserrat', sans-serif; text-align: center; padding-top: 100px; }
+        h1 { color: #00FFFF; font-size: 3rem; }
+        p { color: #a0a0a0; font-size: 1.2rem; }
+        a { color: #98fb98; text-decoration: none; font-weight: bold; font-size: 1.1rem; border: 1px solid #98fb98; padding: 10px 20px; border-radius: 5px; margin-top: 30px; display: inline-block; }
+        a:hover { background: #98fb98; color: #000; }
+    </style>
+</head>
+<body>
+    <h1 id="greeting">Welcome!</h1>
+    <p>We can't wait to let you know when there are updates on the progress of our games.</p>
+    <p>Thank you for your support and interest!</p>
+    <br>
+    <a href="index.html">Return to Home</a>
+
+    <script>
+        const name = localStorage.getItem('userName');
+        if (name) {
+            document.getElementById('greeting').innerText = `Welcome, ${name}!`;
+        }
+    </script>
+</body>
+</html>
