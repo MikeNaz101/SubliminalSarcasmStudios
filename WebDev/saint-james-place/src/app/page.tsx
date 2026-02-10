@@ -1,6 +1,7 @@
 import Navbar from '@/components/Navbar';
 import Link from 'next/link';
 import Image from 'next/image';
+import Landmarks from '@/components/Landmarks';
 
 export default function Home() {
   return (
@@ -134,6 +135,17 @@ export default function Home() {
                 </div>
               </div>
 
+            </div>
+          </div>
+        </section>
+
+        <section className="py-20 bg-white border-t border-slate-100">
+          <div className="container mx-auto px-6">
+            <Landmarks limit={4} />
+            <div className="text-center mt-12">
+              <Link href="/neighborhood" className="text-gold-600 font-bold border-b-2 border-gold-500 pb-1 hover:text-slate-900 transition-colors">
+                EXPLORE THE FULL NEIGHBORHOOD →
+              </Link>
             </div>
           </div>
         </section>
