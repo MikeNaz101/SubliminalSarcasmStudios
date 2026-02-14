@@ -24,9 +24,9 @@ const units = [
         price: 2100,
         baths: 2,
         availability: "Waitlist",
-        image: "/images/floorplan-3bed.jpg",
+        image: "/images/floorplan-3bed.png",
         tourLink: "#",
-        features: ["Attached Garage", "Fireplace", "Corner Unit"]
+        features: ["Private Driveway", "Fireplace", "Corner Unit"]
     },
     {
         id: 3,
@@ -36,9 +36,9 @@ const units = [
         price: 2450,
         baths: 2.5,
         availability: "Sept 1st",
-        image: "/images/floorplan-3bed.jpg",
+        image: "/images/floorplan-3bed2.jpg",
         tourLink: "#",
-        features: ["2-Car Garage", "Master Suite", "Walk-in Closets"]
+        features: ["Multi-Car Parking Space", "Master Suite", "Walk-in Closets"]
     }
 ];
 
@@ -92,7 +92,7 @@ export default function FloorPlans() {
                                 <div className="flex justify-between text-slate-600 text-sm mb-6 border-y border-slate-100 py-4">
                                     <span>{unit.sqft} Sq Ft</span>
                                     <span>{unit.baths} Bath</span>
-                                    <span>Garage</span>
+                                    <span>Private Parking</span>
                                 </div>
 
                                 {/* Features List */}
