@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Lato } from "next/font/google";
 import "./globals.css";
+import Providers from "@/components/Providers";
 import Footer from "@/components/Footer";
 import PwaRegistrar from "@/components/PwaRegistrar";
 
@@ -40,11 +41,13 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en" className={`${playfair.variable} ${lato.variable}`}>
-        <body className="font-sans antialiased bg-slate-500 text-slate-900">
-        <PwaRegistrar /> {/* <--- 3. Drop the registrar right here at the top of body */}
-        {children}
-        <Footer />
-        </body>
+            <body className="font-sans antialiased bg-slate-500 text-slate-900">
+                <PwaRegistrar /> {/* <--- 3. Drop the registrar right here at the top of body */}
+                    <Providers>
+                        {children}
+                    </Providers>
+                <Footer />
+            </body>
         </html>
     );
 }

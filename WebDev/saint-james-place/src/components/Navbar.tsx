@@ -1,5 +1,6 @@
 "use client";
 import Link from 'next/link';
+import AuthButtons from "@/components/auth/AuthButtons";
 import { useState, useEffect } from 'react';
 
 export default function Navbar() {
@@ -34,11 +35,9 @@ export default function Navbar() {
 
                 {/* CTA Buttons */}
                 <div className="hidden md:flex space-x-4">
-                    <Link href="/dashboard">
-                        <button className="px-6 py-2 border border-white text-white font-bold hover:bg-white hover:text-slate-900 transition-all">
-                            Resident Login
-                        </button>
-                    </Link>
+                    <div className="hidden md:block">
+                        <AuthButtons />
+                    </div>
                     <Link href="/contact" className="px-5 py-2 bg-yellow-600 text-white text-sm font-semibold hover:bg-yellow-700 transition-all">
                         Check Availability
                     </Link>
