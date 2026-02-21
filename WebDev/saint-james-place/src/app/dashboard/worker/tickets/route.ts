@@ -30,8 +30,8 @@ export async function GET() {
         const client = await clientPromise;
         const db = client.db("StJamesPlResidents");
 
-        // Fetch all tickets.
-        const tickets = await db.collection("maintenance")
+        // Fetch all tickets from the CORRECT collection
+        const tickets = await db.collection("maintenance_tickets")
             .find({})
             .sort({ createdAt: -1 }) // Newest first
             .toArray();
@@ -78,8 +78,8 @@ export async function PUT(req: Request) {
             };
         }
 
-        // We also pass the <Ticket> type here so the connection knows what to expect
-        await db.collection<Ticket>("maintenance").updateOne(
+        // Update the ticket in the CORRECT collection
+        await db.collection<Ticket>("maintenance_tickets").updateOne(
             { _id: new ObjectId(ticketId) },
             updateDoc
         );
