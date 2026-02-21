@@ -24,7 +24,10 @@ export default function WorkerDashboard() {
 
     const fetchTickets = () => {
         fetch("/api/worker/tickets")
-            .then(res => res.json())
+            .then(async (res) => {
+                if (!res.ok) throw new Error("Server rejected the request");
+                return res.json();
+            })
             .then(data => {
                 if (data.success) {
                     setTickets(data.tickets);
@@ -33,7 +36,15 @@ export default function WorkerDashboard() {
                         const updated = data.tickets.find((t: Ticket) => t._id === selectedTicket._id);
                         if (updated) setSelectedTicket(updated);
                     }
+                } else {
+                    console.error("Server Error:", data.error);
                 }
+            })
+            .catch(err => {
+                console.error("Failed to load tickets:", err);
+                // If it fails, we still want to stop the loading spinner!
+            })
+            .finally(() => {
                 setLoading(false);
             });
     };
