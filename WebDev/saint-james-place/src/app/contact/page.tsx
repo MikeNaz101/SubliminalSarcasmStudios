@@ -1,6 +1,7 @@
 "use client";
 import Navbar from '@/components/Navbar';
 import { useState, FormEvent } from 'react';
+
 // Web3Forms Access Key = 8daef273-9bf6-4b8d-ad0e-2fa94c17d6a9
 export default function Contact() {
     const [result, setResult] = useState("");
@@ -70,18 +71,33 @@ export default function Contact() {
                                 <div className="grid grid-cols-2 gap-6">
                                     <div>
                                         <label className="block text-slate-600 text-sm font-bold mb-2 uppercase tracking-wide">First Name *</label>
-                                        <input name="first_name" required type="text" className="w-full bg-slate-50 border border-slate-200 p-3 rounded focus:outline-none focus:border-gold-500 transition-colors" />
+                                        <input
+                                            name="first_name"
+                                            required
+                                            type="text"
+                                            className="w-full bg-slate-50 border border-slate-200 p-3 rounded focus:outline-none focus:border-gold-500 transition-colors text-slate-900 placeholder-slate-400"
+                                        />
                                     </div>
                                     <div>
                                         <label className="block text-slate-600 text-sm font-bold mb-2 uppercase tracking-wide">Last Name *</label>
-                                        <input name="last_name" required type="text" className="w-full bg-slate-50 border border-slate-200 p-3 rounded focus:outline-none focus:border-gold-500 transition-colors" />
+                                        <input
+                                            name="last_name"
+                                            required
+                                            type="text"
+                                            className="w-full bg-slate-50 border border-slate-200 p-3 rounded focus:outline-none focus:border-gold-500 transition-colors text-slate-900 placeholder-slate-400"
+                                        />
                                     </div>
                                 </div>
 
                                 {/* 2. PHONE */}
                                 <div>
                                     <label className="block text-slate-600 text-sm font-bold mb-2 uppercase tracking-wide">Phone *</label>
-                                    <input name="phone" required type="tel" className="w-full bg-slate-50 border border-slate-200 p-3 rounded focus:outline-none focus:border-gold-500 transition-colors" />
+                                    <input
+                                        name="phone"
+                                        required
+                                        type="tel"
+                                        className="w-full bg-slate-50 border border-slate-200 p-3 rounded focus:outline-none focus:border-gold-500 transition-colors text-slate-900 placeholder-slate-400"
+                                    />
                                 </div>
 
                                 {/* 3. ASSISTANCE CHECKBOXES */}
@@ -106,8 +122,11 @@ export default function Contact() {
                                 {/* 4. REFERRAL DROPDOWN */}
                                 <div>
                                     <label className="block text-slate-600 text-sm font-bold mb-2 uppercase tracking-wide">How did you hear about us?</label>
-                                    <select name="referral" className="w-full bg-slate-50 border border-slate-200 p-3 rounded focus:outline-none focus:border-gold-500 transition-colors text-slate-600">
-                                        <option value="">Select an option</option>
+                                    <select
+                                        name="referral"
+                                        className="w-full bg-slate-50 border border-slate-200 p-3 rounded focus:outline-none focus:border-gold-500 transition-colors text-slate-900"
+                                    >
+                                        <option value="" className="text-slate-400">Select an option</option>
                                         <option value="Google">Google Search</option>
                                         <option value="Drive By">Drove By</option>
                                         <option value="Friend">Friend / Family</option>
@@ -118,7 +137,12 @@ export default function Contact() {
                                 {/* 5. MESSAGE */}
                                 <div>
                                     <label className="block text-slate-600 text-sm font-bold mb-2 uppercase tracking-wide">Message</label>
-                                    <textarea name="message" rows={4} className="w-full bg-slate-50 border border-slate-200 p-3 rounded focus:outline-none focus:border-gold-500 transition-colors" placeholder="Any specific questions?"></textarea>
+                                    <textarea
+                                        name="message"
+                                        rows={4}
+                                        className="w-full bg-slate-50 border border-slate-200 p-3 rounded focus:outline-none focus:border-gold-500 transition-colors text-slate-900 placeholder-slate-400"
+                                        placeholder="Any specific questions?"
+                                    ></textarea>
                                 </div>
 
                                 <button
