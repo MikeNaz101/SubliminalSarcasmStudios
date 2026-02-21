@@ -2,7 +2,9 @@ import { NextResponse } from "next/server";
 import clientPromise from "@/lib/mongodb";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { ObjectId, UpdateFilter } from "mongodb"; // <-- Added UpdateFilter
+import { ObjectId, UpdateFilter } from "mongodb";
+
+export const dynamic = "force-dynamic";
 
 // We define the shape of the database document so MongoDB knows 'messages' is an array
 interface Ticket {
