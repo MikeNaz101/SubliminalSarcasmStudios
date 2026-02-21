@@ -2,11 +2,9 @@ import NextAuth, { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
 import clientPromise from "@/lib/mongodb";
-// 1. IMPORT THIS
 import { Adapter } from "next-auth/adapters";
 
 export const authOptions: NextAuthOptions = {
-    // 2. ADD "as Adapter" HERE
     adapter: MongoDBAdapter(clientPromise) as Adapter,
 
     providers: [
@@ -20,7 +18,8 @@ export const authOptions: NextAuthOptions = {
                     name: profile.name,
                     email: profile.email,
                     image: profile.picture,
-                    role: "unverified",
+                    // 1. New users default to an array
+                    roles: ["unverified"],
                 };
             },
         }),
@@ -33,25 +32,27 @@ export const authOptions: NextAuthOptions = {
     callbacks: {
         async jwt({ token, user, trigger, session }) {
             if (user) {
-                token.role = user.role;
+                // 2. Backward Compatibility:
+                // If they have the new 'roles' array, use it.
+                // If they have the old 'role' string, wrap it in an array.
+                token.roles = user.roles || (user.role ? [user.role] : ["unverified"]);
                 token.id = user.id;
             }
-            if (trigger === "update" && session?.role) {
-                token.role = session.role;
+            if (trigger === "update" && session?.roles) {
+                token.roles = session.roles;
             }
             return token;
         },
         async session({ session, token }) {
             if (session.user) {
-                session.user.role = token.role as string;
+                // 3. Pass the array to the active session
+                session.user.roles = (token.roles as string[]) || [];
                 session.user.id = token.id as string;
             }
             return session;
         },
         async redirect({ url, baseUrl }) {
-            // Allows relative callback URLs (like /welcome)
             if (url.startsWith("/")) return `${baseUrl}${url}`;
-            // Allows absolute URLs on the same origin
             else if (new URL(url).origin === baseUrl) return url;
             return baseUrl;
         },

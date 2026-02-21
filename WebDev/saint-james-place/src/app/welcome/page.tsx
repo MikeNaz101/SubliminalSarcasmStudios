@@ -18,32 +18,40 @@ export default function WelcomePage() {
             return;
         }
 
-        // 3. The "Traffic Cop" Logic (with a slight delay for effect)
-        const role = session?.user?.role;
+        // 3. We now look at the roles array
+        const roles = (session?.user?.roles as string[]) || [];
 
         const timer = setTimeout(() => {
-            switch (role) {
-                case "admin":
-                    router.push("/dashboard/admin");
-                    break;
-                case "resident":
-                    router.push("/dashboard/resident");
-                    break;
-                case "worker":
-                    router.push("/dashboard/worker");
-                    break;
-                case "banned":
-                    router.push("/auth/error?error=AccessDenied");
-                    break;
-                default:
-                    router.push("/dashboard/pending"); // Default for "unverified"
+            // PRIORITY ROUTING
+            if (roles.includes("banned")) {
+                router.push("/auth/error?error=AccessDenied");
             }
-        }, 2000); // 2-second delay so they see the welcome message
+            else if (roles.includes("admin")) {
+                // Boss goes here first
+                router.push("/dashboard/admin");
+            }
+            else if (roles.includes("worker")) {
+                // Workers go here first
+                router.push("/dashboard/worker");
+            }
+            else if (roles.includes("resident")) {
+                // Residents go here
+                router.push("/dashboard/resident");
+            }
+            else {
+                // Default for "unverified"
+                router.push("/dashboard/pending");
+            }
+        }, 2000); // 2-second delay
 
         return () => clearTimeout(timer);
     }, [session, status, router]);
 
     if (status === "loading") return null;
+
+    // Check if they are staff for the welcome message text
+    const roles = (session?.user?.roles as string[]) || [];
+    const isStaff = roles.includes("admin") || roles.includes("worker");
 
     return (
         <div className="min-h-screen flex flex-col items-center justify-center bg-white">
@@ -62,7 +70,7 @@ export default function WelcomePage() {
                 Welcome back, {session?.user?.name?.split(" ")[0] || "Neighbor"}
             </h1>
             <p className="text-slate-500 animate-pulse">
-                Securely logging you into the {session?.user?.role === "resident" ? "Resident" : "Staff"} Portal...
+                Securely logging you into the {isStaff ? "Staff" : "Resident"} Portal...
             </p>
         </div>
     );
