@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { useState, useEffect } from "react";
 
 interface User {
     name?: string | null;
@@ -8,7 +9,34 @@ interface User {
     unitNumber?: string; // We can add this to the type now
 }
 
+// Add our Ticket type
+interface Ticket {
+    _id: string;
+    category: string;
+    urgency: string;
+    description: string;
+    status: string;
+    createdAt: string;
+    messages?: { sender: string; role: string; text: string; timestamp: string }[];
+}
+
 export default function ResidentView({ user }: { user: User }) {
+    const [tickets, setTickets] = useState<Ticket[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    // Fetch the resident's personal tickets
+    useEffect(() => {
+        fetch("/api/resident/tickets")
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    setTickets(data.tickets);
+                }
+            })
+            .catch(err => console.error("Failed to load tickets:", err))
+            .finally(() => setLoading(false));
+    }, []);
+
     // Mock data for now - later we will fetch this from MongoDB
     const announcements = [
         { id: 1, title: "Pool Opening Date", date: "May 15", content: "The community pool will officially open for the summer season next weekend!" },
@@ -82,6 +110,47 @@ export default function ResidentView({ user }: { user: User }) {
                     <span className="font-bold text-slate-800">Contact Us</span>
                 </Link>
             </div>
+
+            {/* --- NEW SECTION: MY MAINTENANCE TICKETS --- */}
+            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
+                <div className="flex justify-between items-center mb-6">
+                    <h2 className="text-xl font-bold text-slate-800">My Maintenance Requests</h2>
+                    <Link href="/dashboard/resident/maintenance/new" className="text-sm font-bold text-gold-600 hover:text-gold-500">
+                        + New Request
+                    </Link>
+                </div>
+
+                {loading ? (
+                    <p className="text-slate-400 text-center py-6 animate-pulse">Loading your requests...</p>
+                ) : tickets.length === 0 ? (
+                    <p className="text-slate-400 text-center py-6">You have no active maintenance requests.</p>
+                ) : (
+                    <div className="space-y-4">
+                        {tickets.map(ticket => (
+                            <div key={ticket._id} className="flex justify-between items-center p-4 border border-slate-100 rounded-lg hover:bg-slate-50 transition-colors">
+                                <div>
+                                    <h3 className="font-bold text-slate-900">{ticket.category}</h3>
+                                    <p className="text-sm text-slate-500 truncate max-w-md">{ticket.description}</p>
+                                </div>
+                                <div className="flex items-center gap-4">
+                                    <span className={`text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full ${
+                                        ticket.status === 'Completed' ? 'bg-green-100 text-green-700' :
+                                            ticket.status === 'In Progress' ? 'bg-blue-100 text-blue-700' :
+                                                'bg-slate-100 text-slate-700'
+                                    }`}>
+                                        {ticket.status || "Open"}
+                                    </span>
+                                    {/* We will build this detail page next! */}
+                                    <Link href={`/dashboard/resident/maintenance/${ticket._id}`} className="text-slate-400 hover:text-gold-600">
+                                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+                                    </Link>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                )}
+            </div>
+            {/* --- END OF NEW SECTION --- */}
 
             {/* 3. DASHBOARD CONTENT GRID */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
