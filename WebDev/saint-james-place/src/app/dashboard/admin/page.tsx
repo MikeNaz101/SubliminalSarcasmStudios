@@ -18,16 +18,29 @@ export default function AdminDashboard() {
     // Fetch users when the page loads
     useEffect(() => {
         fetch("/api/admin/users")
-            .then((res) => res.json())
+            .then(async (res) => {
+                if (!res.ok) {
+                    const errText = await res.text();
+                    throw new Error(`Server Error ${res.status}: ${errText}`);
+                }
+                return res.json();
+            })
             .then((data) => {
                 if (data.success) {
-                    // FIXED: Removed the 'as any' hacks because our User type now knows about 'role'
                     const sanitizedUsers = data.users.map((u: User) => ({
                         ...u,
                         roles: u.roles || (u.role ? [u.role] : ["unverified"])
                     }));
                     setUsers(sanitizedUsers);
+                } else {
+                    console.error("API Error:", data.error);
                 }
+            })
+            .catch((err) => {
+                console.error("Failed to load users:", err);
+            })
+            .finally(() => {
+                // This guarantees the loading text goes away, even if it fails!
                 setLoading(false);
             });
     }, []);
