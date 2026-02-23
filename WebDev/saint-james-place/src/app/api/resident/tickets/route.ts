@@ -25,7 +25,7 @@ export async function GET(req: Request, { params }: { params: Promise<{ id: stri
 
     try {
         const client = await clientPromise;
-        const db = client.db(); // Using default db
+        const db = client.db(); // FIXED: Using default db so it actually finds the tickets!
 
         const ticket = await db.collection("maintenance_tickets").findOne({
             _id: new ObjectId(id),
@@ -55,7 +55,7 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: stri
     try {
         const { message } = await req.json();
         const client = await clientPromise;
-        const db = client.db(); // Using default db
+        const db = client.db(); // FIXED: Using default db
 
         const updateDoc: UpdateFilter<Ticket> = {
             $push: {
