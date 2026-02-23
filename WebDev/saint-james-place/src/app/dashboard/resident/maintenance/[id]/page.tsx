@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, use } from "react";
 import Link from "next/link";
 
 interface Message {
@@ -20,13 +20,18 @@ interface Ticket {
     messages?: Message[];
 }
 
-export default function TicketDetailsPage({ params }: { params: { id: string } }) {
+// NEW: params is now typed as a Promise
+export default function TicketDetailsPage({ params }: { params: Promise<{ id: string }> }) {
+    // NEW: Unwrap the promise using React's use() hook
+    const unwrappedParams = use(params);
+
     const [ticket, setTicket] = useState<Ticket | null>(null);
     const [newMessage, setNewMessage] = useState("");
     const [loading, setLoading] = useState(true);
 
     const fetchTicket = () => {
-        fetch(`/api/resident/tickets/${params.id}`)
+        // NEW: Use unwrappedParams.id instead of params.id
+        fetch(`/api/resident/tickets/${unwrappedParams.id}`)
             .then(res => {
                 if (!res.ok) throw new Error("Failed to load");
                 return res.json();
@@ -41,22 +46,21 @@ export default function TicketDetailsPage({ params }: { params: { id: string } }
     useEffect(() => {
         fetchTicket();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [params.id]);
+    }, [unwrappedParams.id]);
 
     const sendMessage = async () => {
         if (!newMessage.trim() || !ticket) return;
 
-        // Optimistically clear the input
         const textToSend = newMessage;
         setNewMessage("");
 
-        await fetch(`/api/resident/tickets/${params.id}`, {
+        // NEW: Use unwrappedParams.id instead of params.id
+        await fetch(`/api/resident/tickets/${unwrappedParams.id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ message: textToSend }),
         });
 
-        // Refresh the chat to show the new message
         fetchTicket();
     };
 
