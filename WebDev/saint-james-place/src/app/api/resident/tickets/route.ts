@@ -24,7 +24,7 @@ export async function GET() {
 
     try {
         const client = await clientPromise;
-        const db = client.db("StJamesPlResidents");
+        const db = client.db();
 
         // Fetch tickets belonging ONLY to this logged-in resident.
         // We use $or to check a couple of common field names just in case

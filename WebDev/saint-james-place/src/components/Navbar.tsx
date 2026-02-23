@@ -29,7 +29,7 @@ export default function Navbar() {
                     {/* DESKTOP MENU (Hidden on Mobile) */}
                     <div className="hidden lg:flex items-center space-x-8">
                         <Link href="/" className="text-sm font-bold tracking-widest uppercase hover:text-gold-500 transition-colors">Home</Link>
-                        <Link href="/floor-plans" className="text-sm font-bold tracking-widest uppercase hover:text-gold-500 transition-colors">Floor Plans</Link>
+                        <Link href="/floorplans" className="text-sm font-bold tracking-widest uppercase hover:text-gold-500 transition-colors">Floor Plans</Link>
                         <Link href="/amenities" className="text-sm font-bold tracking-widest uppercase hover:text-gold-500 transition-colors">Amenities</Link>
                         <Link href="/gallery" className="text-sm font-bold tracking-widest uppercase hover:text-gold-500 transition-colors">Gallery</Link>
 
@@ -83,7 +83,7 @@ export default function Navbar() {
                 <div className="lg:hidden bg-[#0b1120] border-t border-slate-800 shadow-xl absolute w-full left-0">
                     <div className="px-4 pt-4 pb-6 space-y-4 flex flex-col">
                         <Link href="/" onClick={closeMenu} className="block text-base font-bold tracking-widest uppercase hover:text-gold-500">Home</Link>
-                        <Link href="/floor-plans" onClick={closeMenu} className="block text-base font-bold tracking-widest uppercase hover:text-gold-500">Floor Plans</Link>
+                        <Link href="/floorplans" onClick={closeMenu} className="block text-base font-bold tracking-widest uppercase hover:text-gold-500">Floor Plans</Link>
                         <Link href="/amenities" onClick={closeMenu} className="block text-base font-bold tracking-widest uppercase hover:text-gold-500">Amenities</Link>
                         <Link href="/gallery" onClick={closeMenu} className="block text-base font-bold tracking-widest uppercase hover:text-gold-500">Gallery</Link>
 

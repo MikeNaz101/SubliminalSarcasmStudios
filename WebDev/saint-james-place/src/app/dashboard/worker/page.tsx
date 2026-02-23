@@ -123,6 +123,7 @@ export default function WorkerDashboard() {
                             <p className="text-center text-slate-400 mt-10">No {activeTab.toLowerCase()} tickets.</p>
                         )}
 
+                        {/* FIXED: The map function is now safely inside the container */}
                         {filteredTickets.map(ticket => (
                             <div
                                 key={ticket._id}
