@@ -4,7 +4,6 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { ObjectId, UpdateFilter } from "mongodb";
 
-// Define our Ticket shape for TypeScript
 interface Ticket {
     messages?: {
         sender: string;
@@ -17,17 +16,19 @@ interface Ticket {
 export const dynamic = "force-dynamic";
 
 // GET: Fetch the specific ticket
-export async function GET(req: Request, { params }: { params: { id: string } }) {
+export async function GET(req: Request, { params }: { params: Promise<{ id: string }> }) {
     const session = await getServerSession(authOptions);
     if (!session?.user?.email) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
+    // NEW: We must await the params Promise before using the ID
+    const { id } = await params;
+
     try {
         const client = await clientPromise;
-        const db = client.db("StJamesPlResidents");
+        const db = client.db(); // FIXED: Using default db so it actually finds the tickets!
 
-        // Find the specific ticket AND ensure it belongs to this user
         const ticket = await db.collection("maintenance_tickets").findOne({
-            _id: new ObjectId(params.id),
+            _id: new ObjectId(id),
             $or: [
                 { email: session.user.email },
                 { userEmail: session.user.email }
@@ -44,14 +45,17 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
 }
 
 // PUT: Add a new message from the resident
-export async function PUT(req: Request, { params }: { params: { id: string } }) {
+export async function PUT(req: Request, { params }: { params: Promise<{ id: string }> }) {
     const session = await getServerSession(authOptions);
     if (!session?.user?.email) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+    // NEW: We must await the params Promise before using the ID
+    const { id } = await params;
 
     try {
         const { message } = await req.json();
         const client = await clientPromise;
-        const db = client.db("StJamesPlResidents");
+        const db = client.db(); // FIXED: Using default db
 
         const updateDoc: UpdateFilter<Ticket> = {
             $push: {
@@ -64,10 +68,9 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
             }
         };
 
-        // Update the ticket, strictly ensuring it belongs to the logged-in resident
         const result = await db.collection<Ticket>("maintenance_tickets").updateOne(
             {
-                _id: new ObjectId(params.id),
+                _id: new ObjectId(id),
                 $or: [
                     { email: session.user.email },
                     { userEmail: session.user.email }
