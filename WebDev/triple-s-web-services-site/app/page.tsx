@@ -3,6 +3,8 @@ import ParticlesBackground from "@/components/ParticlesBackground";
 import LighthouseBadge from "@/components/LighthouseBadge";
 import ArchitectureDiagram from "@/components/ArchitectureDiagram";
 import PortfolioGrid from "@/components/PortfolioGrid";
+import LeadershipSection from "@/components/LeadershipSection";
+import TechMarquee from "@/components/TechMarquee";
 
 export default function Home() {
     return (
@@ -40,6 +42,11 @@ export default function Home() {
 
             {/* 100/100 Lighthouse Proof */}
             <LighthouseBadge />
+
+            {/* Infinite Tech Stack Marquee */}
+            <div className="w-full mt-12 mb-8">
+                <TechMarquee />
+            </div>
 
             {/* Interactive Terminal */}
             <div className="z-10 w-full flex justify-center mb-24 mt-8">
@@ -82,8 +89,11 @@ export default function Home() {
                 </div>
             </div>
 
-            {/* NEW: Portfolio Grid */}
+            {/* Portfolio Grid */}
             <PortfolioGrid />
+
+            {/* Engineering Leadership (About) */}
+            <LeadershipSection />
 
             {/* Animated Flow Diagram */}
             <ArchitectureDiagram />
