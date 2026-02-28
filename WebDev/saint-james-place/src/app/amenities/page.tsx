@@ -46,7 +46,7 @@ export default function Amenities() {
                         </p>
                         <ul className="space-y-3 pt-4">
                             <li className="flex items-center text-slate-700">
-                                <span className="text-gold-500 text-xl mr-3">✓</span> Private Front Door
+                                <span className="text-gold-500 text-xl mr-3">✓</span> Private Entrance
                             </li>
                             <li className="flex items-center text-slate-700">
                                 <span className="text-gold-500 text-xl mr-3">✓</span> Sound-Dampening Construction
@@ -64,20 +64,20 @@ export default function Amenities() {
                 <div className="container mx-auto grid md:grid-cols-2 gap-16 items-center">
                     <div className="space-y-6">
                         <span className="text-gold-500 font-bold tracking-widest uppercase text-sm">Everyday Ease</span>
-                        <h2 className="text-4xl font-serif text-slate-900">Attached Garages & Parking</h2>
+                        <h2 className="text-4xl font-serif text-slate-900">Personal Driveways & Parking</h2>
                         <p className="text-slate-600 leading-relaxed text-lg">
-                            Say goodbye to scraping ice off your car in the Upstate winter.
-                            Our townhomes feature attached garages and private driveways,
-                            giving you direct access from your car to your kitchen.
+                            Say goodbye to fighting for a parking spot in a crowded apartment lot.
+                            Our townhomes feature your own personal driveway steps away from your private entrance,
+                            bringing ultimate convenience to your daily routine.
                         </p>
                         <Link href="/floorplans" className="inline-block mt-4 text-slate-900 font-bold border-b-2 border-gold-500 hover:text-gold-600 transition-colors">
-                            View Layouts with Garages →
+                            View Our Floor Plans →
                         </Link>
                     </div>
                     <div className="relative h-[500px] rounded-lg overflow-hidden shadow-2xl">
                         <Image
-                            src="/images/garage-interior.jpg"
-                            alt="Garage and Driveway"
+                            src="/images/private-driveway.jpg"
+                            alt="Personal Driveway and Private Entrance"
                             fill
                             className="object-cover"
                         />
