@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from 'react';
+import UserChecklist from '@/components/UserChecklist'; // Implemented the new checklist component
 
 interface Property {
   address: string;
@@ -28,7 +29,7 @@ export default function Home() {
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  // --- NEW: State for the currently selected property for the modal ---
+  // --- State for the currently selected property for the modal ---
   const [selectedProperty, setSelectedProperty] = useState<Property | null>(null);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -83,7 +84,7 @@ export default function Home() {
     }
   };
 
-  // --- NEW: Function to handle asking the AI about a specific property ---
+  // --- Function to handle asking the AI about a specific property ---
   const handleAskAboutProperty = (address: string) => {
     setInputValue(`I'm interested in the property at ${address}. What are the next steps?`);
     setSelectedProperty(null); // Close the modal
@@ -100,8 +101,11 @@ export default function Home() {
           </div>
         </header>
 
-        <main className="flex-grow flex flex-col items-center justify-center p-4 md:p-8 z-10">
-          <div className="w-full max-w-3xl bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden flex flex-col h-[600px] relative">
+        {/* --- UPDATED MAIN CONTAINER: Grid layout for side-by-side components --- */}
+        <main className="flex-grow flex flex-col lg:flex-row items-center lg:items-start justify-center gap-6 p-4 md:p-8 z-10 w-full max-w-6xl mx-auto">
+
+          {/* --- THE CHAT WINDOW (Takes up 2/3 width on desktop) --- */}
+          <div className="w-full lg:w-2/3 bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden flex flex-col h-[600px] relative">
 
             <div className="bg-blue-600 p-5 text-white flex items-center justify-between z-20">
               <div>
@@ -143,7 +147,6 @@ export default function Home() {
                                   <p className="text-sm font-semibold text-blue-600 mb-1 capitalize">{prop.beds} Beds • {prop.type}</p>
                                   <p className="text-xs text-slate-500 truncate mb-3">{prop.address}</p>
 
-                                  {/* --- NEW: Open Modal Button --- */}
                                   <button
                                       onClick={() => setSelectedProperty(prop)}
                                       className="mt-auto w-full bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold py-2 px-4 rounded transition-colors"
@@ -181,12 +184,11 @@ export default function Home() {
               </form>
             </div>
 
-            {/* --- NEW: The Property Details Modal --- */}
+            {/* --- The Property Details Modal --- */}
             {selectedProperty && (
                 <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex items-center justify-center p-4 transition-opacity">
                   <div className="bg-white rounded-2xl w-full max-w-md overflow-hidden shadow-2xl flex flex-col animate-in fade-in zoom-in duration-200">
 
-                    {/* Modal Image Area */}
                     <div className="h-48 bg-slate-200 relative flex items-center justify-center">
                       <button
                           onClick={() => setSelectedProperty(null)}
@@ -197,7 +199,6 @@ export default function Home() {
                       <svg className="w-16 h-16 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
                     </div>
 
-                    {/* Modal Content */}
                     <div className="p-6">
                       <div className="flex justify-between items-start mb-2">
                         <h2 className="text-2xl font-black text-slate-900">${selectedProperty.price.toLocaleString()}</h2>
@@ -214,7 +215,6 @@ export default function Home() {
                         </p>
                       </div>
 
-                      {/* Modal Actions */}
                       <div className="flex gap-3">
                         <button
                             onClick={() => handleAskAboutProperty(selectedProperty.address)}
@@ -230,6 +230,13 @@ export default function Home() {
             )}
 
           </div>
+
+          {/* --- THE NEW CHECKLIST SIDEBAR (Takes up 1/3 width on desktop) --- */}
+          <div className="w-full lg:w-1/3 hidden lg:block h-[600px]">
+            {/* Hardcoded leadId for now. Once we build the lead generation logic, this will be dynamic. */}
+            <UserChecklist leadId="123e4567-e89b-12d3-a456-426614174000" />
+          </div>
+
         </main>
       </div>
   );
