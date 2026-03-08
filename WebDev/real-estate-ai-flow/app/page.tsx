@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from 'react';
-import UserChecklist from '@/components/UserChecklist'; // Implemented the new checklist component
+import { supabase } from '@/lib/supabase'; // <-- Bring in Supabase Auth
+import UserChecklist from '@/components/UserChecklist';
 
 interface Property {
   address: string;
@@ -18,6 +19,9 @@ interface Message {
 }
 
 export default function Home() {
+  // --- NEW: State to hold the dynamically logged-in user's ID ---
+  const [userId, setUserId] = useState<string | null>(null);
+
   const [messages, setMessages] = useState<Message[]>([
     {
       id: 1,
@@ -28,11 +32,20 @@ export default function Home() {
 
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-
-  // --- State for the currently selected property for the modal ---
   const [selectedProperty, setSelectedProperty] = useState<Property | null>(null);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  // --- NEW: Ask Supabase exactly who is logged in when the page loads ---
+  useEffect(() => {
+    const getUser = async () => {
+      const { data } = await supabase.auth.getUser();
+      if (data?.user) {
+        setUserId(data.user.id);
+      }
+    };
+    getUser();
+  }, []);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -57,7 +70,10 @@ export default function Home() {
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: updatedMessages }),
+        body: JSON.stringify({
+          messages: updatedMessages,
+          userId: userId // <--- NEW: Secretly passing the player's real ID to the AI!
+        }),
       });
 
       const data = await response.json();
@@ -84,10 +100,9 @@ export default function Home() {
     }
   };
 
-  // --- Function to handle asking the AI about a specific property ---
   const handleAskAboutProperty = (address: string) => {
     setInputValue(`I'm interested in the property at ${address}. What are the next steps?`);
-    setSelectedProperty(null); // Close the modal
+    setSelectedProperty(null);
   };
 
   return (
@@ -95,16 +110,19 @@ export default function Home() {
         <header className="bg-white shadow-sm p-4 z-10">
           <div className="max-w-5xl mx-auto flex justify-between items-center">
             <h1 className="text-2xl font-bold text-blue-600">HomeJourney AI</h1>
-            <button className="text-slate-600 hover:text-blue-600 px-4 py-2 text-sm font-semibold transition-colors">
-              Agent Portal Login
+            {/* --- UPDATED: Button now redirects to the shiny new Auth Page --- */}
+            <button
+                onClick={() => window.location.href = '/auth'}
+                className="text-slate-600 hover:text-blue-600 px-4 py-2 text-sm font-semibold transition-colors"
+            >
+              {userId ? 'Dashboard' : 'Login / Sign Up'}
             </button>
           </div>
         </header>
 
-        {/* --- UPDATED MAIN CONTAINER: Grid layout for side-by-side components --- */}
         <main className="flex-grow flex flex-col lg:flex-row items-center lg:items-start justify-center gap-6 p-4 md:p-8 z-10 w-full max-w-6xl mx-auto">
 
-          {/* --- THE CHAT WINDOW (Takes up 2/3 width on desktop) --- */}
+          {/* THE CHAT WINDOW */}
           <div className="w-full lg:w-2/3 bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden flex flex-col h-[600px] relative">
 
             <div className="bg-blue-600 p-5 text-white flex items-center justify-between z-20">
@@ -184,7 +202,7 @@ export default function Home() {
               </form>
             </div>
 
-            {/* --- The Property Details Modal --- */}
+            {/* The Property Details Modal */}
             {selectedProperty && (
                 <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex items-center justify-center p-4 transition-opacity">
                   <div className="bg-white rounded-2xl w-full max-w-md overflow-hidden shadow-2xl flex flex-col animate-in fade-in zoom-in duration-200">
@@ -231,10 +249,21 @@ export default function Home() {
 
           </div>
 
-          {/* --- THE NEW CHECKLIST SIDEBAR (Takes up 1/3 width on desktop) --- */}
+          {/* THE NEW CHECKLIST SIDEBAR */}
           <div className="w-full lg:w-1/3 hidden lg:block h-[600px]">
-            {/* Hardcoded leadId for now. Once we build the lead generation logic, this will be dynamic. */}
-            <UserChecklist leadId="123e4567-e89b-12d3-a456-426614174000" />
+            {/* --- UPDATED: We removed the hardcoded leadId. The component now fetches its own player context! --- */}
+            {userId ? (
+                <UserChecklist />
+            ) : (
+                <div className="bg-white rounded-2xl shadow-sm border border-slate-200 h-full flex flex-col items-center justify-center p-8 text-center">
+                  <svg className="w-16 h-16 text-slate-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+                  <h3 className="font-bold text-slate-700 text-lg">Quest Log Locked</h3>
+                  <p className="text-slate-500 text-sm mt-2">Sign in or create an account to start tracking your real estate journey and save your progress.</p>
+                  <button onClick={() => window.location.href = '/auth'} className="mt-6 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition-colors">
+                    Sign In Now
+                  </button>
+                </div>
+            )}
           </div>
 
         </main>

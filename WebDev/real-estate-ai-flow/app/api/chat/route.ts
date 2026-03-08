@@ -48,6 +48,7 @@ export async function POST(req: Request) {
     try {
         const body = await req.json();
         const messages = body.messages;
+        const userId = body.userId;
 
         const history = messages.map((msg: { sender: string; text: string }) => ({
             role: msg.sender === 'user' ? 'user' : 'model',
@@ -62,9 +63,22 @@ export async function POST(req: Request) {
         const latestMessage = history.pop();
 
         const model = genAI.getGenerativeModel({
-            // --- NEW: Updated to the currently active Google model ---
             model: 'gemini-2.5-flash',
-            tools: tools
+            tools: tools,
+            // --- NEW: The NPC Dialogue Tree Instructions ---
+            systemInstruction: `You are a friendly Real Estate Guide NPC helping a player navigate the quest of buying or selling a home.
+            
+            YOUR CORE MECHANIC: 
+            You MUST operate on a strict dialogue tree. Never ask more than ONE question per response. 
+            Keep your responses as short and digestible as a text message. Do not output walls of text.
+            
+            THE QUEST LINE:
+            1. Establish if they are looking to buy or sell. (Wait for player input)
+            2. Ask what their ideal timeframe is. (Wait for player input)
+            3. If buying, ask if they have a pre-approval letter yet. (Wait for player input)
+            4. Once they agree to take an action (like getting pre-approved, uploading an ID, or signing a document), use the 'create_user_task' tool to add it to their quest log.
+            
+            Remember: Bite-sized interactions. One question at a time. Always wait for the player to respond before moving to the next node in the dialogue tree.`
         });
 
         const chat = model.startChat({ history });
@@ -95,40 +109,51 @@ export async function POST(req: Request) {
                 }]);
             }
 
-            // --- TOOL 2: Create Task (The Database Magic) ---
+            // --- TOOL 2: Create Task (The Gamified Database Magic) ---
             if (functionCall.name === 'create_user_task') {
                 const { task_title } = functionCall.args as { task_title: string };
 
-                // Hardcoded lead ID to match our frontend component for testing
-                const leadId = "123e4567-e89b-12d3-a456-426614174000";
+                // 1. Find this specific player's active Match Lobby
+                const { data: transaction } = await supabase
+                    .from('transactions')
+                    .select('id')
+                    .eq('buyer_id', userId)
+                    .eq('status', 'active')
+                    .single();
 
-                // Step A: Create the task for the USER
+                const activeTransactionId = transaction?.id;
+
+                if (!activeTransactionId) {
+                    console.error("Lobby not found for player:", userId);
+                }
+
+                // Step A: Create the task for the USER, attached to their Lobby!
                 const { error: userError } = await supabase.from('tasks').insert({
-                    lead_id: leadId,
+                    lead_id: userId, // The Player
+                    transaction_id: activeTransactionId, // The Match Lobby
                     task_title: task_title,
                     assignee_type: 'user',
                     status: 'pending',
-                    // Set the SMS reminder for 4 hours from now
                     scheduled_trigger_time: new Date(Date.now() + 4 * 60 * 60 * 1000).toISOString()
                 });
 
-                // Step B: Create the follow-up task for the AGENT
+                // Step B: Create the follow-up task for the AGENT, attached to the same Lobby!
                 const { error: agentError } = await supabase.from('tasks').insert({
-                    lead_id: leadId,
+                    lead_id: userId,
+                    transaction_id: activeTransactionId,
                     task_title: `Call to check on: ${task_title}`,
                     assignee_type: 'agent',
                     status: 'pending',
-                    // Set the Agent dashboard reminder for 5 hours from now
                     scheduled_trigger_time: new Date(Date.now() + 5 * 60 * 60 * 1000).toISOString()
                 });
 
                 if (userError || agentError) console.error("Database Insert Error:", userError || agentError);
 
-                // Step C: Tell the AI it worked so it can reply to the user naturally!
+                // Step C: Tell the AI it worked
                 result = await chat.sendMessage([{
                     functionResponse: {
                         name: 'create_user_task',
-                        response: { success: true, message: "Task added to database successfully." }
+                        response: { success: true, message: "Task added to player's quest log successfully." }
                     }
                 }]);
             }
