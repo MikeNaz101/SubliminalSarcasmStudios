@@ -1,0 +1,16 @@
+.global-footer {
+    background-color: #050a0a;
+    padding: 40px;
+    text-align: center;
+    /* Uses the dynamic page color, falls back to default green */
+    border-top: 1px solid var(--primary-color, #3d6a3d);
+    margin-top: auto;
+    width: 100%;
+}
+
+.global-footer p {
+    color: var(--text-muted, #a0a0a0);
+    font-size: 0.9rem;
+    margin: 0;
+    letter-spacing: 1px;
+}
