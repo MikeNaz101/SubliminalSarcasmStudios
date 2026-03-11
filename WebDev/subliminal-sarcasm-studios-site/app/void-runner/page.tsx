@@ -1,11 +1,31 @@
 "use client";
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import '../game-page.css';
+import Leaderboard from '../../components/Leaderboard';
 
 export default function VoidRunner() {
     const SERVER_URL = "https://subliminal-backend.onrender.com";
+
+    // Controls the visibility of our new survey modal
+    const [showSurvey, setShowSurvey] = useState(false);
+
+    // This listens for a custom signal from your Unity WebGL build
+    useEffect(() => {
+        const handleUnityQuit = () => {
+            console.log("Signal received from Unity! Opening survey...");
+            setShowSurvey(true);
+        };
+
+        // Attach the listener to the browser window
+        window.addEventListener('unityQuitGame', handleUnityQuit);
+
+        // Clean up the listener if the user leaves the page
+        return () => {
+            window.removeEventListener('unityQuitGame', handleUnityQuit);
+        };
+    }, []);
 
     useEffect(() => {
         fetch(`${SERVER_URL}/track`, {
@@ -67,6 +87,62 @@ export default function VoidRunner() {
                     </div>
                 </div>
             </div>
+            {/* --- PLAY SECTION & LEADERBOARD --- */}
+            <section id="play-now" style={{ textAlign: 'center', paddingTop: '40px', paddingBottom: '60px' }}>
+                <h2 style={{ border: 'none', marginBottom: '30px' }}>Initiate Flight Sequence</h2>
+
+                {/* Game Container */}
+                <div style={{ display: 'flex', justifyContent: 'center', padding: '0 20px' }}>
+                    <div style={{ position: 'relative', width: '960px', height: '600px', maxWidth: '100%', aspectRatio: '16/9', background: '#000', border: '3px solid var(--primary-color)', boxShadow: '0 0 30px rgba(255, 140, 0, 0.2)', borderRadius: '4px', overflow: 'hidden' }}>
+
+                        {/* --- UPDATED S3 LINK --- */}
+                        <iframe
+                            src="https://unity-td-fps-game-builds.s3.us-east-2.amazonaws.com/void-runner/index.html"
+                            style={{ width: '100%', height: '100%', border: 'none', display: 'block' }}
+                            title="Vector Void WebGL"
+                            allow="autoplay; fullscreen; xr-spatial-tracking; camera; microphone"
+                            scrolling="no"
+                        />
+
+                    </div>
+                </div>
+
+                {/* EXIT GAME BUTTON */}
+                <div style={{ marginTop: '20px' }}>
+                    <button
+                        onClick={() => setShowSurvey(true)}
+                        style={{ padding: '10px 30px', backgroundColor: 'transparent', border: '2px solid var(--accent-color)', color: 'var(--accent-color)', fontWeight: 'bold', textTransform: 'uppercase', cursor: 'pointer', borderRadius: '4px' }}
+                    >
+                        Exit Game
+                    </button>
+                </div>
+
+                {/* Leaderboard directly underneath */}
+                <Leaderboard />
+
+            </section>
+
+            {/* --- SURVEY MODAL POPUP --- */}
+            {showSurvey && (
+                <div className="survey-overlay">
+                    <div className="survey-box">
+                        <h2>Thank you for playing!</h2>
+                        <p>Your feedback helps make Vector Void better. Do you have a quick minute for a brief survey?</p>
+
+                        <div>
+                            {/* Remember to replace YOUR_FORM_LINK with your actual Google Form URL! */}
+                            <a href="https://docs.google.com/forms/d/1z6v5TV6yMqfH6pLWUYhpNAMuXwVa7MADc-8bJnVy4dc/edit?pli=1" target="_blank" rel="noreferrer" className="survey-btn-primary" onClick={() => setShowSurvey(false)}>
+                                Take Survey
+                            </a>
+
+                            {/* Clicking this just sets the state back to false, hiding the modal */}
+                            <button onClick={() => setShowSurvey(false)} className="survey-btn-secondary">
+                                No Thanks
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </main>
     );
 }
