@@ -3,10 +3,10 @@
 import { useState, useEffect } from 'react';
 import './Leaderboard.css';
 
-// Define the shape of our data for TypeScript
+// 1. Updated to match the new database variable
 interface PlayerScore {
     playerName: string;
-    finalScore: number;
+    distanceTraveled: number;
 }
 
 export default function Leaderboard() {
@@ -15,8 +15,8 @@ export default function Leaderboard() {
     const [error, setError] = useState(false);
 
     useEffect(() => {
-        // Replace with your actual Render URL
-        const apiUrl = 'https://subliminal-backend.onrender.com/api/leaderboard/void-runner';
+        // 2. Fixed the URL to exactly match the route in server.js
+        const apiUrl = 'https://subliminal-backend.onrender.com/api/leaderboard';
 
         const fetchLeaderboard = async () => {
             try {
@@ -67,13 +67,18 @@ export default function Leaderboard() {
                 )}
 
                 {/* --- STATE 4: SUCCESS --- */}
-                {!loading && !error && scores.map((player, index) => (
-                    <tr key={index}>
-                        <td className="rank-col">#{index + 1}</td>
-                        <td className="name-col">{player.playerName}</td>
-                        <td className="score-col">{player.finalScore.toLocaleString()}</td>
-                    </tr>
-                ))}
+                {/* 3. Updated to render the rounded distanceTraveled */}
+                {!loading && !error && scores.map((player, index) => {
+                    const cleanDistance = Math.round(player.distanceTraveled).toLocaleString();
+
+                    return (
+                        <tr key={index}>
+                            <td className="rank-col">#{index + 1}</td>
+                            <td className="name-col">{player.playerName}</td>
+                            <td className="score-col">{cleanDistance} m</td>
+                        </tr>
+                    );
+                })}
                 </tbody>
             </table>
         </div>
