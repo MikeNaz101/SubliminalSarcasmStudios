@@ -2,11 +2,11 @@
   "name": "Saint James Place Maintenance",
   "short_name": "SJP Maint",
   "description": "Resident Portal and Maintenance Companion",
-  "start_url": "/dashboard",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#0f172a",
-  "id": "/dashboard",
+  "id": "/",
   "icons": [
     {
       "src": "/images/icon-192.png",
