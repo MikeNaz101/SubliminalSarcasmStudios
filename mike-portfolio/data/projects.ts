@@ -29,7 +29,7 @@ export const projects: Project[] = [
     title: "Void Runner", // Updated name
     role: "Lead Developer",
     description: "A fast-paced 3D flying arcade shooter featuring dynamic environments and tight aerial combat mechanics.",
-    image: "/images/void-runner.jpg",
+    image: "/images/void-runner.png",
     link: "https://subliminalsarcasmstudios.com/void-runner", // READY FOR YOUR LINK
     contributions: [
       "Engineered 6DOF (Six Degrees of Freedom) flight mechanics and camera controls",
