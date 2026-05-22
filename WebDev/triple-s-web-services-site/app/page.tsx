@@ -1,10 +1,18 @@
-import TerminalContact from "@/components/TerminalContact";
+"use client";
+
+import Image from "next/image";
+import ContactForm from "@/components/ContactForm";
 import ParticlesBackground from "@/components/ParticlesBackground";
 import LighthouseBadge from "@/components/LighthouseBadge";
 import ArchitectureDiagram from "@/components/ArchitectureDiagram";
 import PortfolioGrid from "@/components/PortfolioGrid";
 import LeadershipSection from "@/components/LeadershipSection";
 import TechMarquee from "@/components/TechMarquee";
+import PricingSection from "@/components/PricingSection";
+import ClientPortalModal from "@/components/ClientPortalModal";
+import FaqSection from "@/components/FaqSection";
+import LegalModals from "@/components/LegalModals";
+import ReviewsSection from "@/components/ReviewsSection";
 
 export default function Home() {
     return (
@@ -30,13 +38,17 @@ export default function Home() {
                 </p>
 
                 {/* Gradient CTA Button */}
-                <button className="group relative px-8 py-4 bg-slate-950 text-white font-mono font-bold rounded-lg hover:scale-105 transition-all duration-300 z-20">
-          <span className="absolute inset-0 rounded-lg bg-gradient-to-r from-blue-500 to-emerald-500 p-[2px] opacity-70 group-hover:opacity-100 transition-opacity duration-300">
-            <span className="flex w-full h-full bg-slate-950 rounded-[6px]"></span>
-          </span>
+                <button
+                    onClick={() => window.dispatchEvent(new Event('open-contact-modal'))}
+                    className="group relative px-8 py-4 bg-slate-950 text-white font-mono font-bold rounded-lg hover:scale-105 transition-all duration-300 z-20"
+                    >
+                    <span className="absolute inset-0 rounded-lg bg-gradient-to-r from-blue-500 to-emerald-500 p-[2px] opacity-70 group-hover:opacity-100 transition-opacity duration-300">
+                      <span className="flex w-full h-full bg-slate-950 rounded-[6px]"></span>
+                    </span>
                     <span className="relative z-10 flex items-center gap-2">
-            Initiate_Project <span className="text-emerald-400">{">"}</span>
-          </span>
+                      Initiate_Project
+                        <span className="text-emerald-400">{">"}</span>
+                    </span>
                 </button>
             </div>
 
@@ -48,10 +60,6 @@ export default function Home() {
                 <TechMarquee />
             </div>
 
-            {/* Interactive Terminal */}
-            <div className="z-10 w-full flex justify-center mb-24 mt-8">
-                <TerminalContact />
-            </div>
 
             {/* Core Services Grid */}
             <div className="z-10 w-full max-w-6xl grid grid-cols-1 md:grid-cols-3 gap-6 relative">
@@ -89,14 +97,28 @@ export default function Home() {
                 </div>
             </div>
 
-            {/* Portfolio Grid */}
-            <PortfolioGrid />
-
             {/* Engineering Leadership (About) */}
             <LeadershipSection />
 
+            {/* Portfolio Grid */}
+            <PortfolioGrid />
+
+            {/* Client Reviews */}
+            <ReviewsSection />
+
+            {/* Pricing Model Section */}
+            <PricingSection />
+
+            {/* FAQ Section */}
+            <FaqSection />
+
             {/* Animated Flow Diagram */}
             <ArchitectureDiagram />
+
+            {/* Interactive Overlays (Slugs) */}
+            <ContactForm />
+            <ClientPortalModal />
+            <LegalModals />
 
         </main>
     );

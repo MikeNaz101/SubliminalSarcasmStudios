@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 
 export default function Footer() {
@@ -7,9 +9,9 @@ export default function Footer() {
 
                 {/* Brand & Value Prop */}
                 <div className="max-w-sm">
-          <span className="text-white font-bold text-2xl tracking-tight block mb-2">
-            TRIPLE S
-          </span>
+                    <span className="text-white font-bold text-2xl tracking-tight block mb-2">
+                        TRIPLE S
+                    </span>
                     <p className="text-slate-400 text-sm leading-relaxed mb-6">
                         Engineered for scale. We architect high-performance web applications and resilient cloud infrastructure for businesses that demand more.
                     </p>
@@ -34,8 +36,20 @@ export default function Footer() {
                     </div>
                     <div className="flex flex-col gap-3">
                         <span className="text-white font-bold uppercase tracking-widest mb-2">Legal</span>
-                        <Link href="#" className="text-slate-400 hover:text-emerald-400">Privacy Policy</Link>
-                        <Link href="#" className="text-slate-400 hover:text-emerald-400">Terms of Service</Link>
+                        <div className="flex flex-col items-start gap-3 font-mono text-xs text-slate-500">
+                            <button
+                                onClick={() => window.dispatchEvent(new Event('open-privacy-modal'))}
+                                className="hover:text-emerald-400 transition-colors"
+                            >
+                                Privacy_Policy
+                            </button>
+                            <button
+                                onClick={() => window.dispatchEvent(new Event('open-terms-modal'))}
+                                className="hover:text-emerald-400 transition-colors"
+                            >
+                                Terms_of_Service
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>

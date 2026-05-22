@@ -103,8 +103,23 @@ export default function TerminalContact() {
             setStep(3); // Form complete
             setIsTyping(false);
 
-            // THIS IS WHERE YOU TRIGGER THE ACTUAL DATABASE SAVE
-            console.log("Saving to DB:", { name: formData.name, email: currentInput, message: formData.message });
+            // NEW: Send the payload to our Next.js API
+            try {
+                await fetch('/api/contact', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        name: formData.name,
+                        email: currentInput, // currentInput holds the email at this exact step in your logic
+                        message: formData.message
+                    }),
+                });
+            } catch (error) {
+                console.error("Transmission failed:", error);
+            }
+
             return;
         }
 

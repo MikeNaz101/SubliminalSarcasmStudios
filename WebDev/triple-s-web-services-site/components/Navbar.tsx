@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 
 export default function Navbar() {
@@ -7,16 +9,17 @@ export default function Navbar() {
 
                 {/* Logo / Brand */}
                 <Link href="/" className="flex flex-col group">
-          <span className="text-white font-bold text-xl tracking-tight group-hover:text-emerald-400 transition-colors">
-            TRIPLE S
-          </span>
+                    <span className="text-white font-bold text-xl tracking-tight group-hover:text-emerald-400 transition-colors">
+                        TRIPLE S
+                    </span>
                     <span className="text-slate-400 font-mono text-xs tracking-widest uppercase">
-            Web Services
-          </span>
+                        Web Services
+                    </span>
                 </Link>
 
                 {/* Desktop Navigation */}
-                <div className="hidden md:flex items-center gap-8 font-mono text-sm">
+                {/* UPDATED: Reduced gap to gap-5 lg:gap-8 to fit all 6 links smoothly */}
+                <div className="hidden md:flex items-center gap-5 lg:gap-8 font-mono text-sm">
                     <Link href="#services" className="text-slate-300 hover:text-emerald-400 transition-colors">
                         // Services
                     </Link>
@@ -26,15 +29,32 @@ export default function Navbar() {
                     <Link href="#leadership" className="text-slate-300 hover:text-emerald-400 transition-colors">
                         // Leadership
                     </Link>
+                    <Link href="#reviews" className="text-slate-300 hover:text-emerald-400 transition-colors">
+                        // Reviews
+                    </Link>
+                    <Link href="#pricing" className="text-slate-300 hover:text-emerald-400 transition-colors">
+                        // Pricing
+                    </Link>
+                    <Link href="#faq" className="text-slate-300 hover:text-emerald-400 transition-colors">
+                        // FAQ
+                    </Link>
                 </div>
 
                 {/* Client Login CTA */}
                 <div className="flex items-center gap-4">
-                    <button className="hidden sm:block text-slate-400 hover:text-white font-mono text-sm transition-colors">
+                    <button
+                        onClick={() => window.dispatchEvent(new Event('open-client-portal-modal'))}
+                        className="hidden sm:block text-slate-400 hover:text-white font-mono text-sm transition-colors"
+                    >
                         Client_Portal
                     </button>
-                    <button className="px-5 py-2.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-emerald-400 font-mono text-sm transition-all shadow-[0_0_15px_rgba(16,185,129,0.1)] hover:shadow-[0_0_20px_rgba(16,185,129,0.2)]">
-                        Initiate_Comms
+
+                    {/* Custom Event Dispatcher Button */}
+                    <button
+                        onClick={() => window.dispatchEvent(new Event('open-contact-modal'))}
+                        className="px-5 py-2.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-emerald-400 font-mono text-sm transition-all shadow-[0_0_15px_rgba(16,185,129,0.1)] hover:shadow-[0_0_20px_rgba(16,185,129,0.2)]"
+                    >
+                        Contact_Us
                     </button>
                 </div>
 
