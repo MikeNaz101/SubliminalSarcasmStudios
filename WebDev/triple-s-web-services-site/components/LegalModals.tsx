@@ -54,13 +54,13 @@ export default function LegalModals() {
                     >
                         {/* Modal Header */}
                         <div className="flex-shrink-0 flex justify-between items-center p-6 border-b border-slate-800 bg-slate-900/90 backdrop-blur-md">
-              <span className="text-white font-mono font-bold tracking-widest uppercase flex items-center gap-2 text-sm">
-                {activeModal === "privacy" ? (
-                    <><FiShield className="text-emerald-400" /> Privacy_Policy</>
-                ) : (
-                    <><FiFileText className="text-emerald-400" /> Terms_of_Service</>
-                )}
-              </span>
+                            <span className="text-white font-mono font-bold tracking-widest uppercase flex items-center gap-2 text-sm">
+                                {activeModal === "privacy" ? (
+                                    <><FiShield className="text-emerald-400" /> Privacy_Policy</>
+                                ) : (
+                                    <><FiFileText className="text-emerald-400" /> Terms_of_Service</>
+                                )}
+                            </span>
                             <button
                                 onClick={() => setActiveModal(null)}
                                 className="p-2 rounded-lg bg-slate-800 text-slate-400 hover:text-white hover:bg-slate-700 transition-colors"
@@ -83,29 +83,93 @@ export default function LegalModals() {
                                             <p className="text-slate-400 font-mono text-xs uppercase tracking-widest">Last Updated: {new Date().toLocaleDateString()}</p>
                                         </div>
 
+                                        <div className="space-y-4">
+                                            <p>Triple S Web Services, operating under Subliminal Sarcasm Studios LLC ("we," "our," or "us"), is committed to protecting the privacy and security of your personal data. This Privacy Policy governs the collection, use, and processing of information through our digital infrastructure, client portals, and engineering services.</p>
+                                            <p>By accessing our website, communicating with our engineering team, or utilizing our software architecture services, you agree to the data practices described in this policy.</p>
+                                        </div>
+
                                         <section>
-                                            <h3 className="text-lg font-bold text-white mb-2">1. Data Collection and Usage</h3>
-                                            <p>Triple S Web Services ("we", "our", or "us") operates as a specialized software architecture firm. We collect information you provide directly to us when you request a technical audit, submit project parameters via our secure intake forms, or engage in engineering consultations. This data may include your name, email address, company details, and infrastructure requirements. We use this data solely to evaluate your project, communicate regarding services, and execute active engineering contracts.</p>
+                                            <h3 className="text-lg font-bold text-white mb-2">1. Scope and Information We Collect</h3>
+                                            <p className="mb-4">We collect information that identifies, relates to, or could reasonably be linked to you ("Personal Data"). The scope of data we collect depends heavily on your interaction with our systems—whether you are submitting a project intake form, accessing a client dashboard, or utilizing a web application we host on your behalf.</p>
+
+                                            <h4 className="font-bold text-white mb-2 mt-4">A. Information You Provide Directly</h4>
+                                            <ul className="list-disc pl-5 space-y-2 mb-4">
+                                                <li><strong className="text-slate-200">Contact & Identity Data:</strong> Names, professional email addresses, phone numbers, and business affiliations submitted through our contact routing or project intake forms.</li>
+                                                <li><strong className="text-slate-200">Authentication Data:</strong> Secure login credentials and cryptographic session data used to access our administrative and client-facing dashboards.</li>
+                                                <li><strong className="text-slate-200">Project & Financial Data:</strong> Technical specifications, architecture requirements, billing information, and transaction history related to the engineering and hosting of your systems.</li>
+                                            </ul>
+
+                                            <h4 className="font-bold text-white mb-2 mt-4">B. Information Collected Automatically</h4>
+                                            <ul className="list-disc pl-5 space-y-2">
+                                                <li><strong className="text-slate-200">Diagnostic & Usage Data:</strong> When you access our infrastructure, our servers automatically record standard operational data, including your IP address, browser type, device information, and interaction timestamps.</li>
+                                                <li><strong className="text-slate-200">Cookies & Session Management:</strong> We utilize strictly necessary cookies and authentication tokens (such as Supabase session data) to maintain secure logins and ensure our web applications function efficiently.</li>
+                                            </ul>
                                         </section>
 
                                         <section>
-                                            <h3 className="text-lg font-bold text-white mb-2">2. New York SHIELD Act Compliance</h3>
-                                            <p>As a business operating within the State of New York, we maintain reasonable administrative, technical, and physical safeguards designed to protect your private information in accordance with the Stop Hacks and Improve Electronic Data Security (SHIELD) Act. Client data is transmitted via encrypted channels and stored in secure, access-controlled cloud environments.</p>
+                                            <h3 className="text-lg font-bold text-white mb-2">2. How We Use Your Information</h3>
+                                            <p className="mb-4">We do not monetize your personal data. We act primarily as digital architects and system operators. The information we collect is strictly utilized to engineer, deliver, and maintain your software systems. We use your data to:</p>
+                                            <ul className="list-disc pl-5 space-y-2">
+                                                <li><strong className="text-slate-200">Execute Engineering Services:</strong> To design, build, test, and deploy custom web applications, APIs, and cloud infrastructure.</li>
+                                                <li><strong className="text-slate-200">Provide System Operations:</strong> To maintain active server hosting, manage domain routing, and ensure the uptime and security of deployed applications.</li>
+                                                <li><strong className="text-slate-200">Facilitate Communication:</strong> To dispatch architectural proposals, project updates, billing invoices, and critical security alerts.</li>
+                                                <li><strong className="text-slate-200">Enhance Security:</strong> To authenticate users, prevent fraudulent access to client portals, and debug network errors.</li>
+                                            </ul>
                                         </section>
 
                                         <section>
-                                            <h3 className="text-lg font-bold text-white mb-2">3. Third-Party Infrastructure</h3>
-                                            <p>In the execution of our services, we utilize enterprise-grade cloud providers (such as Amazon Web Services and Google Cloud). While your project data may be processed through these services, we do not sell, rent, or lease your personal or corporate data to third-party data brokers or marketing agencies.</p>
+                                            <h3 className="text-lg font-bold text-white mb-2">3. Information Sharing and Disclosure</h3>
+                                            <p className="mb-4">We maintain a strict boundary regarding your data. We do not sell, rent, or trade Personal Data to third-party data brokers or marketing agencies. We only disclose information under the following operational circumstances:</p>
+                                            <ul className="list-disc pl-5 space-y-2">
+                                                <li><strong className="text-slate-200">Cloud Infrastructure Partners:</strong> We share necessary routing and storage data with our enterprise-grade infrastructure providers (e.g., serverless cloud hosting environments, managed database services, and secure email transport protocols) strictly for the purpose of keeping your systems online and functional. These providers are contractually bound to secure your data.</li>
+                                                <li><strong className="text-slate-200">Legal Compliance:</strong> We may disclose your information if required to do so by law, or in response to a valid subpoena, court order, or formal request from United States law enforcement agencies.</li>
+                                                <li><strong className="text-slate-200">Business Transfers:</strong> In the event of a merger, acquisition, or asset sale involving Subliminal Sarcasm Studios LLC, client data and active operational contracts may be transferred as a business asset.</li>
+                                            </ul>
                                         </section>
 
                                         <section>
-                                            <h3 className="text-lg font-bold text-white mb-2">4. Analytics and Tracking</h3>
-                                            <p>Our website may utilize localized analytics to monitor system performance and user engagement. This data is aggregated and anonymized to help us optimize the performance and architecture of our own digital properties.</p>
+                                            <h3 className="text-lg font-bold text-white mb-2">4. Data Security and Architecture</h3>
+                                            <p className="mb-4">We engineer our systems with security as a foundational layer. We deploy commercially reasonable physical, technical, and administrative safeguards to protect your data from unauthorized access, alteration, or destruction.</p>
+                                            <ul className="list-disc pl-5 space-y-2 mb-4">
+                                                <li><strong className="text-slate-200">Encryption:</strong> Data transmitted between your browser and our servers is secured using modern cryptographic protocols (TLS/SSL).</li>
+                                                <li><strong className="text-slate-200">Access Controls:</strong> Access to production databases and client project files is strictly restricted to authorized engineering personnel.</li>
+                                                <li><strong className="text-slate-200">Database Isolation:</strong> Client data housed within our managed relational databases is protected by strict row-level security (RLS) policies to prevent unauthorized access and cross-contamination.</li>
+                                            </ul>
+                                            <p className="italic text-slate-400 text-sm">Despite these rigorous precautions, no cloud infrastructure can guarantee absolute security. We cannot warrant the 100% security of any information transmitted across the public internet.</p>
                                         </section>
 
                                         <section>
-                                            <h3 className="text-lg font-bold text-white mb-2">5. Contact Information</h3>
-                                            <p>For questions or concerns regarding this Privacy Policy, or to request the deletion of your intake data, please initiate contact via our primary communications terminal or directly to our data management team.</p>
+                                            <h3 className="text-lg font-bold text-white mb-2">5. Data Retention</h3>
+                                            <p className="mb-4">We retain your Personal Data only for as long as is necessary to fulfill the operational purposes outlined in this Policy, or as required by legal, tax, or accounting obligations.</p>
+                                            <ul className="list-disc pl-5 space-y-2">
+                                                <li><strong className="text-slate-200">Active Clients:</strong> Data is retained for the duration of our hosting and maintenance agreements.</li>
+                                                <li><strong className="text-slate-200">Archived Projects:</strong> Upon termination of a contract, structural project data may be securely archived for a limited period to facilitate future system restorations, unless immediate deletion is explicitly requested.</li>
+                                            </ul>
+                                        </section>
+
+                                        <section>
+                                            <h3 className="text-lg font-bold text-white mb-2">6. Your Privacy Rights</h3>
+                                            <p className="mb-4">We believe you should have total control over your digital footprint. Depending on your jurisdiction within the United States, you hold specific rights regarding your data:</p>
+                                            <ul className="list-disc pl-5 space-y-2 mb-4">
+                                                <li><strong className="text-slate-200">Right to Access:</strong> You may request a copy of the Personal Data we currently hold about you.</li>
+                                                <li><strong className="text-slate-200">Right to Correction:</strong> You may request that we update or correct inaccurate administrative or billing information.</li>
+                                                <li><strong className="text-slate-200">Right to Deletion:</strong> You may request the erasure of your Personal Data from our active systems. Please note that fulfilling a deletion request may require us to terminate your active web hosting or dashboard access.</li>
+                                            </ul>
+                                            <p>To exercise any of these rights, please submit a formal request to our engineering team.</p>
+                                        </section>
+
+                                        <section>
+                                            <h3 className="text-lg font-bold text-white mb-2">7. Changes to this Policy</h3>
+                                            <p>As our technological stack evolves and federal/state privacy laws shift, we will update this Policy to reflect changes in our data architecture. We will post the revised Policy on our website and update the "Last Updated" date. For material changes that significantly alter how we process existing data, we will notify active clients directly via email.</p>
+                                        </section>
+
+                                        <section>
+                                            <h3 className="text-lg font-bold text-white mb-2">8. Contact the Engineering Team</h3>
+                                            <p>If you have technical questions regarding how your data is routed, stored, or protected, or if you need to exercise your privacy rights, please direct your inquiries to our operational team:</p>
+                                            <div className="mt-4 p-4 bg-slate-950 rounded-lg border border-slate-800 font-mono text-sm inline-block">
+                                                <p className="text-emerald-400 font-bold mb-1">Triple S Web Services</p>
+                                                <p>Email: <a href="mailto:engineering@tripleswebservices.com" className="text-cyan-400 hover:text-cyan-300 transition-colors">engineering@tripleswebservices.com</a></p>
+                                            </div>
                                         </section>
                                     </>
                                 )}
