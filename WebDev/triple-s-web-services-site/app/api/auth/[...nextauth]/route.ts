@@ -15,6 +15,10 @@ const handler = NextAuth({
                     return null;
                 }
 
+                // Add this line to debug what AWS actually sees:
+                console.log("DEBUG ENV EMAIL:", process.env.ADMIN_EMAIL);
+                console.log("DEBUG ENV PASS:", process.env.ADMIN_PASSWORD);
+
                 // 2. Compare inputs strictly against your .env variables
                 if (
                     credentials.email === process.env.ADMIN_EMAIL &&
