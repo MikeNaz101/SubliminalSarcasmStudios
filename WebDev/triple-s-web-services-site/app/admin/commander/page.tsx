@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { supabase } from '@/lib/supabase';
 import { Session } from '@supabase/supabase-js';
 
-// import Dashboard from '@/components/Dashboard'; // Import your actual dashboard component here
+import Dashboard from '@/components/Dashboard'; // Import your actual dashboard component here
 
 export default function CommanderPage() {
     const [session, setSession] = useState<Session | null>(null);
@@ -110,8 +110,7 @@ export default function CommanderPage() {
 
             {/* YOUR DASHBOARD COMPONENTS GO HERE */}
             <div className="p-6 text-white">
-                <h1 className="text-3xl font-bold">Welcome to Commander</h1>
-                {/* <Dashboard /> */}
+                <Dashboard />
             </div>
         </div>
     );
