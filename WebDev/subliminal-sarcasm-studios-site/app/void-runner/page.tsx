@@ -50,7 +50,7 @@ export default function VoidRunner() {
         <main style={voidTheme}>
             <header className="game-hero" style={{ background: `linear-gradient(to bottom, rgba(10,5,16,0.5), var(--bg-dark)), url('/images/void_runner_bg.jpg')`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
                 <div className="game-hero-content">
-                    <h1 className="game-title" style={{ fontStyle: 'italic', letterSpacing: '2px' }}>Vector Void</h1>
+                    <h1 className="game-title" style={{ fontStyle: 'italic', letterSpacing: '2px' }}>Void Runner</h1>
                     <p className="game-tagline">High-Speed Infinite Arcade Combat.</p>
                     <a href="#play-now" className="play-btn-large">Enter the Void</a>
                 </div>
@@ -64,7 +64,7 @@ export default function VoidRunner() {
 
             <section className="game-section">
                 <h2>Survive the Endless Run</h2>
-                <p>Vector Void is a high-octane 3D flying arcade shooter where reflexes mean everything. Navigate treacherous, infinitely generating cosmic pathways while engaging in classic, Star Fox-style dogfighting combat.</p>
+                <p>Void Runner is a high-octane 3D flying arcade shooter where reflexes mean everything. Navigate treacherous, infinitely generating cosmic pathways while engaging in classic, Star Fox-style dogfighting combat.</p>
                 <p>The void is unrelenting, but you are not alone. As you push further into the unknown, the game adapts to your skill level, ensuring that every run is as challenging as it is exhilarating.</p>
             </section>
 
@@ -99,7 +99,7 @@ export default function VoidRunner() {
                         <iframe
                             src="https://unity-td-fps-game-builds.s3.us-east-2.amazonaws.com/void-runner/index.html"
                             style={{ width: '100%', height: '100%', border: 'none', display: 'block' }}
-                            title="Vector Void WebGL"
+                            title="Void Runner WebGL"
                             allow="autoplay; fullscreen; xr-spatial-tracking; camera; microphone"
                             scrolling="no"
                         />
@@ -127,7 +127,7 @@ export default function VoidRunner() {
                 <div className="survey-overlay">
                     <div className="survey-box">
                         <h2>Thank you for playing!</h2>
-                        <p>Your feedback helps make Vector Void better. Do you have a quick minute for a brief survey?</p>
+                        <p>Your feedback helps make Void Runner better. Do you have a quick minute for a brief survey?</p>
 
                         <div>
                             {/* Remember to replace YOUR_FORM_LINK with your actual Google Form URL! */}

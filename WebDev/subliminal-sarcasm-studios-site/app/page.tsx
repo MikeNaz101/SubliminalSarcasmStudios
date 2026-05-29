@@ -66,12 +66,12 @@ export default function Home() {
                     <div className="card-image">
                         <img
                             src="/images/void_runner_bg.jpg"
-                            alt="Vector Void"
+                            alt="Void Runner"
                             onError={(e) => { e.currentTarget.src = 'https://placehold.co/600x400/0a0510/ff8c00?text=Vector+Void'; }}
                         />
                     </div>
                     <div className="card-content">
-                        <h3 className="card-title">Vector Void</h3>
+                        <h3 className="card-title">Void Runner</h3>
                         <p className="card-desc">A high-octane 3D flying arcade shooter featuring adaptive difficulty and Ghost Protocol run assists.</p>
                         <div className="card-meta">
                             <span className="status-badge" style={{ color: '#ff8c00', backgroundColor: 'rgba(255, 140, 0, 0.1)' }}>In Dev</span>
