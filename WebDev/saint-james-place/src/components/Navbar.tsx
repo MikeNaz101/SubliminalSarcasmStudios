@@ -30,6 +30,7 @@ export default function Navbar() {
                         <Link href="/" className="text-sm font-bold tracking-widest uppercase hover:text-gold-500 transition-colors">Home</Link>
                         <Link href="/floorplans" className="text-sm font-bold tracking-widest uppercase hover:text-gold-500 transition-colors">Floor Plans</Link>
                         <Link href="/amenities" className="text-sm font-bold tracking-widest uppercase hover:text-gold-500 transition-colors">Amenities</Link>
+                        <Link href="/grant-program" className="text-sm font-bold tracking-widest uppercase text-gold-500 hover:text-white transition-colors">Grants</Link>
                         <Link href="/gallery" className="text-sm font-bold tracking-widest uppercase hover:text-gold-500 transition-colors">Gallery</Link>
 
                         {/* AUTH SECTION DELEGATED TO COMPONENT */}
