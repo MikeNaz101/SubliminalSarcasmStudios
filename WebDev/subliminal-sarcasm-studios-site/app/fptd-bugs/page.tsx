@@ -1,104 +1,105 @@
-"use client";
-
-import { useEffect } from 'react';
-import Link from 'next/link';
+import type { Metadata } from 'next';
 import '../game-page.css';
+import AccentSync from '../../components/AccentSync';
+import GameHero from '../../components/GameHero';
+import PageView from '../../components/PageView';
+import TrackedLink from '../../components/TrackedLink';
+
+const GAME_NAME = 'FPS_TD_BUG_Game';
+
+export const metadata: Metadata = {
+    title: 'Project Aegis',
+    description: 'An early hybrid of fast-paced FPS and strategic tower defense.',
+};
 
 export default function ProjectAegis() {
-    const SERVER_URL = "https://subliminal-backend.onrender.com";
-
-    useEffect(() => {
-        fetch(`${SERVER_URL}/track`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ gameName: 'FPS_TD_BUG_Game', type: 'view' })
-        }).catch(err => console.log("Tracking Error:", err));
-    }, []);
-
-    const trackPlay = () => {
-        fetch(`${SERVER_URL}/track`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ gameName: 'FPS_TD_BUG_Game', type: 'play' })
-        }).catch(err => console.log("Tracking Error:", err));
-    };
-
     return (
         <main>
-            <header className="game-hero" style={{ background: `linear-gradient(to bottom, rgba(12,26,26,0.3), var(--bg-dark)), url('/images/bugs_concept.jpg')`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
-                <div className="game-hero-content">
-                    <h1 className="game-title">Project Aegis</h1>
-                    <p className="game-tagline">A high-octane hybrid of fast-paced FPS and strategic tower defense.</p>
-                    <a href="#play-now" className="play-btn-large" onClick={trackPlay}>Play Web Alpha</a>
-                </div>
-            </header>
+            <PageView name={GAME_NAME} />
+            <AccentSync accent="#7CE0FF" onAccent="#001820" />
 
-            <div className="stats-bar">
-                <div className="stat-item"><span className="stat-label">Genre</span><div className="stat-value">FPS / Tower Defense</div></div>
-                <div className="stat-item"><span className="stat-label">Engine</span><div className="stat-value">Unity</div></div>
-                <div className="stat-item"><span className="stat-label">Status</span><div className="stat-value" style={{ color: 'var(--primary-color)' }}>Active Development</div></div>
-            </div>
+            <GameHero
+                title="Project Aegis"
+                tagline="A hybrid of fast-paced FPS and strategic tower defense."
+                facts={[
+                    { label: 'Genre', value: 'FPS / tower defense' },
+                    { label: 'Engine', value: 'Unity' },
+                    { label: 'Status', value: 'Web alpha' },
+                ]}
+                actions={
+                    <TrackedLink href="#play" gameName={GAME_NAME} className="btn btn-primary">
+                        Play the web alpha
+                    </TrackedLink>
+                }
+            />
 
             <section className="game-section">
-                <h2>About The Game</h2>
-                <p>Project Aegis throws you into a claustrophobic alien swarm. You must defend your core against waves of enemies using an arsenal of weaponry while dynamically constructing and upgrading defensive towers on the fly. Success requires both twitch-reflex gunplay and quick, strategic resource management.</p>
-                <p>Will you use your limited resources (Scrap) for that crucial tower upgrade, or save it to buy a more powerful weapon? Your choices determine the fate of the Core.</p>
+                <h2>About the game</h2>
+                <div className="game-prose">
+                    <p>
+                        Project Aegis throws you into a claustrophobic alien swarm. Defend your core against waves of
+                        enemies with an arsenal of weapons while you build and upgrade defensive towers on the fly.
+                        Success takes twitch-reflex gunplay and quick resource management.
+                    </p>
+                    <p>
+                        Spend your scrap on that crucial tower upgrade, or save it for a more powerful weapon? Your
+                        choices decide the fate of the core.
+                    </p>
+                </div>
             </section>
 
             <div className="alt-bg">
                 <div className="alt-bg-inner">
-                    <h2>Core Features</h2>
+                    <h2>Core features</h2>
                     <div className="features-grid">
-                        <div className="feature-card"><h3>Dynamic Player Controller</h3><p>Fast, responsive, Doom-inspired movement for high-speed engagement.</p></div>
-                        <div className="feature-card"><h3>Grid-less Tower Building</h3><p>Build and upgrade defensive towers anywhere on the map using collected 'Scrap'.</p></div>
-                        <div className="feature-card"><h3>Advanced Enemy AI</h3><p>NavMesh-based AI with target prioritization (Player, Core, Doors) and environmental awareness.</p></div>
-                        <div className="feature-card"><h3>Adaptive Difficulty Director</h3><p>An 'AI Director' monitors player accuracy and performance, adjusting enemy aggression and behavior in real-time.</p></div>
-                        <div className="feature-card"><h3>Complex Weapon System</h3><p>Hitscan weapon controller complete with recoil, aiming down sights (ADS), and damage drop-off.</p></div>
-                        <div className="feature-card"><h3>Enemy Behavior</h3><p>Enemies react to player-made sounds (gunshots) and use a Field of View component to acquire targets.</p></div>
+                        <div className="feature-card"><h3>Fast player controller</h3><p>Responsive, Doom-inspired movement for high-speed engagements.</p></div>
+                        <div className="feature-card"><h3>Grid-less tower building</h3><p>Build and upgrade towers anywhere on the map using the scrap you collect.</p></div>
+                        <div className="feature-card"><h3>Enemy AI</h3><p>NavMesh-based enemies prioritize targets (player, core, doors) and react to their surroundings.</p></div>
+                        <div className="feature-card"><h3>Adaptive difficulty director</h3><p>An AI director watches your accuracy and performance and tunes enemy aggression in real time.</p></div>
+                        <div className="feature-card"><h3>Weapon system</h3><p>Hitscan weapons with recoil, aim down sights and damage drop-off.</p></div>
+                        <div className="feature-card"><h3>Enemy senses</h3><p>Enemies hear your gunshots and use a field of view to pick up targets.</p></div>
                     </div>
                 </div>
             </div>
 
-            <section className="game-section" id="roadmap">
-                <h2>What's Next (Roadmap)</h2>
-                <p>The team is currently focused on:</p>
-                <ul style={{ color: 'var(--text-main)', fontSize: '1.1rem', paddingLeft: '20px', lineHeight: '1.5', listStyleType: 'disc' }}>
-                    <li>Expanding the arsenal with new weapons and tower types.</li>
-                    <li>Designing more complex enemy types (like the 'Spawner' Queen).</li>
-                    <li>Building and balancing a full set of levels.</li>
-                    <li>Creating the final 3D models and sound design.</li>
+            <section className="game-section">
+                <h2>What&apos;s next</h2>
+                <ul className="roadmap">
+                    <li>New weapons and tower types.</li>
+                    <li>More complex enemies, like the Spawner Queen.</li>
+                    <li>A full set of balanced levels.</li>
+                    <li>Final 3D models and sound design.</li>
                 </ul>
             </section>
 
             <div className="alt-bg">
                 <div className="alt-bg-inner">
-                    <h2>Development Team</h2>
+                    <h2>Development team</h2>
                     <div className="team-list">
-                        <div className="team-member"><span className="team-role">Lead Developer & Programmer</span><div className="team-name">Mike Nasierowski</div></div>
-                        <div className="team-member"><span className="team-role">Project Lead & Level Designer</span><div className="team-name">Vinny Verda</div></div>
-                        <div className="team-member"><span className="team-role">Project Manager & Ass't Programmer</span><div className="team-name">Jason Scott</div></div>
-                        <div className="team-member"><span className="team-role">QA & Gameplay Balancing</span><div className="team-name">Derek?</div></div>
+                        <div><span className="team-role">Lead developer and programmer</span><div className="team-name">Mike Nasierowski</div></div>
+                        <div><span className="team-role">Project lead and level designer</span><div className="team-name">Vinny Verda</div></div>
+                        <div><span className="team-role">Project manager and assistant programmer</span><div className="team-name">Jason Scott</div></div>
+                        <div><span className="team-role">QA and gameplay balancing</span><div className="team-name">Derek</div></div>
                     </div>
                 </div>
             </div>
 
-            <section id="play-now" style={{ textAlign: 'center', paddingTop: '40px', paddingBottom: '60px' }}>
-                <h2 style={{ border: 'none', marginBottom: '30px' }}>Play Online</h2>
-                <div style={{ display: 'flex', justifyContent: 'center', padding: '0 20px' }}>
-                    <div style={{ position: 'relative', width: '960px', height: '600px', maxWidth: '100%', aspectRatio: '16/9', background: '#000', border: '3px solid var(--primary-color)', boxShadow: '0 0 30px rgba(0, 255, 255, 0.15)', borderRadius: '4px', overflow: 'hidden' }}>
-                        <iframe
-                            src="https://unity-td-fps-game-builds.s3.amazonaws.com/unity-fps-td-game/index.html"
-                            style={{ width: '100%', height: '100%', border: 'none', display: 'block' }}
-                            title="Project Aegis WebGL"
-                            allow="autoplay; fullscreen; xr-spatial-tracking; payment; camera; microphone"
-                            scrolling="no"
-                        />
-                    </div>
+            <section id="play" className="play-section">
+                <h2>Play online</h2>
+                <p>An early alpha that runs in your browser on desktop. Click inside the game to capture your cursor.</p>
+                <div className="play-frame">
+                    <iframe
+                        src="https://unity-td-fps-game-builds.s3.amazonaws.com/unity-fps-td-game/index.html"
+                        title="Project Aegis, playable WebGL alpha"
+                        allow="autoplay; fullscreen; xr-spatial-tracking; payment; camera; microphone"
+                        scrolling="no"
+                    />
                 </div>
-                <div style={{ marginTop: '25px' }}>
-                    <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', marginBottom: '15px' }}>
-                        <span style={{ color: 'var(--primary-color)', fontWeight: 'bold' }}>CONTROLS:</span> WASD to Move • Mouse to Aim • Click to Capture Cursor • ESC to Release
-                    </p>
+                <div className="play-controls">
+                    <span><kbd>W</kbd> <kbd>A</kbd> <kbd>S</kbd> <kbd>D</kbd> Move</span>
+                    <span>Mouse to aim</span>
+                    <span>Click to capture the cursor</span>
+                    <span><kbd>Esc</kbd> Release it</span>
                 </div>
             </section>
         </main>

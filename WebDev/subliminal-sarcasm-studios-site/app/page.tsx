@@ -1,154 +1,162 @@
-"use client";
-
-import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
-import Particles, { initParticlesEngine } from "@tsparticles/react";
-import { loadSlim } from "@tsparticles/slim";
-import HeroSlider from '../components/HeroSlider'; // <--- Import the new isolated component
+import type { CSSProperties } from 'react';
+import GameShowcase from '../components/GameShowcase';
+import LogoEye from '../components/LogoEye';
+import PageView from '../components/PageView';
+import { featuredGames, inDevelopment, type FeaturedGame } from '../lib/games';
 import './page.css';
 
-const particlesOptions = {
-    background: { color: { value: "transparent" } },
-    fpsLimit: 60,
-    interactivity: {
-        events: { onHover: { enable: true, mode: "repulse" }, resize: { enable: true } },
-        modes: { repulse: { distance: 100, duration: 0.4 } }
-    },
-    particles: {
-        color: { value: "#00FFFF" },
-        links: { color: "#3d6a3d", distance: 150, enable: true, opacity: 0.5, width: 1 },
-        move: { enable: true, speed: 1, outModes: { default: "bounce" as const } },
-        number: { density: { enable: true, width: 800 }, value: 80 },
-        opacity: { value: 0.5 },
-        shape: { type: "circle" },
-        size: { value: { min: 1, max: 5 } }
-    },
-    detectRetina: true
-};
+function PlayButton({ game }: { game: FeaturedGame }) {
+    if (!game.play) return null;
+    return game.play.external ? (
+        <a href={game.play.href} className="btn btn-primary" target="_blank" rel="noreferrer">
+            {game.play.label}
+        </a>
+    ) : (
+        <Link href={game.play.href} className="btn btn-primary">{game.play.label}</Link>
+    );
+}
 
-export default function Home() {
-    const [init, setInit] = useState(false);
-
-    useEffect(() => {
-        initParticlesEngine(async (engine) => {
-            await loadSlim(engine);
-        }).then(() => setInit(true));
-    }, []);
-
-    useEffect(() => {
-        const SERVER_URL = "https://subliminal-backend.onrender.com";
-        fetch(`${SERVER_URL}/track`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ gameName: 'Home_Page', type: 'view' })
-        }).catch(err => console.log("Tracking Error:", err));
-    }, []);
+function GameRow({ game, flip }: { game: FeaturedGame; flip: boolean }) {
+    const [key, ...rest] = game.shots;
+    const phone = rest.find((s) => s.height > s.width);
+    const extras = rest.filter((s) => s.width >= s.height).slice(0, 2);
+    const isSvg = key.src.endsWith('.svg');
 
     return (
+        <article
+            className={`game-row${flip ? ' is-flipped' : ''}`}
+            style={{ '--accent': game.accent, '--on-accent': game.onAccent } as CSSProperties}
+            aria-labelledby={`row-${game.slug}`}
+        >
+            <div className={`game-row-media${phone ? ' has-phone' : ''}`}>
+                <Link href={game.href} className="game-row-key" tabIndex={-1} aria-hidden="true">
+                    <Image
+                        src={key.src}
+                        alt=""
+                        width={key.width}
+                        height={key.height}
+                        sizes="(max-width: 960px) 100vw, 760px"
+                        unoptimized={isSvg}
+                    />
+                </Link>
+                {phone && (
+                    <figure className="game-row-phone">
+                        <Image src={phone.src} alt={phone.alt} width={phone.width} height={phone.height} sizes="200px" />
+                    </figure>
+                )}
+                {extras.length > 0 && (
+                    <div className="game-row-extras">
+                        {extras.map((shot) => (
+                            <Image
+                                key={shot.src}
+                                src={shot.src}
+                                alt={shot.alt}
+                                width={shot.width}
+                                height={shot.height}
+                                sizes="(max-width: 960px) 50vw, 380px"
+                            />
+                        ))}
+                    </div>
+                )}
+                {game.awaitingScreens && (
+                    <p className="game-row-caption">Title card. Captures from the headset are coming soon.</p>
+                )}
+            </div>
+
+            <div className="game-row-body">
+                <h3 id={`row-${game.slug}`}>
+                    <Link href={game.href}>{game.title}</Link>
+                </h3>
+                <p className="game-row-tagline">{game.tagline}</p>
+                <p className="game-row-summary">{game.summary}</p>
+                <dl className="facts">
+                    <div><dt>Genre</dt><dd>{game.genre}</dd></div>
+                    <div><dt>Platform</dt><dd>{game.platform}</dd></div>
+                    <div><dt>Status</dt><dd>{game.status}</dd></div>
+                </dl>
+                <div className="btn-row">
+                    <PlayButton game={game} />
+                    <Link href={game.href} className={game.play ? 'btn btn-ghost' : 'btn btn-primary'}>
+                        About the game
+                    </Link>
+                </div>
+            </div>
+        </article>
+    );
+}
+
+export default function Home() {
+    return (
         <main>
-            {init && (
-                <Particles
-                    id="tsparticles"
-                    style={{ position: "fixed", top: 0, left: 0, width: "100%", height: "100%", zIndex: -1 }}
-                    options={particlesOptions}
-                />
-            )}
+            <PageView name="Home_Page" />
+            <h1 className="sr-only">Subliminal Sarcasm Studios</h1>
 
-            {/* Drop the slider component here! */}
-            <HeroSlider />
+            <GameShowcase games={featuredGames} />
 
-            {/* --- GAMES GRID --- */}
-            <h2 className="section-title">Featured Projects</h2>
-            <section className="games-grid">
+            <section id="games" className="games wrap" aria-labelledby="games-title">
+                <div className="section-head">
+                    <h2 id="games-title">Our games</h2>
+                    <p>Four projects far enough along to play, show off or put in front of a crowd.</p>
+                </div>
+                <div className="game-rows">
+                    {featuredGames.map((game, i) => (
+                        <GameRow key={game.slug} game={game} flip={i % 2 === 1} />
+                    ))}
+                </div>
+            </section>
 
-                {/* --- NEW GAME: VECTOR VOID --- */}
-                <Link href="/void-runner" className="game-card">
-                    <div className="card-image">
-                        <img
-                            src="/images/void_runner_bg.jpg"
-                            alt="Void Runner"
-                            onError={(e) => { e.currentTarget.src = 'https://placehold.co/600x400/0a0510/ff8c00?text=Vector+Void'; }}
-                        />
+            <section id="studio" className="studio" aria-labelledby="studio-title">
+                <div className="wrap studio-grid">
+                    <div className="studio-logo">
+                        <LogoEye variant="full" sizes="(max-width: 860px) 80vw, 520px" />
                     </div>
-                    <div className="card-content">
-                        <h3 className="card-title">Void Runner</h3>
-                        <p className="card-desc">A high-octane 3D flying arcade shooter featuring adaptive difficulty and Ghost Protocol run assists.</p>
-                        <div className="card-meta">
-                            <span className="status-badge" style={{ color: '#ff8c00', backgroundColor: 'rgba(255, 140, 0, 0.1)' }}>In Dev</span>
+                    <div className="studio-copy">
+                        <h2 id="studio-title">Developing the unseen.</h2>
+                        <p>
+                            Subliminal Sarcasm started at UAlbany as a group of friends who could not stop talking
+                            about the games they wished existed. Now we are a small independent studio making them:
+                            browser games you can play right now, party games for a room full of phones, and VR built
+                            for the headset first.
+                        </p>
+                        <p>
+                            The name is the method. Subliminal for the systems you feel before you notice them.
+                            Sarcasm for the wink that tells you to look a little closer.
+                        </p>
+                        <div className="btn-row">
+                            <Link href="/about" className="btn btn-light">About the studio</Link>
                         </div>
                     </div>
-                </Link>
+                </div>
+            </section>
 
-                {/* --- NEW GAME: DIMENSIONAL STEALTH --- */}
-                <Link href="/dimensional-stealth" className="game-card">
-                    <div className="card-image">
-                        <img
-                            src="/images/stealth_bg.jpg"
-                            alt="Dimensional Stealth"
-                            onError={(e) => { e.currentTarget.src = 'https://placehold.co/600x400/051010/00ffcc?text=Dimensional+Stealth'; }}
-                        />
-                    </div>
-                    <div className="card-content">
-                        <h3 className="card-title">Dimensional Stealth</h3>
-                        <p className="card-desc">A first-person stealth FPS where you shift between Hunting Grounds and Danger Zones to survive.</p>
-                        <div className="card-meta">
-                            <span className="status-badge" style={{ color: '#00ffcc', backgroundColor: 'rgba(0, 255, 204, 0.1)' }}>Prototyping</span>
-                        </div>
-                    </div>
-                </Link>
-
-                <Link href="/donner-party" className="game-card">
-                    <div className="card-image">
-                        <img src="/images/DPG_1_small.png" alt="Donner Party Gameplay" />
-                    </div>
-                    <div className="card-content">
-                        <h3 className="card-title">The Donner Party... Game?</h3>
-                        <p className="card-desc">A multiplayer, vote-driven survival experience where cooperation and communication determine survival.</p>
-                        <div className="card-meta">
-                            <span className="status-badge">In Development</span>
-                        </div>
-                    </div>
-                </Link>
-
-                <Link href="/fptd-bugs" className="game-card">
-                    <div className="card-image">
-                        <img src="/images/bugs_concept.jpg" alt="FP/TD Bugs" />
-                    </div>
-                    <div className="card-content">
-                        <h3 className="card-title">FP/TD Bugs</h3>
-                        <p className="card-desc">High-octane hybrid of FPS and Tower Defense. Build towers, shoot bugs, save the core.</p>
-                        <div className="card-meta">
-                            <span className="status-badge">Active Dev</span>
-                        </div>
-                    </div>
-                </Link>
-
-                <Link href="/geometry-defenders" className="game-card">
-                    <div className="card-image">
-                        <img src="/images/vr_concept.jpg" alt="Geometry Defenders XR" />
-                    </div>
-                    <div className="card-content">
-                        <h3 className="card-title">Geometry Defenders XR</h3>
-                        <p className="card-desc">Immersive VR/XR tower defense experience designed for modern headsets.</p>
-                        <div className="card-meta">
-                            <span className="status-badge">Alpha</span>
-                        </div>
-                    </div>
-                </Link>
-
-                <Link href="/syn-city" className="game-card">
-                    <div className="card-image">
-                        <img src="/images/syn_city_concept.jpg" alt="Syn City" />
-                    </div>
-                    <div className="card-content">
-                        <h3 className="card-title">Syn City</h3>
-                        <p className="card-desc">A futuristic project currently in early conceptualization.</p>
-                        <div className="card-meta">
-                            <span className="status-badge">Concept</span>
-                        </div>
-                    </div>
-                </Link>
-
+            <section id="in-development" className="early wrap" aria-labelledby="early-title">
+                <details className="early-details">
+                    <summary>
+                        <span className="early-summary-text">
+                            <h2 id="early-title">In lower stages of development</h2>
+                            <span>Early builds and ideas we are still finding the fun in. Expect rough edges.</span>
+                        </span>
+                        <span className="early-toggle" aria-hidden="true" />
+                    </summary>
+                    <ul className="early-list">
+                        {inDevelopment.map((project) => (
+                            <li key={project.title} className="early-item">
+                                <div>
+                                    <h3>{project.title}</h3>
+                                    <p>{project.summary}</p>
+                                </div>
+                                <p className="early-stage">{project.stage}</p>
+                                {project.href ? (
+                                    <Link href={project.href} className="early-link">Project page</Link>
+                                ) : (
+                                    <span className="early-link is-muted">No public build yet</span>
+                                )}
+                            </li>
+                        ))}
+                    </ul>
+                </details>
             </section>
         </main>
     );

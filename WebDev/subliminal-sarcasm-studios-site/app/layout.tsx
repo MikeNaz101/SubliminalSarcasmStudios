@@ -1,32 +1,53 @@
-import { Montserrat, Cinzel } from 'next/font/google';
+import type { Metadata, Viewport } from 'next';
+import { Bricolage_Grotesque, Instrument_Sans } from 'next/font/google';
 import './globals.css';
 import Navbar from '../components/Navbar';
-import Footer from '../components/Footer'; // <--- 1. Import the Footer
+import Footer from '../components/Footer';
 
-const montserrat = Montserrat({ subsets: ['latin'], weight: ['400', '700', '900'], variable: '--font-montserrat' });
-const cinzel = Cinzel({ subsets: ['latin'], weight: ['400', '700'], variable: '--font-cinzel' });
+const display = Bricolage_Grotesque({
+    subsets: ['latin'],
+    variable: '--font-display',
+    display: 'swap',
+});
 
-export const metadata = {
-    title: 'Subliminal Sarcasm Studios',
-    description: 'Developing the Unseen.',
+const body = Instrument_Sans({
+    subsets: ['latin'],
+    variable: '--font-body',
+    display: 'swap',
+});
+
+export const metadata: Metadata = {
+    metadataBase: new URL('https://subliminalsarcasmstudios.com'),
+    title: {
+        default: 'Subliminal Sarcasm Studios',
+        template: '%s | Subliminal Sarcasm Studios',
+    },
+    description:
+        'Independent game studio behind Void Runner, Syn City, The Donner Party... Game? and Geometry Defenders XR.',
+    openGraph: {
+        type: 'website',
+        siteName: 'Subliminal Sarcasm Studios',
+        images: [{ url: '/images/games/void-runner/01.jpg', width: 1280, height: 720, alt: 'Void Runner gameplay' }],
+    },
+};
+
+export const viewport: Viewport = {
+    themeColor: '#000000',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
         <html lang="en">
-        <body className={`${montserrat.className} ${cinzel.variable}`}>
-        {/* We wrap everything in a flex column so the footer is always pushed to the bottom */}
-        <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-            <Navbar />
-
-            {/* The main page content loads here */}
-            <div style={{ flexGrow: 1 }}>
-                {children}
-            </div>
-
-            <Footer /> {/* <--- 2. Drop the Footer here */}
-        </div>
-        </body>
+            <body className={`${display.variable} ${body.variable}`}>
+                <a href="#main" className="skip-link">Skip to content</a>
+                <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+                    <Navbar />
+                    <div id="main" style={{ flexGrow: 1 }}>
+                        {children}
+                    </div>
+                    <Footer />
+                </div>
+            </body>
         </html>
     );
 }

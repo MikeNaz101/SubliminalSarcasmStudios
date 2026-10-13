@@ -1,0 +1,25 @@
+.logo-eye {
+    position: relative;
+    display: inline-block;
+    line-height: 0;
+}
+
+.logo-eye-base {
+    width: 100%;
+    height: auto;
+}
+
+.logo-eye-iris {
+    position: absolute;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    transition: transform 0.25s ease-out;
+    will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .logo-eye-iris { transition: none; }
+}

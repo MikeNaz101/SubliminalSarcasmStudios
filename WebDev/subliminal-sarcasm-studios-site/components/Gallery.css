@@ -1,0 +1,75 @@
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.gallery-grid.is-odd > li:first-child { grid-column: 1 / -1; }
+
+/* A phone capture sits beside the landscape shots at a matching height. */
+.gallery-grid.has-portrait { grid-template-columns: minmax(0, 2.6fr) minmax(0, 1fr); }
+.gallery-grid.has-portrait > li.is-portrait { grid-column: 2; }
+
+@media (max-width: 720px) {
+    .gallery-grid,
+    .gallery-grid.has-portrait { grid-template-columns: 1fr; }
+    .gallery-grid.has-portrait > li.is-portrait { grid-column: auto; grid-row: auto !important; max-width: 360px; }
+}
+
+.gallery-item {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    border-radius: var(--radius-m);
+    overflow: hidden;
+    background: var(--violet-deep);
+    box-shadow: 0 0 0 1px var(--line);
+    cursor: zoom-in;
+}
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+.is-portrait .gallery-item img { aspect-ratio: auto; object-fit: cover; object-position: top; }
+.gallery-item:hover img { transform: scale(1.03); }
+
+.lightbox {
+    width: min(1400px, 94vw);
+    max-height: 94vh;
+    padding: 16px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-m);
+    background: var(--ink);
+    color: var(--bone);
+}
+.lightbox::backdrop { background: rgb(0 0 0 / 0.85); }
+
+.lightbox-figure { margin: 0; display: grid; gap: 12px; }
+.lightbox-img {
+    width: 100%;
+    height: auto;
+    max-height: calc(94vh - 160px);
+    object-fit: contain;
+    border-radius: var(--radius-s);
+}
+.lightbox-figure figcaption {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    color: var(--haze);
+    font-size: 0.9375rem;
+}
+.lightbox-count { white-space: nowrap; }
+
+.lightbox-controls {
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 12px;
+}

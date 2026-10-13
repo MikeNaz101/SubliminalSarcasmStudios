@@ -1,36 +1,26 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Subliminal Sarcasm Studios website
 
-## Getting Started
-
-First, run the development server:
+The studio site, built with Next.js (App Router).
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev   # http://localhost:3005
+npm run build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Where things live
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- `lib/games.ts` is the list of every game on the site. Featured games get the home page showcase, a row in "Our games" and their own page. Everything in `inDevelopment` only shows up in the collapsed "In lower stages of development" section at the bottom of the home page.
+- `public/images/games/<slug>/` holds the screenshots. Void Runner and Syn City frames were captured from the live WebGL builds; Donner Party's come from the original repo images.
+- `components/` has the shared pieces: the nav and footer, the showcase, the game page hero, the screenshot gallery and the logo with the eye that follows the cursor.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Adding or replacing screenshots
 
-## Learn More
+1. Drop the image into `public/images/games/<slug>/` (JPEG, around 1600px wide is plenty).
+2. Add it to that game's `shots` array in `lib/games.ts` with its real width, height and a short description for `alt`. The first shot is the key image used in the showcase and at the top of the game page.
 
-To learn more about Next.js, take a look at the following resources:
+Geometry Defenders XR is still using a placeholder title card (`awaitingScreens: true`). Once you have headset captures, add them to its `shots` and remove `awaitingScreens`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Promoting an early project
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Move its entry from `inDevelopment` to `featuredGames` in `lib/games.ts`, give it an accent colour and at least one screenshot.

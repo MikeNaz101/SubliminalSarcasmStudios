@@ -1,74 +1,51 @@
-/* --- ABOUT PAGE HERO --- */
-.hero-small {
-    height: 50vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+.about-hero {
+    background: var(--violet);
+    padding-block: clamp(56px, 9vw, 112px);
+}
+
+.about-hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 440px);
+    gap: clamp(32px, 6vw, 80px);
     align-items: center;
-    text-align: center;
-    position: relative;
-    background: radial-gradient(circle, rgba(12,26,26,0.4) 0%, var(--bg-dark) 90%);
-    margin-top: 60px;
-    border-bottom: 1px solid #3d6a3d;
 }
 
-.hero-small h1 {
-    font-size: 3.5rem;
-    margin: 0;
-    color: #fff;
-    text-shadow: 0 5px 15px rgba(0,0,0,0.8);
-    text-transform: uppercase;
+.about-hero-copy { display: grid; gap: 16px; }
+.about-hero-copy h1 { font-size: clamp(2.75rem, 7vw, 5.5rem); font-weight: 800; letter-spacing: -0.035em; }
+.about-hero-copy p { font-size: clamp(1.25rem, 2.2vw, 1.75rem); color: #efe4fb; }
+
+.about-hero-logo {
+    width: 100%;
+    border-radius: var(--radius-m);
+    overflow: hidden;
+    box-shadow: 0 30px 60px rgb(20 0 40 / 0.45);
 }
 
-.hero-small p {
-    font-size: 1.2rem;
-    color: var(--primary-color);
-    margin-top: 10px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-}
-
-/* --- DUALITY CARDS --- */
 .duality-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-    margin: 40px 0;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+    gap: 20px;
+    margin-block: 36px;
 }
 
 .duality-card {
-    background: rgba(20, 34, 34, 0.8);
-    border: 1px solid rgba(0, 255, 255, 0.2);
-    padding: 30px;
-    border-radius: 8px;
-    transition: transform 0.3s;
+    padding: 28px;
+    border-radius: var(--radius-m);
+    background: var(--ink);
+    border: 1px solid var(--line);
 }
+.duality-card h3 { font-size: 1.75rem; font-weight: 800; margin-bottom: 10px; }
+.duality-card:first-child h3 { color: var(--scale); }
+.duality-card:last-child h3 { color: var(--iris); }
+.duality-card p { color: var(--haze); }
 
-.duality-card:hover {
-    transform: translateY(-5px);
-    border-color: var(--primary-color);
-}
+.about-wink { font-size: 1.25rem; max-width: 36rem; }
 
-.duality-card h3 {
-    color: var(--accent-color);
-    font-size: 1.5rem;
-    margin-top: 0;
-    text-transform: uppercase;
-}
+.about-commitments { margin-top: 20px; }
+.about-commitments strong { color: var(--bone); }
+.about-cta { margin-top: 36px; }
 
-/* --- ROADMAP LIST --- */
-.roadmap-list li {
-    position: relative;
-    padding-left: 30px;
-    margin-bottom: 15px;
-    color: var(--text-muted);
-    line-height: 1.6;
-    font-size: 1.1rem;
-}
-
-.roadmap-list li::before {
-    content: '►';
-    position: absolute;
-    left: 0;
-    color: var(--primary-color);
+@media (max-width: 860px) {
+    .about-hero-grid { grid-template-columns: 1fr; }
+    .about-hero-logo { max-width: 360px; }
 }

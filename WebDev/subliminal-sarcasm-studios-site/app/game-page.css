@@ -1,184 +1,222 @@
-/* --- GAME HERO SECTION --- */
+/* Shared layout for every game page. Pages set their colour with <AccentSync>. */
+
+/* ---------- Hero ---------- */
+
 .game-hero {
-    height: 80vh;
     position: relative;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    margin-top: 60px;
-    background-size: cover;
-    background-position: center;
+    align-items: flex-end;
+    min-height: 440px;
+    height: min(78svh, 56.25vw);
+    overflow: hidden;
+    background:
+        radial-gradient(ellipse at 30% 30%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 60%),
+        var(--ink);
+}
+
+.game-hero-img { object-fit: cover; }
+
+.game-hero-scrim {
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(to top, var(--ink) 0%, rgb(0 0 0 / 0.7) 25%, rgb(0 0 0 / 0) 62%),
+        linear-gradient(to right, rgb(0 0 0 / 0.65) 0%, rgb(0 0 0 / 0) 55%);
 }
 
 .game-hero-content {
-    z-index: 2;
-    max-width: 900px;
-    padding: 20px;
+    position: relative;
+    display: grid;
+    gap: 16px;
+    padding-bottom: clamp(32px, 5vw, 56px);
 }
 
 .game-title {
-    font-size: 4.5rem;
-    font-weight: 900;
-    text-transform: uppercase;
-    color: #fff;
-    text-shadow: 0 0 20px rgba(0,0,0,0.9);
-    margin: 0;
-    line-height: 1.1;
+    font-size: clamp(2.75rem, 8vw, 6.5rem);
+    font-weight: 800;
+    letter-spacing: -0.035em;
+    line-height: 0.95;
+    max-width: 14ch;
+    text-shadow: 0 2px 24px rgb(0 0 0 / 0.6);
 }
 
 .game-tagline {
-    font-size: 1.5rem;
-    color: var(--primary-color);
-    margin: 20px 0 40px 0;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
-    font-weight: 700;
+    font-size: clamp(1.125rem, 2vw, 1.5rem);
+    max-width: 34rem;
 }
 
-.play-btn-large {
-    padding: 20px 50px;
-    background-color: var(--primary-color);
-    color: #0c1a1a;
-    font-size: 1.5rem;
-    font-weight: 900;
-    border-radius: 4px;
-    text-transform: uppercase;
-    box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
-    display: inline-block;
-    cursor: pointer;
-    border: none;
-}
+.game-hero-content .btn-row { margin-top: 8px; }
 
-.play-btn-large:hover {
-    background-color: #fff;
-    transform: scale(1.05);
-}
+/* ---------- Quick facts ---------- */
 
-/* --- STATS BAR --- */
-.stats-bar {
-    background-color: #050a0a;
-    border-bottom: 1px solid #3d6a3d;
-    padding: 20px 0;
+.stats-bar { border-bottom: 1px solid var(--line); }
+
+.stats-list {
     display: flex;
-    justify-content: center;
-    gap: 60px;
     flex-wrap: wrap;
+    gap: 16px clamp(32px, 6vw, 80px);
+    margin: 0 auto;
+    padding-block: 22px;
 }
 
-.stat-item { text-align: center; }
-.stat-label { display: block; font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
-.stat-value { font-size: 1.2rem; font-weight: 700; color: #fff; }
+.stat-label { font-size: 0.8125rem; color: var(--haze); }
+.stat-value { margin: 2px 0 0; font-weight: 650; font-size: 1.0625rem; }
 
-/* --- CONTENT SECTIONS --- */
-.game-section { padding: 80px 20px; max-width: 1100px; margin: 0 auto; }
-.game-section p { line-height: 1.8; font-size: 1.1rem; color: var(--text-muted); margin-bottom: 20px; }
-.game-section h2 { font-size: 2.5rem; color: #fff; border-left: 5px solid var(--primary-color); padding-left: 20px; margin-bottom: 40px; }
+/* ---------- Content sections ---------- */
 
-.alt-bg {
-    background-color: var(--bg-section-alt);
+.game-section {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: clamp(56px, 8vw, 104px) var(--gutter);
+}
+
+.game-section > h2,
+.alt-bg-inner > h2 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    margin-bottom: clamp(24px, 3vw, 40px);
+}
+
+.game-prose { max-width: 42rem; display: grid; gap: 18px; }
+.game-prose p { font-size: 1.125rem; color: var(--haze); }
+.game-prose strong { color: var(--bone); }
+
+.alt-bg { background: var(--violet-deep); }
+.alt-bg-inner {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: clamp(56px, 8vw, 104px) var(--gutter);
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+    gap: 0;
+    border-top: 1px solid var(--line);
+}
+
+.feature-card {
+    padding: 24px 28px 28px 0;
+    border-bottom: 1px solid var(--line);
+}
+.feature-card h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--bone);
+}
+.feature-card h3::before {
+    content: '';
+    display: block;
+    width: 28px;
+    height: 3px;
+    margin-bottom: 16px;
+    background: var(--accent);
+}
+.feature-card p { color: var(--haze); font-size: 1rem; max-width: 30rem; }
+
+.team-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr));
+    gap: 28px 32px;
+}
+.team-role { display: block; font-size: 0.875rem; color: var(--haze); margin-bottom: 4px; }
+.team-name { font-family: var(--font-display); font-size: 1.375rem; font-weight: 700; }
+
+.roadmap { display: grid; gap: 10px; max-width: 42rem; color: var(--haze); font-size: 1.0625rem; }
+.roadmap li { padding-left: 22px; position: relative; }
+.roadmap li::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0.7em;
+    width: 10px; height: 2px;
+    background: var(--accent);
+}
+
+/* ---------- Play ---------- */
+
+.play-section {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: clamp(56px, 8vw, 104px) var(--gutter);
+    scroll-margin-top: 72px;
+}
+.play-section > h2 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; margin-bottom: 12px; }
+.play-section > p { color: var(--haze); margin-bottom: 28px; max-width: 42rem; }
+
+.play-frame {
+    position: relative;
     width: 100%;
+    max-width: 1120px;
+    aspect-ratio: 16 / 10;
+    background: #000;
+    border-radius: var(--radius-m);
+    overflow: hidden;
+    box-shadow: 0 0 0 1px var(--line), 0 0 60px color-mix(in srgb, var(--accent) 18%, transparent);
+}
+.play-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+.play-controls {
     display: flex;
-    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px 24px;
+    margin-top: 20px;
+    color: var(--haze);
+    font-size: 0.9375rem;
+}
+.play-controls kbd {
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    padding: 2px 7px;
+    border: 1px solid var(--line);
+    border-bottom-width: 2px;
+    border-radius: 4px;
+    color: var(--bone);
 }
 
-.alt-bg-inner { max-width: 1100px; width: 100%; padding: 80px 20px; }
-
-/* --- GRIDS --- */
-.features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
-.feature-card { background: rgba(255,255,255,0.03); padding: 30px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); }
-.feature-card h3 { color: var(--accent-color); margin-top: 0; font-size: 1.3rem; }
-.feature-card p { font-size: 0.95rem; margin-bottom: 0; }
-
-.gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-.gallery-item { width: 100%; height: 250px; background-color: #000; border-radius: 5px; overflow: hidden; border: 1px solid #3d6a3d; transition: transform 0.3s; }
-.gallery-item:hover { transform: scale(1.02); border-color: var(--primary-color); }
-.gallery-item img { width: 100%; height: 100%; object-fit: cover; }
-
-.team-list { display: flex; flex-wrap: wrap; gap: 30px; }
-.team-member { flex: 1 1 200px; background: #0c1a1a; padding: 20px; border-left: 2px solid var(--accent-color); }
-.team-role { display: block; font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 5px; }
-.team-name { font-size: 1.2rem; font-weight: 700; color: #fff; }
-
-footer { background-color: #050a0a; padding: 40px; text-align: center; border-top: 1px solid #3d6a3d; }
-footer p { color: var(--text-muted); font-size: 0.9rem; margin: 0; }
-
-@media (max-width: 768px) {
-    .game-title { font-size: 3rem; }
-    .gallery-grid { grid-template-columns: 1fr; }
+.code-sample {
+    margin: 32px 0 0;
+    padding: 20px 24px;
+    max-width: 42rem;
+    border-radius: var(--radius-s);
+    background: #000;
+    border-left: 3px solid var(--accent);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    color: #d4d4d4;
+    overflow-x: auto;
 }
 
-/* --- SURVEY MODAL --- */
+/* ---------- Survey modal (Void Runner) ---------- */
+
 .survey-overlay {
     position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background-color: rgba(10, 5, 16, 0.85); /* Deep space dark background */
-    backdrop-filter: blur(8px);
-    z-index: 9999;
+    inset: 0;
+    z-index: 3000;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+    padding: 16px;
+    background: rgb(0 0 0 / 0.8);
+    backdrop-filter: blur(8px);
 }
 
 .survey-box {
-    background: var(--bg-section-alt);
-    border: 2px solid var(--primary-color);
-    box-shadow: 0 0 40px rgba(255, 140, 0, 0.2);
-    padding: 40px;
-    border-radius: 8px;
-    max-width: 500px;
-    text-align: center;
-    color: #fff;
+    max-width: 480px;
+    padding: 36px;
+    border-radius: var(--radius-m);
+    background: var(--violet-deep);
+    border: 1px solid var(--line);
+    display: grid;
+    gap: 16px;
 }
+.survey-box h2 { font-size: 2rem; font-weight: 800; }
+.survey-box p { color: var(--haze); }
 
-.survey-box h2 {
-    color: var(--primary-color);
-    margin-top: 0;
-    font-style: italic;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    font-size: 2rem;
-}
-
-.survey-box p {
-    color: var(--text-muted);
-    margin-bottom: 30px;
-    font-size: 1.1rem;
-    line-height: 1.6;
-}
-
-.survey-btn-primary {
-    display: inline-block;
-    background-color: var(--primary-color);
-    color: #000;
-    padding: 12px 30px;
-    text-decoration: none;
-    font-weight: 900;
-    border-radius: 4px;
-    text-transform: uppercase;
-    margin: 10px;
-    transition: transform 0.2s, background-color 0.2s;
-}
-
-.survey-btn-primary:hover {
-    transform: scale(1.05);
-    background-color: #fff;
-}
-
-.survey-btn-secondary {
-    display: inline-block;
-    background-color: transparent;
-    color: var(--text-muted);
-    border: 1px solid var(--text-muted);
-    padding: 12px 30px;
-    font-weight: 700;
-    border-radius: 4px;
-    text-transform: uppercase;
-    margin: 10px;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.survey-btn-secondary:hover {
-    color: #fff;
-    border-color: #fff;
+@media (max-width: 720px) {
+    .game-hero { height: 70svh; }
+    .play-frame { aspect-ratio: 4 / 3; }
 }

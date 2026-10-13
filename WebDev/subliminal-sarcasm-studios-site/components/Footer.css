@@ -1,16 +1,41 @@
-.global-footer {
-    background-color: #050a0a;
-    padding: 40px;
-    text-align: center;
-    /* Uses the dynamic page color, falls back to default green */
-    border-top: 1px solid var(--primary-color, #3d6a3d);
+.site-footer {
     margin-top: auto;
-    width: 100%;
+    background: var(--ink);
+    border-top: 1px solid var(--line);
+    padding-top: clamp(48px, 7vw, 80px);
 }
 
-.global-footer p {
-    color: var(--text-muted, #a0a0a0);
-    font-size: 0.9rem;
-    margin: 0;
-    letter-spacing: 1px;
+.site-footer-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) repeat(2, minmax(0, 1fr));
+    gap: 40px;
+}
+
+.site-footer-brand img { width: 180px; height: auto; }
+.site-footer-brand p { margin-top: 16px; color: var(--haze); }
+
+.site-footer-col h2 {
+    font-size: 1rem;
+    font-family: var(--font-body);
+    font-weight: 700;
+    letter-spacing: 0;
+    margin-bottom: 14px;
+}
+
+.site-footer-col li + li { margin-top: 8px; }
+
+.site-footer-col a { color: var(--haze); transition: color 0.2s; }
+.site-footer-col a:hover { color: var(--accent); }
+
+.site-footer-legal {
+    margin-top: clamp(40px, 6vw, 64px);
+    padding-block: 24px;
+    border-top: 1px solid var(--line);
+    color: var(--haze);
+    font-size: 0.875rem;
+}
+
+@media (max-width: 720px) {
+    .site-footer-grid { grid-template-columns: 1fr 1fr; }
+    .site-footer-brand { grid-column: 1 / -1; }
 }

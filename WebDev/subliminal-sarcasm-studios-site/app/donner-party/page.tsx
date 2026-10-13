@@ -1,96 +1,90 @@
-"use client";
-
-import { useEffect } from 'react';
-import Link from 'next/link';
+import type { Metadata } from 'next';
 import '../game-page.css';
+import AccentSync from '../../components/AccentSync';
+import GameHero from '../../components/GameHero';
+import Gallery from '../../components/Gallery';
+import PageView from '../../components/PageView';
+import TrackedLink from '../../components/TrackedLink';
+import { getFeaturedGame } from '../../lib/games';
+
+const game = getFeaturedGame('donner-party');
+const PLAY_URL = 'https://play.subliminalsarcasmstudios.com';
+
+export const metadata: Metadata = {
+    title: 'The Donner Party... Game?',
+    description: 'A multiplayer, vote-driven survival game: one host screen, everyone else on their phones.',
+    openGraph: { images: ['/images/games/donner-party/01.jpg'] },
+};
 
 export default function DonnerParty() {
-    const SERVER_URL = "https://subliminal-backend.onrender.com";
-
-    // Track Page View
-    useEffect(() => {
-        fetch(`${SERVER_URL}/track`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ gameName: 'Donner Party', type: 'view' })
-        }).catch(err => console.log("Tracking Error:", err));
-    }, []);
-
-    // Track Play Click
-    const trackPlay = () => {
-        fetch(`${SERVER_URL}/track`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ gameName: 'Donner Party', type: 'play' })
-        }).catch(err => console.log("Tracking Error:", err));
-    };
-
     return (
         <main>
-            <header className="game-hero" style={{ background: `linear-gradient(to bottom, rgba(11,20,20,0.3), var(--bg-dark)), url('/images/DPG_1_full.png')`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
-                <div className="game-hero-content">
-                    <h1 className="game-title">The Donner Party... Game?</h1>
-                    <p className="game-tagline">Survival. Betrayal. The Oregon Trail Re-imagined.</p>
-                    <a href="https://play.subliminalsarcasmstudios.com" target="_blank" rel="noreferrer" className="play-btn-large" onClick={trackPlay}>
-                        Start Journey
-                    </a>
-                </div>
-            </header>
+            <PageView name="Donner Party" />
+            <AccentSync accent={game.accent} onAccent={game.onAccent} />
 
-            <div className="stats-bar">
-                <div className="stat-item">
-                    <span className="stat-label">Genre</span>
-                    <div className="stat-value">Multiplayer Survival</div>
-                </div>
-                <div className="stat-item">
-                    <span className="stat-label">Platform</span>
-                    <div className="stat-value">Web / Mobile Browser</div>
-                </div>
-                <div className="stat-item">
-                    <span className="stat-label">Status</span>
-                    <div className="stat-value" style={{ color: 'var(--primary-color)' }}>Alpha / In Dev</div>
-                </div>
-            </div>
+            <GameHero
+                title={game.title}
+                tagline="Survival. Betrayal. The Oregon Trail, reimagined."
+                image={game.shots[0]}
+                facts={[
+                    { label: 'Genre', value: game.genre },
+                    { label: 'Players', value: 'One host screen, everyone on their phone' },
+                    { label: 'Platform', value: game.platform },
+                    { label: 'Status', value: game.status },
+                ]}
+                actions={
+                    <>
+                        <TrackedLink href={PLAY_URL} gameName="Donner Party" className="btn btn-primary" external>
+                            Start a journey
+                        </TrackedLink>
+                        <a href="#screens" className="btn btn-ghost">See screenshots</a>
+                    </>
+                }
+            />
 
             <section className="game-section">
-                <h2>About The Game</h2>
-                <p>Embark on a perilous journey west in this thrilling re-imagining of the classic trail adventure. Manage resources, make tough decisions, and face the harsh realities of the frontier.</p>
-                <p>This is a <strong>multi-player, vote-driven experience</strong> where cooperation and communication determine survival. Will your party reach its destination, or will you succumb to the dangers of the trail?</p>
+                <h2>About the game</h2>
+                <div className="game-prose">
+                    <p>
+                        Embark on a perilous journey west in a re-imagining of the classic trail adventure. Manage
+                        resources, make hard calls and face the realities of the frontier together.
+                    </p>
+                    <p>
+                        This is a <strong>multiplayer, vote-driven experience</strong> where cooperation and
+                        communication decide who survives. Will your party reach its destination, or succumb to the
+                        dangers of the trail?
+                    </p>
+                </div>
             </section>
 
             <div className="alt-bg">
                 <div className="alt-bg-inner">
-                    <h2>Core Features</h2>
+                    <h2>Core features</h2>
                     <div className="features-grid">
-                        <div className="feature-card"><h3>Vote-Driven Decisions</h3><p>Players vote on scenarios via a streamlined, tabbed mobile UI. Every choice matters.</p></div>
-                        <div className="feature-card"><h3>Caravan Persistence</h3><p>The host screen accurately tracks the caravan on the map and animates movement between waypoints.</p></div>
-                        <div className="feature-card"><h3>Complex Trading</h3><p>A functional Player-to-Player Trading system allows offering personal items and money to shared funds.</p></div>
-                        <div className="feature-card"><h3>Survival Mechanics</h3><p>Hunger, Thirst, and Sanity stats degrade automatically, increasing pressure and forcing item consumption.</p></div>
-                        <div className="feature-card"><h3>Inventory Management</h3><p>Manage Personal Inventory and Shared Supplies. Items degrade upon failed use.</p></div>
-                        <div className="feature-card"><h3>Weighted Outcomes</h3><p>Event results are determined by random systems influenced by Character Class Modifiers.</p></div>
+                        <div className="feature-card"><h3>Vote-driven decisions</h3><p>Players vote on every scenario from a streamlined, tabbed phone UI. Every choice matters.</p></div>
+                        <div className="feature-card"><h3>Caravan persistence</h3><p>The host screen tracks the caravan on the map and animates its progress between waypoints.</p></div>
+                        <div className="feature-card"><h3>Player trading</h3><p>Trade personal items with other players, or pay into the party&apos;s shared funds.</p></div>
+                        <div className="feature-card"><h3>Survival pressure</h3><p>Hunger, thirst and sanity drain over time, forcing hard choices about what to use and when.</p></div>
+                        <div className="feature-card"><h3>Inventory management</h3><p>Juggle your personal inventory and the shared supplies. Items degrade when a use fails.</p></div>
+                        <div className="feature-card"><h3>Weighted outcomes</h3><p>Event results roll against systems influenced by each character class&apos;s modifiers.</p></div>
                     </div>
                 </div>
             </div>
 
-            <section className="game-section">
-                <h2>Media Gallery</h2>
-                <div className="gallery-grid">
-                    <a href="/images/DPG_1_full.png" className="gallery-item" target="_blank" rel="noreferrer"><img src="/images/DPG_1_small.png" alt="Gameplay Map" /></a>
-                    <a href="/images/DPG_2_full.png" className="gallery-item" target="_blank" rel="noreferrer"><img src="/images/DPG_2_small.png" alt="Character Design" /></a>
-                    <a href="/images/DPG_3_full.png" className="gallery-item" target="_blank" rel="noreferrer"><img src="/images/DPG_3_small.png" alt="In-Game Map" /></a>
-                    <a href="/images/DPG_4_full.png" className="gallery-item" target="_blank" rel="noreferrer"><img src="/images/DPG_4_small.png" alt="Dev Screenshot" /></a>
-                </div>
+            <section id="screens" className="game-section">
+                <h2>Screenshots</h2>
+                <Gallery shots={game.shots} title={game.title} />
             </section>
 
             <div className="alt-bg">
                 <div className="alt-bg-inner">
-                    <h2>Development Team</h2>
+                    <h2>Development team</h2>
                     <div className="team-list">
-                        <div className="team-member"><span className="team-role">Project Lead & Backend</span><div className="team-name">Mike Nasierowski</div></div>
-                        <div className="team-member"><span className="team-role">Game Logic & DB</span><div className="team-name">Schuyler Deno</div></div>
-                        <div className="team-member"><span className="team-role">Historical Research</span><div className="team-name">Elijah Robinson</div></div>
-                        <div className="team-member"><span className="team-role">Lead Artist</span><div className="team-name">Nick Popiel</div></div>
-                        <div className="team-member"><span className="team-role">UI/UX & QA</span><div className="team-name">Tyler Barnes</div></div>
+                        <div><span className="team-role">Project lead and backend</span><div className="team-name">Mike Nasierowski</div></div>
+                        <div><span className="team-role">Game logic and database</span><div className="team-name">Schuyler Deno</div></div>
+                        <div><span className="team-role">Historical research</span><div className="team-name">Elijah Robinson</div></div>
+                        <div><span className="team-role">Lead artist</span><div className="team-name">Nick Popiel</div></div>
+                        <div><span className="team-role">UI/UX and QA</span><div className="team-name">Tyler Barnes</div></div>
                     </div>
                 </div>
             </div>
