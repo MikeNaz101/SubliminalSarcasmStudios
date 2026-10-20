@@ -14,6 +14,15 @@ npm run build
 - `public/images/games/<slug>/` holds the screenshots. Void Runner and Syn City frames were captured from the live WebGL builds; Donner Party's come from the original repo images.
 - `components/` has the shared pieces: the nav and footer, the showcase, the game page hero, the screenshot gallery and the logo with the eye that follows the cursor.
 
+## Void Runner leaderboard
+
+`components/Leaderboard.tsx` shows one tab per play mode: Endless Void, Data Mining, Story and Online Race. Each tab loads the first time it's opened.
+
+- The data comes from the game's Supabase project (pilot accounts), through the read-only function `public.voidrunner_leaderboard`. `lib/voidRunnerLeaderboard.ts` holds the project URL and publishable key; set `NEXT_PUBLIC_VOID_RUNNER_SUPABASE_URL` / `NEXT_PUBLIC_VOID_RUNNER_SUPABASE_KEY` to override them.
+- Only signed-in pilots appear. Each pilot is listed once per board, with their best result.
+- Ranking: Endless Void and Data Mining by best score, Story by layers cleared and then score, Online Race by wins and then fastest finish.
+- The function is defined in the game repo, `Vector Void/Supabase/void_runner_leaderboards.sql`.
+
 ## Adding or replacing screenshots
 
 1. Drop the image into `public/images/games/<slug>/` (JPEG, around 1600px wide is plenty).
