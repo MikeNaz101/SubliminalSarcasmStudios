@@ -109,6 +109,10 @@ export default function VoidRunnerClient() {
                 </div>
 
                 <Leaderboard />
+
+                <p style={{ marginTop: 32, color: 'var(--haze)' }}>
+                    <a href="/void-runner/support">Support</a> · <a href="/void-runner/privacy">Privacy policy</a>
+                </p>
             </section>
 
             {showSurvey && (
