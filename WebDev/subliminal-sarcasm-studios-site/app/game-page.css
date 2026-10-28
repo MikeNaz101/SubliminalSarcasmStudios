@@ -139,7 +139,6 @@
     max-width: var(--max);
     margin: 0 auto;
     padding: clamp(56px, 8vw, 104px) var(--gutter);
-    scroll-margin-top: 72px;
 }
 .play-section > h2 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; margin-bottom: 12px; }
 .play-section > p { color: var(--haze); margin-bottom: 28px; max-width: 42rem; }

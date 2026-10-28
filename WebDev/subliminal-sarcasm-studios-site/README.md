@@ -15,7 +15,8 @@ npm run build
 - `components/` has the shared pieces: the nav and footer, the showcase, the game page hero, the screenshot gallery and the logo with the eye that follows the cursor.
 - Brand assets come from the October 2026 logo pack:
   - `app/favicon.ico` (16/32/48), `app/icon.png` (32×32) and `app/apple-icon.png` (180×180). Next.js adds the `<link>` tags for these automatically.
-  - `public/images/brand/`: the stacked logo on black (studio band, About page, footer), the icon (nav bar), the master `sss-icon.svg`, and the two eye cut-outs used by `components/LogoEye.tsx`. If the logo art changes, re-measure the eye position in `LogoEye.tsx`.
+  - `public/images/brand/`: the stacked logo with the studio name, on a transparent background for the header (`logo-header.png`) and on black for the studio band, About page and footer (`logo-stacked.png`); the master `sss-icon.svg`; and the eye cut-outs used by `components/LogoEye.tsx`. If the logo art changes, re-measure the eye position in `LogoEye.tsx`.
+  - The header shows the logo large at the top of the page and shrinks it once you scroll. Sizes live at the top of `components/Navbar.css`.
   - Colors in `app/globals.css` match the pack: purple `#6A0DAD`, green `#24AE24`, gold `#DDAB36` (plus the full gold gradient).
 
 ## Void Runner leaderboard

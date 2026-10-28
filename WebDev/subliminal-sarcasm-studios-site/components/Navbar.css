@@ -1,6 +1,31 @@
+/* Header heights: tall at the top of the page, compact once scrolled.
+   The logo is the stacked logo with the studio name (600 x 414 source). */
+:root {
+    --logo-tall: 170px;
+    --logo-compact: 100px;
+    --header-pad-tall: 12px;
+    --header-pad-compact: 6px;
+    /* logo height (width / 1.449) + padding + 1px border */
+    --header-tall: calc(var(--logo-tall) / 1.449 + 2 * var(--header-pad-tall) + 1px);
+    --header-compact: calc(var(--logo-compact) / 1.449 + 2 * var(--header-pad-compact) + 1px);
+}
+
+@media (max-width: 560px) {
+    :root {
+        --logo-tall: 120px;
+        --logo-compact: 84px;
+        --header-pad-tall: 8px;
+        --header-pad-compact: 4px;
+    }
+}
+
+html { scroll-padding-top: calc(var(--header-compact) + 16px); }
+
 .site-header {
-    position: sticky;
+    position: fixed;
     top: 0;
+    left: 0;
+    right: 0;
     z-index: 1000;
     background: color-mix(in srgb, var(--ink) 88%, transparent);
     backdrop-filter: blur(10px);
@@ -8,30 +33,33 @@
     border-bottom: 1px solid var(--line);
 }
 
+.site-header-spacer { height: var(--header-tall); }
+
 .site-nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 24px;
-    min-height: 72px;
+    padding-block: var(--header-pad-tall);
+    transition: padding 0.25s ease;
 }
+.site-header.is-compact .site-nav { padding-block: var(--header-pad-compact); }
 
 .site-brand {
     display: inline-flex;
     align-items: center;
-    gap: 12px;
     min-width: 0;
 }
 
-.site-brand-mark { width: 44px; flex-shrink: 0; border-radius: 8px; overflow: hidden; }
+.site-brand-logo {
+    width: var(--logo-tall);
+    flex-shrink: 0;
+    transition: width 0.25s ease;
+}
+.site-header.is-compact .site-brand-logo { width: var(--logo-compact); }
 
-.site-brand-name {
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 1.125rem;
-    letter-spacing: -0.01em;
-    line-height: 1.1;
-    white-space: nowrap;
+@media (prefers-reduced-motion: reduce) {
+    .site-nav, .site-brand-logo { transition: none; }
 }
 
 .site-links {
@@ -61,12 +89,5 @@
 }
 
 @media (max-width: 560px) {
-    .site-nav { min-height: 60px; gap: 12px; }
-    .site-brand-mark { width: 40px; }
-    .site-brand-suffix { display: none; }
-    .site-brand-name { font-size: 1rem; }
-}
-
-@media (max-width: 480px) {
-    .site-brand-name { display: none; }
+    .site-nav { gap: 12px; }
 }

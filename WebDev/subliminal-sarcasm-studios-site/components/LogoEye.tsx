@@ -6,15 +6,17 @@ import './LogoEye.css';
 
 // The chameleon's gold eye is cut out of the logo and laid back over it,
 // so it can turn to follow the visitor's pointer. Positions are measured
-// from the October 2026 logo pack (stacked logo on black, and SSS-icon.svg).
+// from the October 2026 logo pack.
 const VARIANTS = {
-    icon: {
-        src: '/images/brand/icon.png',
-        eyeSrc: '/images/brand/icon-eye.png',
-        width: 160,
-        height: 160,
-        eye: { left: 24.414, top: 28.125, size: 22.266 },
+    // Stacked logo, white text on a transparent background (site header).
+    header: {
+        src: '/images/brand/logo-header.png',
+        eyeSrc: '/images/brand/logo-header-eye.png',
+        width: 600,
+        height: 414,
+        eye: { left: 58.642, top: 17.561, size: 12.57 },
     },
+    // Stacked logo on its black plate (studio band, About page).
     full: {
         src: '/images/brand/logo-stacked.png',
         eyeSrc: '/images/brand/logo-eye.png',
@@ -33,7 +35,7 @@ type Props = {
 };
 
 export default function LogoEye({
-    variant = 'icon',
+    variant = 'full',
     alt = 'Subliminal Sarcasm Studios',
     className = '',
     sizes = '200px',

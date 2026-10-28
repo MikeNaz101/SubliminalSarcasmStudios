@@ -4,7 +4,7 @@
     position: relative;
     width: 100%;
     aspect-ratio: 16 / 9;
-    max-height: calc(100svh - 72px - 150px);
+    max-height: calc(100svh - var(--header-tall) - 150px);
     min-height: 460px;
     overflow: hidden;
     background: var(--ink);
