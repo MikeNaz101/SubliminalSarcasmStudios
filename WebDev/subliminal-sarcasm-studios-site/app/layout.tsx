@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     openGraph: {
         type: 'website',
         siteName: 'Subliminal Sarcasm Studios',
-        images: [{ url: '/images/games/void-runner/01.jpg', width: 1280, height: 720, alt: 'Void Runner gameplay' }],
+        images: [{ url: '/images/games/void-runner/01.jpg', width: 1920, height: 1080, alt: 'Void Runner gameplay' }],
     },
 };
 

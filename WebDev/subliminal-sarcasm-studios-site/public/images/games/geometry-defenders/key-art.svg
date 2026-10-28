@@ -5,7 +5,7 @@
       <path d="M0 0 L80 0 L40 69.28 Z M40 69.28 L80 138.56 L0 138.56 Z" fill="none" stroke="#2FE6F0" stroke-opacity="0.12" stroke-width="1.5"/>
     </pattern>
     <radialGradient id="glow" cx="65%" cy="54%" r="55%">
-      <stop offset="0" stop-color="#6A0AAC" stop-opacity="0.55"/>
+      <stop offset="0" stop-color="#6A0DAD" stop-opacity="0.55"/>
       <stop offset="1" stop-color="#000" stop-opacity="0"/>
     </radialGradient>
     <linearGradient id="floor" x1="0" y1="0" x2="0" y2="1">
@@ -19,11 +19,11 @@
   <g fill="none" stroke-linejoin="round" transform="translate(240 0)">
     <polygon points="800,250 990,360 990,580 800,690 610,580 610,360" stroke="#2FE6F0" stroke-width="6"/>
     <polygon points="800,320 930,395 930,545 800,620 670,545 670,395" stroke="#2FE6F0" stroke-opacity="0.5" stroke-width="3"/>
-    <polygon points="800,395 865,470 800,545 735,470" fill="#2FE6F0" fill-opacity="0.18" stroke="#E0AE2A" stroke-width="4"/>
-    <polygon points="380,640 450,520 520,640" stroke="#E0AE2A" stroke-width="4"/>
-    <polygon points="1120,300 1180,196 1240,300" stroke="#2BB52B" stroke-width="4"/>
+    <polygon points="800,395 865,470 800,545 735,470" fill="#2FE6F0" fill-opacity="0.18" stroke="#DDAB36" stroke-width="4"/>
+    <polygon points="380,640 450,520 520,640" stroke="#DDAB36" stroke-width="4"/>
+    <polygon points="1120,300 1180,196 1240,300" stroke="#24AE24" stroke-width="4"/>
     <rect x="1180" y="560" width="90" height="90" transform="rotate(18 1225 605)" stroke="#2FE6F0" stroke-opacity="0.7" stroke-width="4"/>
-    <circle cx="420" cy="290" r="44" stroke="#2BB52B" stroke-opacity="0.8" stroke-width="4"/>
+    <circle cx="420" cy="290" r="44" stroke="#24AE24" stroke-opacity="0.8" stroke-width="4"/>
     <path d="M610 470 L420 470 M990 470 L1180 470" stroke="#2FE6F0" stroke-opacity="0.35" stroke-width="2" stroke-dasharray="8 10"/>
   </g>
   <rect y="560" width="1600" height="340" fill="url(#floor)"/>

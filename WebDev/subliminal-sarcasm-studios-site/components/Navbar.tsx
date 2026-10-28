@@ -17,7 +17,7 @@ export default function Navbar() {
         <header className="site-header">
             <nav className="site-nav wrap" aria-label="Main">
                 <Link href="/" className="site-brand" aria-label="Subliminal Sarcasm Studios, home">
-                    <LogoEye variant="mark" alt="" sizes="100px" eager className="site-brand-mark" />
+                    <LogoEye variant="icon" alt="" sizes="44px" eager className="site-brand-mark" />
                     <span className="site-brand-name">
                         Subliminal Sarcasm<span className="site-brand-suffix"> Studios</span>
                     </span>

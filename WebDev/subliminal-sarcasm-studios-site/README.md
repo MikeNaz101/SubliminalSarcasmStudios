@@ -11,8 +11,12 @@ npm run build
 ## Where things live
 
 - `lib/games.ts` is the list of every game on the site. Featured games get the home page showcase, a row in "Our games" and their own page. Everything in `inDevelopment` only shows up in the collapsed "In lower stages of development" section at the bottom of the home page.
-- `public/images/games/<slug>/` holds the screenshots. Void Runner and Syn City frames were captured from the live WebGL builds; Donner Party's come from the original repo images.
+- `public/images/games/<slug>/` holds the screenshots. Void Runner's are 1920×1080 captures from the current build (October 2026); Syn City's were captured from its live WebGL build; Donner Party's come from the original repo images.
 - `components/` has the shared pieces: the nav and footer, the showcase, the game page hero, the screenshot gallery and the logo with the eye that follows the cursor.
+- Brand assets come from the October 2026 logo pack:
+  - `app/favicon.ico` (16/32/48), `app/icon.png` (32×32) and `app/apple-icon.png` (180×180). Next.js adds the `<link>` tags for these automatically.
+  - `public/images/brand/`: the stacked logo on black (studio band, About page, footer), the icon (nav bar), the master `sss-icon.svg`, and the two eye cut-outs used by `components/LogoEye.tsx`. If the logo art changes, re-measure the eye position in `LogoEye.tsx`.
+  - Colors in `app/globals.css` match the pack: purple `#6A0DAD`, green `#24AE24`, gold `#DDAB36` (plus the full gold gradient).
 
 ## Void Runner leaderboard
 

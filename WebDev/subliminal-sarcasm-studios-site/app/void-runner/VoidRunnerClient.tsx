@@ -75,6 +75,10 @@ export default function VoidRunnerClient() {
                             <h3>Arcade combat</h3>
                             <p>Lock on, barrel roll and unleash your payload. Fluid, responsive controls built for high-speed engagement.</p>
                         </div>
+                        <div className="feature-card">
+                            <h3>Guarded layers</h3>
+                            <p>Story mode dives layer by layer into the network, and each layer has a guardian: the Seraph holds the Sanctum, the Warden holds the Archive.</p>
+                        </div>
                     </div>
                 </div>
             </div>

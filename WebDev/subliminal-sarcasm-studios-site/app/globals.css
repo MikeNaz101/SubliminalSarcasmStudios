@@ -8,16 +8,17 @@
 @property --accent {
   syntax: '<color>';
   inherits: true;
-  initial-value: #2bb52b;
+  initial-value: #24ae24;
 }
 
 :root {
   --ink: #000000;          /* logo plate */
-  --violet: #6a0aac;       /* logo block */
+  --violet: #6a0dad;       /* logo panel */
   --violet-deep: #1c0b2e;  /* raised surfaces */
   --line: #33204a;         /* hairlines on dark */
-  --scale: #2bb52b;        /* chameleon green */
-  --iris: #e0ae2a;         /* gold eye */
+  --scale: #24ae24;        /* chameleon green */
+  --iris: #ddab36;         /* gold eye */
+  --iris-gradient: linear-gradient(90deg, #ffe864, #ddab36 30%, #fffe7f 65%, #e8b962);
   --bone: #f3eef8;         /* primary text */
   --haze: #b3a4c8;         /* secondary text */
 

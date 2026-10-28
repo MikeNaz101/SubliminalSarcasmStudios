@@ -10,7 +10,7 @@ export default function Footer() {
         <footer className="site-footer">
             <div className="wrap site-footer-grid">
                 <div className="site-footer-brand">
-                    <Image src="/images/logo-full.png" alt="Subliminal Sarcasm Studios" width={1000} height={723} sizes="180px" />
+                    <Image src="/images/brand/logo-stacked.png" alt="Subliminal Sarcasm Studios" width={1200} height={872} sizes="220px" />
                     <p>Developing the unseen.</p>
                 </div>
 

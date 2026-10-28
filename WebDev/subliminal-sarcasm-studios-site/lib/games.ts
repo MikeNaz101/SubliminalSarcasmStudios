@@ -50,10 +50,12 @@ export const featuredGames: FeaturedGame[] = [
         onAccent: '#1A0A00',
         play: { label: 'Play in browser', href: '/void-runner#play' },
         shots: [
-            { src: '/images/games/void-runner/01.jpg', alt: 'Ship flying into a burst of orange data cubes between magenta firewall beams', width: 1280, height: 720 },
-            { src: '/images/games/void-runner/02.jpg', alt: 'Ship approaching crossed magenta laser beams in a dark tunnel', width: 1280, height: 720 },
-            { src: '/images/games/void-runner/03.jpg', alt: 'Ship firing through a grid of firewall beams and floating cubes', width: 1280, height: 720 },
-            { src: '/images/games/void-runner/04.jpg', alt: 'An enemy drone exploding in front of the ship', width: 1280, height: 720 },
+            { src: '/images/games/void-runner/01.jpg', alt: 'The ship flying down a neon corridor of firewall beams and gold data cubes on wave 1', width: 1920, height: 1080 },
+            { src: '/images/games/void-runner/02.jpg', alt: 'Green enemy fighters swooping past the ship through a wall of data cubes', width: 1920, height: 1080 },
+            { src: '/images/games/void-runner/03.jpg', alt: 'Boss fight with the Warden in Layer 2, the Archive, as crossing laser beams sweep the tunnel', width: 1920, height: 1080 },
+            { src: '/images/games/void-runner/04.jpg', alt: 'The Chrono Drag power-up slowing the stream while enemy fighters close in', width: 1920, height: 1080 },
+            { src: '/images/games/void-runner/05.jpg', alt: 'Boss fight with the Seraph in Layer 1, the Sanctum, behind a grid of firewall beams', width: 1920, height: 1080 },
+            { src: '/images/games/void-runner/06.jpg', alt: 'Run summary: Access Terminated, with the Arbiter\'s grade, XP earned and a new personal best', width: 1920, height: 1080 },
         ],
     },
     {
