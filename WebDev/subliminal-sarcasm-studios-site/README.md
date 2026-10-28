@@ -30,7 +30,7 @@ npm run build
 
 ## Adding or replacing screenshots
 
-1. Drop the image into `public/images/games/<slug>/` (JPEG, around 1600px wide is plenty).
+1. Drop the image into `public/images/games/<slug>/` (JPEG, around 1600px wide is plenty). Give it a new file name rather than overwriting an old one: resized images are cached for up to 4 hours, so a reused name can keep showing the old picture.
 2. Add it to that game's `shots` array in `lib/games.ts` with its real width, height and a short description for `alt`. The first shot is the key image used in the showcase and at the top of the game page.
 
 Geometry Defenders XR is still using a placeholder title card (`awaitingScreens: true`). Once you have headset captures, add them to its `shots` and remove `awaitingScreens`.
