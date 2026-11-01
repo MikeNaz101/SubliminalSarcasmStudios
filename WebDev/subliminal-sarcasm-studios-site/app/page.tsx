@@ -113,7 +113,7 @@ export default function Home() {
                         <LogoEye variant="full" sizes="(max-width: 860px) 80vw, 520px" />
                     </div>
                     <div className="studio-copy">
-                        <h2 id="studio-title">Developing the unseen.</h2>
+                        <h2 id="studio-title">Blending in is overrated…</h2>
                         <p>
                             Subliminal Sarcasm started at UAlbany as a group of friends who could not stop talking
                             about the games they wished existed. Now we are a small independent studio making them:

@@ -17,6 +17,7 @@ npm run build
   - `app/favicon.ico` (16/32/48), `app/icon.png` (32×32) and `app/apple-icon.png` (180×180). Next.js adds the `<link>` tags for these automatically.
   - `public/images/brand/`: the stacked logo with the studio name, on a transparent background for the header (`logo-header.png`) and on black for the studio band, About page and footer (`logo-stacked.png`); the master `sss-icon.svg`; and the eye cut-outs used by `components/LogoEye.tsx`. If the logo art changes, re-measure the eye position in `LogoEye.tsx`.
   - The header shows the logo large at the top of the page and shrinks it once you scroll. Sizes live at the top of `components/Navbar.css`.
+  - Click effect: when a visitor clicks a link or button, the header chameleon opens its mouth and its tongue flicks to the spot they clicked; the click goes through when the tongue lands (about 0.16 s). `components/ChameleonTongue.tsx` handles the clicks and `LogoEye.tsx` holds the jaw shape. Keyboard presses, Ctrl/Cmd-clicks, clicks inside dialogs and visitors who prefer reduced motion skip it. Add `data-no-tongue` to any element that should never wait.
   - Colors in `app/globals.css` match the pack: purple `#6A0DAD`, green `#24AE24`, gold `#DDAB36` (plus the full gold gradient).
 
 ## Void Runner leaderboard

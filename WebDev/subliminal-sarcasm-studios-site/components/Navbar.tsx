@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import ChameleonTongue from './ChameleonTongue';
 import LogoEye from './LogoEye';
 import './Navbar.css';
 
@@ -59,6 +60,7 @@ export default function Navbar() {
             </header>
             {/* Holds the header's full height so the page doesn't jump when it shrinks. */}
             <div className="site-header-spacer" aria-hidden="true" />
+            <ChameleonTongue />
         </>
     );
 }

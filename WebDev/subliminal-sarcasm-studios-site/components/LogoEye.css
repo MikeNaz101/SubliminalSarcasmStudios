@@ -20,6 +20,38 @@
     will-change: transform;
 }
 
+/* ---------- Mouth (header chameleon) ----------
+   The lower jaw is a second copy of the logo clipped to the jaw shape. Opening the
+   mouth swings it down around the hinge and reveals the dark gap behind it. */
+
+.logo-mouth,
+.logo-jaw {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.logo-mouth {
+    background: radial-gradient(ellipse at 90% 47%, #8a1640 0%, #3a0614 55%);
+    clip-path: var(--gap-closed);
+    transition: clip-path 160ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.logo-jaw {
+    transform: rotate(0deg);
+    transition: transform 160ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.logo-eye[data-mouth='open'] .logo-mouth {
+    clip-path: var(--gap-open);
+    transition-duration: 60ms;
+}
+
+.logo-eye[data-mouth='open'] .logo-jaw {
+    transform: rotate(var(--jaw-open));
+    transition-duration: 60ms;
+}
+
 @media (prefers-reduced-motion: reduce) {
     .logo-eye-iris { transition: none; }
 }

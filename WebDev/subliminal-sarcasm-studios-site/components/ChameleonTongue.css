@@ -1,0 +1,30 @@
+.tongue-layer {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1001; /* just above the header, so it leaves the chameleon's mouth */
+    pointer-events: none;
+    overflow: visible;
+    visibility: hidden;
+}
+
+.tongue-layer.is-active { visibility: visible; }
+
+.tongue-outline {
+    fill: none;
+    stroke: #5c0a24;
+    stroke-linecap: round;
+}
+
+.tongue-body {
+    fill: none;
+    stroke: #f2557f;
+    stroke-linecap: round;
+}
+
+.tongue-tip {
+    fill: #ff86ab;
+    stroke: #5c0a24;
+    stroke-width: 1.5;
+}
