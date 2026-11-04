@@ -44,7 +44,7 @@ export const featuredGames: FeaturedGame[] = [
         summary:
             'A high-speed 3D arcade shooter. Blast through data-cube walls, thread neon firewalls and survive an AI that studies how you fly and adapts to beat you.',
         genre: 'Arcade flight shooter',
-        platform: 'Browser (PC)',
+        platform: 'Browser (PC), iOS beta',
         status: 'Playable demo',
         accent: '#FF8C1A',
         onAccent: '#1A0A00',

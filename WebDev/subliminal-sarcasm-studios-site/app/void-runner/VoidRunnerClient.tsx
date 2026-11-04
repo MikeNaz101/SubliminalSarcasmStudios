@@ -1,16 +1,18 @@
 "use client";
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import '../game-page.css';
+import './playtest.css';
 import AccentSync from '../../components/AccentSync';
 import GameHero from '../../components/GameHero';
 import Gallery from '../../components/Gallery';
 import Leaderboard from '../../components/Leaderboard';
 import PageView from '../../components/PageView';
 import { getFeaturedGame } from '../../lib/games';
+import { PLAYTEST_SURVEY_URL } from '../../lib/voidRunnerPlaytest';
 
 const game = getFeaturedGame('void-runner');
-const SURVEY_URL = 'https://docs.google.com/forms/d/1z6v5TV6yMqfH6pLWUYhpNAMuXwVa7MADc-8bJnVy4dc/viewform';
 
 export default function VoidRunnerClient() {
     const [showSurvey, setShowSurvey] = useState(false);
@@ -39,7 +41,7 @@ export default function VoidRunnerClient() {
                 actions={
                     <>
                         <a href="#play" className="btn btn-primary">Play now</a>
-                        <a href="#screens" className="btn btn-ghost">See screenshots</a>
+                        <Link href="/void-runner/playtest" className="btn btn-ghost">Join the iPhone beta</Link>
                     </>
                 }
             />
@@ -56,6 +58,20 @@ export default function VoidRunnerClient() {
                         The void is unrelenting, and it is watching. The Arbiter studies how you fly and adapts to
                         your skill, so every run is as challenging as it is exhilarating.
                     </p>
+                </div>
+            </section>
+
+            <section className="beta-band" aria-labelledby="beta-title">
+                <div className="beta-band-inner">
+                    <div className="beta-band-copy">
+                        <p className="beta-band-label">Playtest</p>
+                        <h2 id="beta-title">Fly it on your iPhone</h2>
+                        <p>
+                            The iPhone and iPad build is in beta on TestFlight. Join the playtest, fly a few runs and
+                            tell us what to fix before launch.
+                        </p>
+                    </div>
+                    <Link href="/void-runner/playtest" className="btn btn-primary">Join the playtest</Link>
                 </div>
             </section>
 
@@ -115,7 +131,8 @@ export default function VoidRunnerClient() {
                 <Leaderboard />
 
                 <p style={{ marginTop: 32, color: 'var(--haze)' }}>
-                    <a href="/void-runner/support">Support</a> · <a href="/void-runner/privacy">Privacy policy</a>
+                    <Link href="/void-runner/playtest">Playtest</Link> · <a href="/void-runner/support">Support</a> ·{' '}
+                    <a href="/void-runner/privacy">Privacy policy</a>
                 </p>
             </section>
 
@@ -126,7 +143,7 @@ export default function VoidRunnerClient() {
                         <p>Your feedback shapes the next build of Void Runner. Do you have a minute for a short survey?</p>
                         <div className="btn-row">
                             <a
-                                href={SURVEY_URL}
+                                href={PLAYTEST_SURVEY_URL}
                                 target="_blank"
                                 rel="noreferrer"
                                 className="btn btn-primary"

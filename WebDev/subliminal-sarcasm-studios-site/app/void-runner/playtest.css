@@ -1,0 +1,95 @@
+/* Void Runner playtest: the steps on /void-runner/playtest and the beta band on /void-runner. */
+
+/* A darker scrim than the game pages: this hero carries more text over a busy screenshot. */
+.playtest-page .game-hero-scrim {
+    background:
+        linear-gradient(to top, var(--ink) 0%, rgb(0 0 0 / 0.8) 38%, rgb(0 0 0 / 0.3) 75%, rgb(0 0 0 / 0.1) 100%),
+        linear-gradient(to right, rgb(0 0 0 / 0.7) 0%, rgb(0 0 0 / 0) 60%);
+}
+
+/* ---------- Steps ---------- */
+
+.playtest-steps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    counter-reset: step;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+    border-top: 1px solid var(--line);
+}
+
+.playtest-step {
+    counter-increment: step;
+    display: grid;
+    grid-template-rows: auto auto 1fr auto;
+    gap: 12px;
+    padding: 28px 32px 32px 0;
+    border-bottom: 1px solid var(--line);
+}
+
+.playtest-step::before {
+    content: counter(step, decimal-leading-zero);
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--accent);
+}
+
+.playtest-step h3 { font-size: 1.375rem; font-weight: 700; color: var(--bone); }
+.playtest-step p { color: var(--haze); max-width: 30rem; }
+.playtest-step .btn { justify-self: start; margin-top: 8px; }
+
+/* The TestFlight button before the invite link is set. */
+.btn.is-unavailable {
+    background: transparent;
+    color: var(--haze);
+    border: 1px dashed color-mix(in srgb, var(--bone) 35%, transparent);
+    cursor: default;
+}
+.btn.is-unavailable:hover { background: transparent; color: var(--haze); }
+
+.game-prose .playtest-fine { font-size: 1rem; }
+
+.stat-value a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+.stat-value a:hover { color: var(--bone); }
+
+/* ---------- Beta band on the Void Runner page ---------- */
+
+.beta-band {
+    border-block: 1px solid var(--line);
+    background:
+        radial-gradient(ellipse at 100% 50%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 60%),
+        var(--ink);
+}
+
+.beta-band-inner {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: clamp(40px, 6vw, 64px) var(--gutter);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px 48px;
+}
+
+.beta-band-copy { display: grid; gap: 10px; max-width: 40rem; }
+
+.beta-band .beta-band-label {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+}
+
+.beta-band h2 {
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
+
+.beta-band p:not(.beta-band-label) { color: var(--haze); font-size: 1.0625rem; }

@@ -29,6 +29,13 @@ npm run build
 - Ranking: Endless Void and Data Mining by best score, Story by layers cleared and then score, Online Race by wins and then fastest finish.
 - The function is defined in the game repo, `Vector Void/Supabase/void_runner_leaderboards.sql`.
 
+## Void Runner playtest
+
+`/void-runner/playtest` is the page to send playtesters to. It walks them through installing TestFlight, accepting the invite and taking the survey. The Void Runner page links to it from the hero, the "Fly it on your iPhone" band and the links under the leaderboard.
+
+- The links live in `lib/voidRunnerPlaytest.ts`. Paste the TestFlight public link into `TESTFLIGHT_URL` (App Store Connect > TestFlight > your external group > Public Link). While it is empty, the page says the invite is coming soon.
+- `PLAYTEST_SURVEY_URL` is the responder link for the "Void Runner Playtest Questionnaire" Google Form. The survey that pops up when someone quits the browser build uses the same link.
+
 ## Adding or replacing screenshots
 
 1. Drop the image into `public/images/games/<slug>/` (JPEG, around 1600px wide is plenty). Give it a new file name rather than overwriting an old one: resized images are cached for up to 4 hours, so a reused name can keep showing the old picture.
