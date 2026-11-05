@@ -5,7 +5,7 @@
  * Find it in App Store Connect: TestFlight > your external testing group > Public Link.
  * While this is empty, the page says the invite is coming soon and points people to the browser build.
  */
-export const TESTFLIGHT_URL = '';
+export const TESTFLIGHT_URL = 'https://testflight.apple.com/join/WYnW4U9v';
 
 /** Apple's free TestFlight app, which testers need before the invite will open. */
 export const TESTFLIGHT_APP_URL = 'https://apps.apple.com/app/testflight/id899247664';
