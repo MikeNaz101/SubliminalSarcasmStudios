@@ -35,6 +35,7 @@ npm run build
 
 - The links live in `lib/voidRunnerPlaytest.ts`. Paste the TestFlight public link into `TESTFLIGHT_URL` (App Store Connect > TestFlight > your external group > Public Link). While it is empty, the page says the invite is coming soon.
 - `PLAYTEST_SURVEY_URL` is the responder link for the "Void Runner Playtest Questionnaire" Google Form. The survey that pops up when someone quits the browser build uses the same link.
+- The form's questions and skip logic are built by an Apps Script attached to the form (in the form editor: More > Apps Script, then run `rebuildSurvey`). Edit the `SURVEY` list there and run it again to change the questions. Each game mode has a yes/no question that skips its section, and the controls questions match the input the tester used. Running it replaces every question, so do it between playtests.
 
 ## Adding or replacing screenshots
 

@@ -97,8 +97,8 @@ export default function VoidRunnerPlaytest() {
                     <li className="playtest-step">
                         <h3>Fly, then tell us</h3>
                         <p>
-                            Play a few runs. Try Endless Void and Story, and an Online Race if you can find a rival.
-                            Then fill in the survey while it&apos;s still fresh.
+                            Play a few runs. Story Mode is open from the start; Data Mining, Endless Void and Online
+                            Race unlock as your pilot levels up. Then fill in the survey while it&apos;s still fresh.
                         </p>
                         <SurveyButton className="btn btn-primary" />
                     </li>
@@ -113,28 +113,28 @@ export default function VoidRunnerPlaytest() {
                             <h3>Handling</h3>
                             <p>
                                 Does the ship go where you meant it to? Tight and responsive, or like driving a tractor
-                                trailer on ice? Tell us how often you braked and boosted, too.
+                                trailer on ice? On a phone, can you hit FIRE, CADET and the rolls without looking?
                             </p>
                         </div>
                         <div className="feature-card">
-                            <h3>Reading the tunnel</h3>
+                            <h3>Reading the stream</h3>
                             <p>
-                                At full speed, can you tell a deadly pillar from a data block you can shoot? Can you keep
-                                track of your health and wing stress without looking away?
+                                At full speed, can you tell a deadly beam from a data block you can shoot? Can you keep
+                                track of your hull, shields and laser heat without looking away?
+                            </p>
+                        </div>
+                        <div className="feature-card">
+                            <h3>Every mode you tried</h3>
+                            <p>
+                                Story&apos;s bosses, Data Mining&apos;s clock, Online Race&apos;s connection, co-op with
+                                your crew. The survey only asks about the modes you actually played.
                             </p>
                         </div>
                         <div className="feature-card">
                             <h3>Fair deaths</h3>
                             <p>
-                                Did every crash feel like your fault, or did the game cheat? Did the speed ramp up too
-                                slowly or way too fast?
-                            </p>
-                        </div>
-                        <div className="feature-card">
-                            <h3>The show</h3>
-                            <p>
-                                Warp lines, explosions, pillar slams, your Wingman and the rogue AI terminal when you die.
-                                Cinematic, or just noise?
+                                Did every crash feel like your fault, or did the game cheat? Did you want to launch
+                                again the second your last clone went down?
                             </p>
                         </div>
                     </div>
