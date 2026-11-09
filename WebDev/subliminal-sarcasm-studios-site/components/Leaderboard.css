@@ -1,5 +1,8 @@
 .leaderboard-container {
     --mode: var(--accent);
+    --gold: #ffd140;
+    --silver: #d1e0ff;
+    --bronze: #ff9959;
     max-width: 720px;
     margin-top: clamp(40px, 6vw, 64px);
 }
@@ -10,11 +13,11 @@
     margin-bottom: 16px;
 }
 
-/* ---------- Mode tabs ---------- */
+/* ---------- Board tabs ---------- */
 
 .leaderboard-tabs {
     display: flex;
-    gap: 4px;
+    gap: 2px;
     overflow-x: auto;
     scrollbar-width: none;
     border-bottom: 1px solid var(--line);
@@ -26,7 +29,7 @@
     position: relative;
     flex: none;
     min-height: 44px;
-    padding: 10px 14px;
+    padding: 10px 12px;
     background: transparent;
     border: 0;
     color: var(--haze);
@@ -35,13 +38,13 @@
     font-weight: 650;
     white-space: nowrap;
     cursor: pointer;
-    transition: color 0.2s;
+    transition: color 0.2s, background-color 0.2s, border-color 0.2s;
 }
 .leaderboard-tab::after {
     content: '';
     position: absolute;
-    left: 10px;
-    right: 10px;
+    left: 8px;
+    right: 8px;
     bottom: -1px;
     height: 3px;
     border-radius: 3px 3px 0 0;
@@ -54,9 +57,89 @@
 .leaderboard-tab[aria-selected='true']::after { transform: scaleX(1); }
 .leaderboard-tab:focus-visible { outline-offset: -3px; }
 
-@media (prefers-reduced-motion: reduce) {
-    .leaderboard-tab, .leaderboard-tab::after { transition: none; }
+.tab-short { display: none; }
+
+/* ---------- Record picker and threat filter ---------- */
+
+.leaderboard-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px 20px;
+    margin-top: 16px;
 }
+
+.control-label {
+    color: var(--haze);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.record-picker {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1 1 240px;
+}
+.record-picker select {
+    flex: 1;
+    min-width: 0;
+    max-width: 280px;
+    min-height: 44px;
+    padding: 0 40px 0 14px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background-color: transparent;
+    /* The arrow, drawn in --haze so it reads on the dark page. */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%23b3a4c8' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    color: var(--bone);
+    font: 600 0.9375rem var(--font-body);
+    appearance: none;
+    cursor: pointer;
+}
+.record-picker select:hover { border-color: var(--haze); }
+.record-picker select:focus-visible { outline: 2px solid var(--mode); outline-offset: 2px; }
+.record-picker option,
+.record-picker optgroup { background: #1a1024; color: var(--bone); }
+
+.threat-filter {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.threat-options {
+    display: flex;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    overflow: hidden;
+}
+.threat-option {
+    --threat: var(--mode);
+    min-height: 40px;
+    padding: 0 12px;
+    background: transparent;
+    border: 0;
+    border-left: 1px solid var(--line);
+    color: var(--haze);
+    font: 650 0.875rem var(--font-body);
+    cursor: pointer;
+    transition: color 0.2s, background-color 0.2s;
+}
+.threat-option:first-child { border-left: 0; }
+.threat-option:hover { color: var(--bone); }
+.threat-option[aria-pressed='true'] {
+    color: var(--bone);
+    background: color-mix(in srgb, var(--threat) 22%, transparent);
+    box-shadow: inset 0 -2px 0 var(--threat);
+}
+.threat-option:focus-visible { outline: 2px solid var(--threat); outline-offset: -2px; }
+
+.threat { color: var(--threat); font-weight: 600; }
 
 .leaderboard-note {
     margin: 14px 0 4px;
@@ -87,10 +170,17 @@
 
 .leaderboard-table tbody tr:hover { background: color-mix(in srgb, var(--mode) 8%, transparent); }
 
-.rank-col { width: 15%; font-weight: 700; color: var(--mode); }
+.rank-col { width: 15%; font-weight: 700; color: var(--haze); }
 .name-col { width: 55%; font-weight: 600; }
 .leaderboard-table .score-col { width: 30%; font-weight: 700; text-align: right; }
-.leaderboard-table th.rank-col { color: var(--haze); }
+
+/* Gold, silver and bronze for the top three, as in the game. */
+.medal-1 .rank-col { color: var(--gold); }
+.medal-2 .rank-col { color: var(--silver); }
+.medal-3 .rank-col { color: var(--bronze); }
+.medal-1 .score-col { color: var(--gold); }
+
+.metric-of { color: var(--haze); font-weight: 500; }
 
 .pilot-name { display: block; overflow-wrap: anywhere; }
 .pilot-detail {
@@ -123,12 +213,42 @@
     font-size: 0.8125rem;
 }
 
-.tab-short { display: none; }
+@media (prefers-reduced-motion: reduce) {
+    .leaderboard-tab, .leaderboard-tab::after, .threat-option { transition: none; }
+}
 
-@media (max-width: 480px) {
-    .leaderboard-tab { padding: 10px 11px; font-size: 0.875rem; }
+/* Six tabs don't fit in a row on a phone: two rows of three, each a bordered cell. */
+@media (max-width: 560px) {
+    .leaderboard-tabs {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 6px;
+        border-bottom: 0;
+        overflow: visible;
+    }
+    .leaderboard-tab {
+        padding: 8px 6px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        font-size: 0.875rem;
+    }
+    .leaderboard-tab::after { display: none; }
+    .leaderboard-tab[aria-selected='true'] {
+        border-color: var(--tab);
+        background: color-mix(in srgb, var(--tab) 16%, transparent);
+    }
     .tab-long { display: none; }
     .tab-short { display: inline; }
+
+    .leaderboard-controls .control-label { flex: none; width: 64px; }
+    .record-picker { flex-basis: 100%; }
+    .record-picker select { max-width: none; }
+    .threat-filter { flex-basis: 100%; }
+    .threat-options { flex: 1; }
+    .threat-option { flex: 1; padding: 0 6px; }
+}
+
+@media (max-width: 480px) {
     .leaderboard-table th,
     .leaderboard-table td { padding: 12px 8px; }
     .rank-col { width: 13%; }

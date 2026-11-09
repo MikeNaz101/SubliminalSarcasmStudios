@@ -22,12 +22,14 @@ npm run build
 
 ## Void Runner leaderboard
 
-`components/Leaderboard.tsx` shows one tab per play mode: Endless Void, Data Mining, Story and Online Race. Each tab loads the first time it's opened.
+`components/Leaderboard.tsx` shows the same boards as the in-game LEADERBOARDS screen: Endless Void, Data Mining, Story, Online Race, Pilot Rank and Records. Each board loads the first time it's shown, then stays.
 
-- The data comes from the game's Supabase project (pilot accounts), through the read-only function `public.voidrunner_leaderboard`. `lib/voidRunnerLeaderboard.ts` holds the project URL and publishable key; set `NEXT_PUBLIC_VOID_RUNNER_SUPABASE_URL` / `NEXT_PUBLIC_VOID_RUNNER_SUPABASE_KEY` to override them.
-- Only signed-in pilots appear. Each pilot is listed once per board, with their best result.
-- Ranking: Endless Void and Data Mining by best score, Story by layers cleared and then score, Online Race by wins and then fastest finish.
-- The function is defined in the game repo, `Vector Void/Supabase/void_runner_leaderboards.sql`.
+- **Threat level:** Endless Void, Data Mining, Story and Records can be narrowed to Easy, Medium or Insane.
+- **Records:** twelve single-stat boards (no-fire stretch, untouchable, top speed, accuracy, longest run and so on), picked from a list. Their names, units and descriptions live in `STATS` in `lib/voidRunnerLeaderboard.ts`; keep them in step with `Stats` in the game's `LeaderboardScreen.cs` if a record is added.
+- **Data:** the game's Supabase project (pilot accounts), through the read-only function `public.voidrunner_board`, the same one the game uses. Each board shows its top 25. `lib/voidRunnerLeaderboard.ts` holds the project URL and publishable key; set `NEXT_PUBLIC_VOID_RUNNER_SUPABASE_URL` / `NEXT_PUBLIC_VOID_RUNNER_SUPABASE_KEY` to override them.
+- Only signed-in pilots appear. Each pilot is listed once per board, with their best result. The server refuses offensive call signs, so names are shown as they come.
+- **Ranking:** Endless Void and Data Mining by best score, Story by layers cleared and then score, Online Race by wins and then fastest finish, Pilot Rank by total XP, Records by the stat.
+- The function is defined in the game repo, in `Vector Void/Supabase/void_runner_run_stats.sql`.
 
 ## Void Runner playtest
 
