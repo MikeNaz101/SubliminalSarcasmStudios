@@ -49,3 +49,16 @@ Geometry Defenders XR is still using a placeholder title card (`awaitingScreens:
 ## Promoting an early project
 
 Move its entry from `inDevelopment` to `featuredGames` in `lib/games.ts`, give it an accent colour and at least one screenshot.
+
+## Private previews (Pin Ballin)
+
+`/preview/<key>` is a hidden play page for Pin Ballin, for sending to a few people before the game is announced.
+
+- **Hidden:** no nav, footer or home page link, not in `sitemap.xml`, and served with `noindex` (a robots meta tag plus an `X-Robots-Tag` header, see `next.config.ts`). It's deliberately not in `robots.txt`, because that file is public and would advertise the address.
+- **The link is secret, and this repo is public**, so the key isn't in the code. Set two environment variables on the host and redeploy:
+  - `PIN_BALLIN_PREVIEW_KEY`: the last part of the link, e.g. `pin-ballin-x7k2m9qa4z` gives `https://subliminalsarcasmstudios.com/preview/pin-ballin-x7k2m9qa4z`. Any other `/preview/...` address is a 404, and so is every one while the variable is unset.
+  - `PIN_BALLIN_BUILD_URL`: the build's `index.html` on S3 (or CloudFront). Until it's set the page says the build isn't uploaded yet.
+- To cut off everyone who has the link, change `PIN_BALLIN_PREVIEW_KEY` and redeploy.
+- The game frame downloads nothing until the visitor presses Play. It's landscape on desktop and fills the screen in portrait on phones, where the game switches to its phone layout. "Full screen" uses the browser's fullscreen; iPhones don't allow that, so there it opens the game in its own tab.
+- Files: `app/preview/[key]/` (page, player, key art, styles) and `lib/pinBallinPreview.ts`.
+- When the game goes public, move it into `lib/games.ts` like the others and delete the preview route.

@@ -24,6 +24,20 @@ const nextConfig: NextConfig = {
       permanent: true,
     }));
   },
+  async headers() {
+    return [
+      {
+        // Private previews (app/preview): keep them out of search engines and archives,
+        // and never send the secret link to other sites as a referrer.
+        source: '/preview/:path*',
+        headers: [
+          { key: 'X-Robots-Tag', value: 'noindex, nofollow, noarchive, nosnippet' },
+          { key: 'Referrer-Policy', value: 'no-referrer' },
+          { key: 'Cache-Control', value: 'private, no-store' },
+        ],
+      },
+    ];
+  },
 };
 
 export default nextConfig;

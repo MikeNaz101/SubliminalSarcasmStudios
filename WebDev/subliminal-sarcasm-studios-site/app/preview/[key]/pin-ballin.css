@@ -1,0 +1,220 @@
+/* Pin Ballin private preview. Builds on game-page.css. */
+
+/* ---------- Hero ---------- */
+
+.pb-hero { background: #000; }
+.pb-hero-art {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+.pb-art-narrow { display: none; }
+@media (max-width: 720px) {
+    .pb-art-wide { display: none; }
+    .pb-art-narrow { display: block; opacity: 0.55; }
+}
+.pb-art-ripples { transform-origin: 1170px 470px; animation: pb-ripple 3.2s ease-out infinite; }
+@keyframes pb-ripple {
+    from { transform: scale(0.6); opacity: 1; }
+    to { transform: scale(1.5); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .pb-art-ripples { animation: none; }
+}
+
+.pb-title {
+    background: linear-gradient(100deg, #fff 0%, var(--accent) 55%, #b266ff 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: none;
+    filter: drop-shadow(0 2px 24px rgb(0 0 0 / 0.6));
+}
+
+.pb-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    justify-self: start;
+    padding: 6px 12px;
+    border: 1px solid color-mix(in srgb, var(--accent) 55%, transparent);
+    border-radius: 999px;
+    background: rgb(0 0 0 / 0.45);
+    font-size: 0.8125rem;
+    font-weight: 650;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--bone);
+}
+.pb-badge span {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 10px var(--accent);
+}
+
+/* ---------- Play frame ---------- */
+
+/* Landscape on desktop (the quest panels need the width), sized so the whole frame fits on screen. */
+.pb-frame.play-frame {
+    aspect-ratio: 16 / 9;
+    max-width: none;
+    width: min(100%, calc((100svh - var(--header-compact) - 120px) * 16 / 9));
+    min-width: min(100%, 640px);
+    margin-inline: auto;
+}
+.pb-frame:fullscreen { width: 100%; height: 100%; border-radius: 0; }
+.pb-frame iframe { background: #000; }
+
+.pb-poster {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+}
+.pb-poster-art { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0.85; }
+.pb-poster::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgb(0 0 0 / 0.15), rgb(0 0 0 / 0.65) 75%);
+}
+.pb-poster-content {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    justify-items: center;
+    gap: 14px;
+    padding: 24px;
+    text-align: center;
+}
+
+.pb-play-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 72px;
+    padding: 0 40px 0 30px;
+    border: 0;
+    border-radius: 999px;
+    background: var(--accent);
+    color: var(--on-accent);
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    cursor: pointer;
+    box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 25%, transparent), 0 0 48px color-mix(in srgb, var(--accent) 55%, transparent);
+    transition: transform 0.15s ease, box-shadow 0.2s ease;
+}
+.pb-play-btn svg { width: 34px; height: 34px; }
+.pb-play-btn:hover { transform: scale(1.04); box-shadow: 0 0 0 10px color-mix(in srgb, var(--accent) 22%, transparent), 0 0 64px color-mix(in srgb, var(--accent) 70%, transparent); }
+.pb-play-btn:active { transform: scale(0.98); }
+
+.pb-poster-note {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--bone);
+    font-size: 0.9375rem;
+    text-shadow: 0 1px 8px #000;
+}
+
+.pb-spinner {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 2px solid color-mix(in srgb, var(--accent) 30%, transparent);
+    border-top-color: var(--accent);
+    animation: pb-spin 0.8s linear infinite;
+}
+@keyframes pb-spin { to { transform: rotate(360deg); } }
+
+.pb-bar {
+    justify-content: space-between;
+    width: min(100%, calc((100svh - var(--header-compact) - 120px) * 16 / 9));
+    min-width: min(100%, 640px);
+    margin-inline: auto;
+}
+.pb-bar-actions { display: inline-flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+.pb-small-btn { min-height: 38px; padding: 0 1em; font-size: 0.9375rem; }
+.pb-link { color: var(--bone); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--accent); }
+.pb-hint-touch { display: none; }
+
+/* ---------- Heroes ---------- */
+
+.pb-heroes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+    gap: 16px;
+}
+.pb-hero-card {
+    padding: 22px 22px 24px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-m);
+    background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 8%, transparent), transparent 70%);
+}
+.pb-hero-card h3 { font-size: 1.5rem; margin-bottom: 4px; }
+.pb-hero-card p { color: var(--haze); font-size: 1rem; }
+.pb-hero-card strong { color: var(--bone); }
+.pb-hero-joins {
+    margin-bottom: 12px;
+    font-size: 0.8125rem !important;
+    font-weight: 650;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--accent) !important;
+}
+
+/* ---------- Controls ---------- */
+
+.pb-controls {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+    gap: 40px;
+}
+.pb-controls h3 { font-size: 1.25rem; margin-bottom: 16px; }
+.pb-controls dl { margin: 0; border-top: 1px solid var(--line); }
+.pb-controls dl > div {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--line);
+}
+.pb-controls dt { color: var(--bone); }
+.pb-controls dd { margin: 0; color: var(--haze); text-align: right; }
+.pb-controls kbd {
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    padding: 2px 7px;
+    border: 1px solid var(--line);
+    border-bottom-width: 2px;
+    border-radius: 4px;
+}
+.pb-note { margin-top: 14px; color: var(--haze); font-size: 0.9375rem; }
+
+/* ---------- Phones ---------- */
+
+/* Portrait phones get a tall, edge-to-edge frame: the game switches to its phone layout. */
+@media (max-width: 720px), (pointer: coarse) and (orientation: portrait) {
+    .pb-play { padding-inline: 0; }
+    .pb-play > h2, .pb-play > p { padding-inline: var(--gutter); }
+    .pb-frame.play-frame {
+        aspect-ratio: auto;
+        width: 100%;
+        min-width: 0;
+        height: calc(100svh - var(--header-compact) - 16px);
+        max-height: 900px;
+        border-radius: 0;
+    }
+    .pb-bar { width: 100%; min-width: 0; padding-inline: var(--gutter); }
+}
+
+@media (pointer: coarse) {
+    .pb-hint-desktop { display: none; }
+    .pb-hint-touch { display: inline; }
+}
