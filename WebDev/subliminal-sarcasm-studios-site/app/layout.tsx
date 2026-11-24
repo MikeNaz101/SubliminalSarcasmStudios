@@ -3,6 +3,11 @@ import { Bricolage_Grotesque, Instrument_Sans } from 'next/font/google';
 import './globals.css';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import { announcement, ANNOUNCEMENT_DISMISSED_KEY } from '../lib/announcement';
+
+const hideClosedAnnouncement =
+    `try{if(localStorage.getItem(${JSON.stringify(ANNOUNCEMENT_DISMISSED_KEY)})===${JSON.stringify(announcement.id)})` +
+    `document.documentElement.classList.add('announce-off')}catch(e){}`;
 
 const display = Bricolage_Grotesque({
     subsets: ['latin'],
@@ -37,7 +42,14 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
-        <html lang="en">
+        // suppressHydrationWarning: the script below may add a class to <html> before React loads.
+        <html lang="en" suppressHydrationWarning>
+            {announcement.enabled && (
+                <head>
+                    {/* Hide the announcement bar before the first paint for visitors who already closed it. */}
+                    <script dangerouslySetInnerHTML={{ __html: hideClosedAnnouncement }} />
+                </head>
+            )}
             <body className={`${display.variable} ${body.variable}`}>
                 <a href="#main" className="skip-link">Skip to content</a>
                 <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>

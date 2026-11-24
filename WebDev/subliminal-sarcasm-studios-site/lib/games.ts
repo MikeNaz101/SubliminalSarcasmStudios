@@ -44,8 +44,8 @@ export const featuredGames: FeaturedGame[] = [
         summary:
             'A high-speed 3D arcade shooter. Blast through data-cube walls, thread neon firewalls and survive an AI that studies how you fly and adapts to beat you.',
         genre: 'Arcade flight shooter',
-        platform: 'Browser (PC), iOS beta',
-        status: 'Playable demo',
+        platform: 'iOS, browser (PC)',
+        status: 'Out now on iOS, Steam on Dec 25',
         accent: '#FF8C1A',
         onAccent: '#1A0A00',
         play: { label: 'Play in browser', href: '/void-runner#play' },

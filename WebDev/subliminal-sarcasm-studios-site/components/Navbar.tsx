@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import AnnouncementBar from './AnnouncementBar';
 import ChameleonTongue from './ChameleonTongue';
 import LogoEye from './LogoEye';
 import './Navbar.css';
@@ -34,6 +35,7 @@ export default function Navbar() {
     return (
         <>
             <header className={`site-header${compact ? ' is-compact' : ''}`}>
+                <AnnouncementBar />
                 <nav className="site-nav wrap" aria-label="Main">
                     <Link href="/" className="site-brand" aria-label="Subliminal Sarcasm Studios, home">
                         <LogoEye variant="header" alt="" sizes="(max-width: 560px) 120px, 170px" eager className="site-brand-logo" />

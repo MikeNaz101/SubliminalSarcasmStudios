@@ -1,0 +1,135 @@
+/* Announcement bar: the first row of the fixed site header. */
+
+/* A close guess at the bar's height for the first paint; AnnouncementBar measures the real one. */
+html:has(.announce) { --announce-h: 38px; }
+@media (max-width: 1024px) {
+    html:has(.announce) { --announce-h: 64px; }
+}
+@media (max-width: 560px) {
+    html:has(.announce) { --announce-h: 54px; }
+}
+html.announce-off { --announce-h: 0px !important; }
+html.announce-off .announce { display: none; }
+
+.announce {
+    height: var(--announce-h);
+    overflow: hidden;
+    background:
+        linear-gradient(90deg, transparent, color-mix(in srgb, var(--violet) 70%, transparent) 50%, transparent),
+        var(--violet-deep);
+    border-bottom: 1px solid color-mix(in srgb, var(--iris) 30%, transparent);
+    transition: height 0.25s ease, border-color 0.25s ease;
+}
+
+/* Folds away once you scroll and the header goes compact. */
+.site-header.is-compact .announce {
+    height: 0;
+    border-bottom-width: 0;
+}
+
+.announce-inner {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-block: 8px;
+    padding-right: calc(var(--gutter) + 32px);
+    padding-left: calc(var(--gutter) + 32px);
+}
+
+.announce-text {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 4px 14px;
+    margin: 0;
+    font-size: 0.9375rem;
+    line-height: 1.45;
+    text-align: center;
+    color: var(--bone);
+}
+
+.announce-main {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 4px 10px;
+}
+
+.announce-label {
+    font-size: 0.6875rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    line-height: 1;
+    color: var(--ink);
+    background: var(--iris-gradient);
+    padding: 4px 8px;
+    border-radius: 999px;
+}
+
+.announce-headline { font-weight: 600; }
+
+.announce-link {
+    color: var(--iris);
+    font-weight: 700;
+    white-space: nowrap;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    transition: color 0.2s;
+}
+.announce-link:hover { color: #fffe7f; }
+
+.announce-upcoming { color: var(--haze); }
+.announce-upcoming::before {
+    content: '';
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    margin: 0 14px 2px 0;
+    border-radius: 50%;
+    background: var(--scale);
+    vertical-align: middle;
+}
+
+.announce-short { display: none; }
+
+.announce-close {
+    position: absolute;
+    top: 50%;
+    right: calc(var(--gutter) - 6px);
+    transform: translateY(-50%);
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--haze);
+    cursor: pointer;
+    transition: color 0.2s, background-color 0.2s;
+}
+.announce-close:hover { color: var(--bone); background: color-mix(in srgb, var(--bone) 12%, transparent); }
+
+/* Too narrow for one line: the Steam news goes on its own line. */
+@media (max-width: 1024px) {
+    .announce-text { flex-direction: column; gap: 2px; }
+    .announce-upcoming::before { display: none; }
+}
+
+@media (max-width: 560px) {
+    .announce-inner { padding-left: var(--gutter); padding-block: 7px; }
+    .announce-text { font-size: 0.8125rem; }
+    .announce-main { flex-wrap: nowrap; gap: 8px; }
+    .announce-label { display: none; }
+    .announce-long { display: none; }
+    .announce-short { display: inline; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .announce { transition: none; }
+}

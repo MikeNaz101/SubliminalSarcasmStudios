@@ -20,6 +20,15 @@ npm run build
   - Click effect: when a visitor clicks a link or button, the header chameleon opens its mouth and its tongue flicks to the spot they clicked; the click goes through when the tongue lands (about 0.16 s). `components/ChameleonTongue.tsx` handles the clicks and `LogoEye.tsx` holds the jaw shape. Keyboard presses, Ctrl/Cmd-clicks, clicks inside dialogs and visitors who prefer reduced motion skip it. Add `data-no-tongue` to any element that should never wait.
   - Colors in `app/globals.css` match the pack: purple `#6A0DAD`, green `#24AE24`, gold `#DDAB36` (plus the full gold gradient).
 
+## Announcement bar
+
+The strip above the header on every page (right now: Void Runner on the App Store, Steam on Christmas Day). Everything it says lives in `lib/announcement.ts`.
+
+- Change the text or link there. To announce something new, also change `id`: visitors who closed the old bar will see the new one.
+- The Steam line hides itself from `upcoming.until` (December 25, New York time) so it never promises a date that has passed. Update it once the Steam page is live.
+- Set `enabled: false` to take the bar down.
+- It folds away when you scroll down and comes back at the top of the page. On phones it uses the shorter `shortHeadline` and `shortLabel`.
+
 ## Void Runner leaderboard
 
 `components/Leaderboard.tsx` shows the same boards as the in-game LEADERBOARDS screen: Endless Void, Data Mining, Story, Online Race, Pilot Rank and Records. Each board loads the first time it's shown, then stays.
